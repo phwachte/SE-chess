@@ -1,18 +1,12 @@
 package de.htwg.xiangqi.entities;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import de.htwg.xiangqi.entities.Piece;
-import de.htwg.xiangqi.entities.PieceAdvisor;
-import de.htwg.xiangqi.entities.PieceCannon;
-import de.htwg.xiangqi.entities.PieceChariot;
-import de.htwg.xiangqi.entities.PieceElephant;
-import de.htwg.xiangqi.entities.PieceGeneral;
-import de.htwg.xiangqi.entities.PieceHorse;
-import de.htwg.xiangqi.entities.PieceSoldier;
 import de.htwg.xiangqi.entities.Piece.Player;
 
 
@@ -62,6 +56,15 @@ public class PieceTest {
 		assertEquals('C', p.getPieceType());
 		p = new PieceSoldier(0, 3, Player.RED);
 		assertEquals('S', p.getPieceType());
+	}
+	
+	@Test
+	public void testEnum() {
+		Piece.Player[] player = Piece.Player.values();
+		Piece.Player[] testPlayer = new Piece.Player[2];
+		testPlayer[0] = Piece.Player.valueOf("RED");
+		testPlayer[1] = Piece.Player.valueOf(Piece.Player.class, "BLACK");
+		assertArrayEquals(testPlayer, player);
 	}
 
 }
