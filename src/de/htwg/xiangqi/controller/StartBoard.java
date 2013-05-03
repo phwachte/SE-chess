@@ -5,9 +5,6 @@ import de.htwg.xiangqi.entities.Piece.Player;
 
 public final class StartBoard {
 
-	private StartBoard() {
-	}
-
 	private static final int ROW = 10;
 	private static final int COLUMN = 9;
 	private static final int ZERO = 0;
@@ -16,13 +13,12 @@ public final class StartBoard {
 
 	public static void setPiecesRed(Board b) {
 		Square[][] board = b.getBoard();
-		board[ZERO][FOUR] = new Square(new PieceGeneral(ZERO, FOUR, Player.RED));
+		board[NINE][FOUR] = new Square(new PieceGeneral(NINE, FOUR, Player.RED));
 	}
 
 	public static void setPiecesBlack(Board b) {
 		Square[][] board = b.getBoard();
-		board[NINE][FOUR] = new Square(new PieceGeneral(NINE, FOUR,
-				Player.BLACK));
+		board[ZERO][FOUR] = new Square(new PieceGeneral(ZERO, FOUR, Player.BLACK));
 	}
 
 	public static void fillBoard(Board b) {
