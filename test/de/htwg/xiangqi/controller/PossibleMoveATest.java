@@ -12,7 +12,6 @@ public class PossibleMoveATest {
 
 	@Test
 	public void testPossibleMoveRedA() {
-		assertNotNull(new PossibleMoveA());
 		Piece a = new PieceAdvisor(8, 4, Player.RED);
 		assertEquals(true, PossibleMoveA.possibleMoveA(a, 7, 3));
 		assertEquals(true, PossibleMoveA.possibleMoveA(a, 7, 5));

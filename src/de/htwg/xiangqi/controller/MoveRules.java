@@ -4,36 +4,23 @@ import de.htwg.xiangqi.entities.Square;
 
 public class MoveRules {
 	
+	private MoveRules() {
+	}
+	
 	public static boolean inRedPalace(int row, int col) {
-		if (col >= 3 && col <= 5 && row >= 7 && row <= 9) {
-			return true;
-		} else {
-			return false;
-		}
+		return col >= 3 && col <= 5 && row >= 7 && row <= 9;
 	}
 
 	public static boolean inBlackPalace(int row, int col) {
-		if (col >= 3 && col <= 5 && row >= 0 && row <= 2) {
-			return true;
-		} else {
-			return false;
-		}
+		return col >= 3 && col <= 5 && row >= 0 && row <= 2;
 	}
 	
 	public static boolean inRedHalf(int row) {
-		if (row >= 5) {
-			return true;
-		} else {
-			return false;
-		}
+		return row >= 5;
 	}
 
 	public static boolean inBlackHalf(int row) {
-		if (row <= 4) {
-			return true;
-		} else {
-			return false;
-		}
+		return row <= 4;
 	}
 	
 	public static boolean occupiedPoint(Square point) {

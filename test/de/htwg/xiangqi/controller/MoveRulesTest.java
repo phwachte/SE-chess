@@ -1,7 +1,6 @@
 package de.htwg.xiangqi.controller;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
@@ -13,7 +12,6 @@ public class MoveRulesTest {
 
 	@Test
 	public void testInRedPalace() {
-		assertNotNull(new MoveRules());
 		assertEquals(true, MoveRules.inRedPalace(7, 3));
 		assertEquals(true, MoveRules.inRedPalace(7, 4));
 		assertEquals(true, MoveRules.inRedPalace(7, 5));

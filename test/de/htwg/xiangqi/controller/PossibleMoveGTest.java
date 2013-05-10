@@ -12,7 +12,6 @@ public class PossibleMoveGTest {
 
 	@Test
 	public void testPossibleMoveRedG() {
-		assertNotNull(new PossibleMoveG());
 		Piece g = new PieceGeneral(8, 4, Player.RED);
 		assertEquals(true, PossibleMoveG.possibleMoveG(g, 9, 4));
 		assertEquals(true, PossibleMoveG.possibleMoveG(g, 8, 3));

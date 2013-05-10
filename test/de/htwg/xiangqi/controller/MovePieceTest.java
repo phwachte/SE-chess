@@ -16,7 +16,6 @@ public class MovePieceTest {
 
 	@Test
 	public void testMovePiece() {
-		assertNotNull(new MovePiece());
 		sq1 = new Square(new PieceGeneral(0, 4, Player.BLACK));
 		sq2 = new Square(new PieceHorse(1, 4, Player.RED));
 		assertEquals('H', sq2.getPiece().getPieceType());

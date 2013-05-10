@@ -4,6 +4,9 @@ import de.htwg.xiangqi.entities.*;
 import de.htwg.xiangqi.entities.Piece.Player;
 
 public final class StartBoard {
+	
+	private StartBoard() {
+	}
 
 	private static final int ROW = 10;
 	private static final int COLUMN = 9;

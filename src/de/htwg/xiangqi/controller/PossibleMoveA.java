@@ -4,6 +4,9 @@ import de.htwg.xiangqi.entities.Piece;
 import de.htwg.xiangqi.entities.Piece.Player;
 
 public class PossibleMoveA {
+	
+	private PossibleMoveA() {
+	}
 
 	public static boolean possibleMoveA(Piece piece, int row, int col) {
 		if (piece.getPlayer() == Player.RED) {
@@ -34,11 +37,7 @@ public class PossibleMoveA {
 		int currentCol = piece.getPosColumn();
 		int diffRow = currentRow - targetRow;
 		int diffCol = currentCol - targetCol;
-		if ((diffRow == -1 || diffRow == 1) && (diffCol == -1 || diffCol == 1)) {
-			return true;
-		} else {
-			return false;
-		}
+		return (diffRow == -1 || diffRow == 1) && (diffCol == -1 || diffCol == 1);
 	}
 
 }

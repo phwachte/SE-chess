@@ -31,8 +31,4 @@ public class BoardManager {
 		return this.moveCounter % NUMBER_OF_PLAYERS;
 	}
 
-//	public void printBoard() {
-//
-//	}
-
 }

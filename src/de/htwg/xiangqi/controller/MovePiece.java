@@ -3,6 +3,9 @@ package de.htwg.xiangqi.controller;
 import de.htwg.xiangqi.entities.*;
 
 public class MovePiece {
+	
+	private MovePiece() {
+	}
 
 	public static void movePiece(Square current, Square target) {
 		current.getPiece().setPosition(target.getPiece().getPosRow(),
@@ -21,19 +24,11 @@ public class MovePiece {
 	}
 
 	public static boolean pieceChoosen(Square current) {
-		if (current.getPiece() != null) {
-			return true;
-		} else {
-			return false;
-		}
+		return current.getPiece() != null;
 	}
 
 	public static boolean occupiedPoint(Square target) {
-		if (target.getPiece() != null) {
-			return true;
-		} else {
-			return false;
-		}
+		return target.getPiece() != null;
 	}
 
 }

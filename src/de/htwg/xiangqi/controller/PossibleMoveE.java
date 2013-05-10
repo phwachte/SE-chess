@@ -5,6 +5,9 @@ import de.htwg.xiangqi.entities.Piece.Player;
 import de.htwg.xiangqi.entities.Square;
 
 public class PossibleMoveE {
+	
+	private PossibleMoveE() {
+	}
 
 	public static boolean possibleMoveE(Square[][] board, Piece piece, int row,
 			int col) {

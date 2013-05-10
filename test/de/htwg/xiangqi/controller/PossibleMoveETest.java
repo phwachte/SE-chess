@@ -1,7 +1,6 @@
 package de.htwg.xiangqi.controller;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -22,7 +21,6 @@ public class PossibleMoveETest {
 	
 	@Test
 	public void testPossibleMoveRedE() {
-		assertNotNull(new PossibleMoveE());
 		board[7][4] = new Square(new PieceElephant(7, 4, Player.RED));
 		board[6][5] = new Square(new PieceElephant(6, 5, Player.RED));
 		assertEquals(true, PossibleMoveE.possibleMoveE(board, board[7][4].getPiece(), 5, 2));

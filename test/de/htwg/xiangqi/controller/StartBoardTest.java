@@ -22,7 +22,6 @@ public class StartBoardTest {
 
 	@Test
 	public void testFillBoard() {
-		assertNotNull(new StartBoard());
 		board[3][7] = new Square();
 		StartBoard.fillBoard(board);
 		assertNotNull(board);

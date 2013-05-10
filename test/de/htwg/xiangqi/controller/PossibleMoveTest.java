@@ -20,7 +20,6 @@ public class PossibleMoveTest {
 
 	@Test
 	public void testPossibleMove() {
-		assertNotNull(new PossibleMove());
 		assertEquals(true, PossibleMove.possibleMove(board, board[9][4], 8, 4));
 		assertEquals(false, PossibleMove.possibleMove(board, board[9][4], 8, 9));
 		assertEquals(false, PossibleMove.possibleMove(board, board[9][4], 8, -1));
