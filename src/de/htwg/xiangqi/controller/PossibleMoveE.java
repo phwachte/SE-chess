@@ -5,9 +5,12 @@ import de.htwg.xiangqi.entities.Piece.Player;
 import de.htwg.xiangqi.entities.Square;
 
 public final class PossibleMoveE {
-	
+
 	private PossibleMoveE() {
 	}
+
+	private static final int NEG_DIV = -2;
+	private static final int POS_DIV = 2;
 
 	public static boolean possibleMoveE(Square[][] board, Piece piece, int row,
 			int col) {
@@ -40,9 +43,11 @@ public final class PossibleMoveE {
 		int currentCol = piece.getPosColumn();
 		int diffRow = currentRow - targetRow;
 		int diffCol = currentCol - targetCol;
-		if ((diffRow == -2 || diffRow == 2) && (diffCol == -2 || diffCol == 2)) {
-			return !MoveRules.occupiedPoint(
-					board[currentRow - diffRow / 2][currentCol - diffCol / 2]);
+		if ((diffRow == NEG_DIV || diffRow == POS_DIV)
+				&& (diffCol == NEG_DIV || diffCol == POS_DIV)) {
+			return !MoveRules
+					.occupiedPoint(board[currentRow - diffRow / POS_DIV]
+							[currentCol - diffCol / POS_DIV]);
 		} else {
 			return false;
 		}

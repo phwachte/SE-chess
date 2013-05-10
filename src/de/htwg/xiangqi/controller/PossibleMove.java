@@ -8,6 +8,9 @@ public final class PossibleMove {
 	private PossibleMove() {
 	}
 	
+	private static final int ROW = 10;
+	private static final int COLUMN = 9;
+	
 	public static boolean possibleMove(Square[][] board, Square current,
 			int targetRow, int targetCol) {
 		if (!inField(targetRow, targetCol)) {
@@ -43,7 +46,7 @@ public final class PossibleMove {
 	}
 
 	public static boolean inField(int row, int col) {
-		return row <= 9 && row >= 0 && col >= 0 && col <= 8;
+		return row < ROW && row >= 0 && col >= 0 && col < COLUMN;
 	}
 
 	public static boolean possibleMoveH(Piece piece, int row, int col) {
