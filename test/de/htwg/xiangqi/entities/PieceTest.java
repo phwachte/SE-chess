@@ -16,13 +16,13 @@ public class PieceTest {
 	
 	@Before
 	public void setUp() {
-		p = new PieceGeneral(0, 4, Player.RED);
+		p = new PieceGeneral(9, 4, Player.RED);
 	}
 	
 	@Test
 	public void testPiece() {
 		assertNotNull(p);
-		assertEquals(0, p.getPosRow());
+		assertEquals(9, p.getPosRow());
 		assertEquals(4, p.getPosColumn());
 		assertEquals(Player.RED, p.getPlayer());
 	}
@@ -35,13 +35,6 @@ public class PieceTest {
 	}
 	
 	@Test
-	public void testIsTaken() {
-		assertEquals(false, p.getIsTaken());
-		p.setIsTaken(true);
-		assertEquals(true, p.getIsTaken());
-	}
-	
-	@Test
 	public void testPieceTypes() {
 		assertEquals('G', p.getPieceType());
 		p = new PieceAdvisor(0, 3, Player.RED);
@@ -51,7 +44,7 @@ public class PieceTest {
 		p = new PieceHorse(0, 3, Player.RED);
 		assertEquals('H', p.getPieceType());
 		p = new PieceChariot(0, 3, Player.RED);
-		assertEquals('T', p.getPieceType());
+		assertEquals('R', p.getPieceType());
 		p = new PieceCannon(0, 3, Player.RED);
 		assertEquals('C', p.getPieceType());
 		p = new PieceSoldier(0, 3, Player.RED);

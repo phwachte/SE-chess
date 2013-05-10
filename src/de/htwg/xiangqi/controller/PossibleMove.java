@@ -1,0 +1,68 @@
+package de.htwg.xiangqi.controller;
+
+import de.htwg.xiangqi.entities.Piece;
+import de.htwg.xiangqi.entities.Square;
+
+public class PossibleMove {
+
+	public static boolean possibleMove(Square[][] board, Square current,
+			int targetRow, int targetCol) {
+		if (!inField(targetRow, targetCol)) {
+			return false;
+		}
+		boolean possible = false;
+		Piece piece = current.getPiece();
+		switch (piece.getPieceType()) {
+		case 'G':
+			possible = PossibleMoveG.possibleMoveG(piece, targetRow, targetCol);
+			break;
+		case 'A':
+			possible = PossibleMoveA.possibleMoveA(piece, targetRow, targetCol);
+			break;
+		case 'H':
+			possible = possibleMoveH(piece, targetRow, targetCol);
+			break;
+		case 'E':
+			possible = PossibleMoveE.possibleMoveE(board, piece, targetRow,
+					targetCol);
+			break;
+		case 'R':
+			possible = possibleMoveR(piece, targetRow, targetCol);
+			break;
+		case 'C':
+			possible = possibleMoveC(piece, targetRow, targetCol);
+			break;
+		case 'S':
+			possible = possibleMoveS(piece, targetRow, targetCol);
+			break;
+//		default:
+//			return false;
+		}
+		return possible;
+	}
+
+	public static boolean inField(int row, int col) {
+		if (row <= 9 && row >= 0 && col >= 0 && col <= 8) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public static boolean possibleMoveH(Piece piece, int row, int col) {
+		return false;
+	}
+
+	public static boolean possibleMoveR(Piece piece, int row, int col) {
+		return false;
+	}
+
+	public static boolean possibleMoveC(Piece piece, int row, int col) {
+		return false;
+	}
+
+	public static boolean possibleMoveS(Piece piece, int row, int col) {
+		return false;
+	}
+
+}
