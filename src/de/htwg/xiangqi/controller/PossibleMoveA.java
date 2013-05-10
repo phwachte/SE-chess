@@ -3,7 +3,7 @@ package de.htwg.xiangqi.controller;
 import de.htwg.xiangqi.entities.Piece;
 import de.htwg.xiangqi.entities.Piece.Player;
 
-public class PossibleMoveA {
+public final class PossibleMoveA {
 	
 	private PossibleMoveA() {
 	}

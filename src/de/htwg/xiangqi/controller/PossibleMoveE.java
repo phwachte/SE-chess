@@ -4,7 +4,7 @@ import de.htwg.xiangqi.entities.Piece;
 import de.htwg.xiangqi.entities.Piece.Player;
 import de.htwg.xiangqi.entities.Square;
 
-public class PossibleMoveE {
+public final class PossibleMoveE {
 	
 	private PossibleMoveE() {
 	}

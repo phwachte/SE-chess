@@ -2,7 +2,7 @@ package de.htwg.xiangqi.controller;
 
 import de.htwg.xiangqi.entities.Square;
 
-public class MoveRules {
+public final class MoveRules {
 	
 	private MoveRules() {
 	}

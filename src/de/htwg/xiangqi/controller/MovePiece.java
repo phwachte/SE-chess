@@ -2,7 +2,7 @@ package de.htwg.xiangqi.controller;
 
 import de.htwg.xiangqi.entities.*;
 
-public class MovePiece {
+public final class MovePiece {
 	
 	private MovePiece() {
 	}
