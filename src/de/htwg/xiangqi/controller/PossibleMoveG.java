@@ -4,7 +4,7 @@ import de.htwg.xiangqi.entities.Piece;
 import de.htwg.xiangqi.entities.Piece.Player;
 
 public final class PossibleMoveG {
-	
+
 	private PossibleMoveG() {
 	}
 
@@ -37,8 +37,16 @@ public final class PossibleMoveG {
 		int currentCol = piece.getPosColumn();
 		int diffRow = currentRow - targetRow;
 		int diffCol = currentCol - targetCol;
-		return (diffRow == -1 || diffRow == 1) && diffCol == 0 
-				|| diffRow == 0 && (diffCol == -1 || diffCol == 1);
+		return validMoveUpDown(diffRow, diffCol) 
+				|| validMoveLeftRight(diffRow, diffCol);
+	}
+
+	private static boolean validMoveUpDown(int diffRow, int diffCol) {
+		return (diffRow == -1 || diffRow == 1) && diffCol == 0;
+	}
+
+	private static boolean validMoveLeftRight(int diffRow, int diffCol) {
+		return diffRow == 0 && (diffCol == -1 || diffCol == 1);
 	}
 
 }
