@@ -4,7 +4,10 @@ import de.htwg.xiangqi.entities.Piece;
 import de.htwg.xiangqi.entities.Square;
 
 public class PossibleMove {
-
+	
+	private PossibleMove() {
+	}
+	
 	public static boolean possibleMove(Square[][] board, Square current,
 			int targetRow, int targetCol) {
 		if (!inField(targetRow, targetCol)) {
@@ -35,18 +38,12 @@ public class PossibleMove {
 		case 'S':
 			possible = possibleMoveS(piece, targetRow, targetCol);
 			break;
-//		default:
-//			return false;
 		}
 		return possible;
 	}
 
 	public static boolean inField(int row, int col) {
-		if (row <= 9 && row >= 0 && col >= 0 && col <= 8) {
-			return true;
-		} else {
-			return false;
-		}
+		return row <= 9 && row >= 0 && col >= 0 && col <= 8;
 	}
 
 	public static boolean possibleMoveH(Piece piece, int row, int col) {
