@@ -12,14 +12,13 @@ public class PieceChariot extends Piece {
 		int diffRow = currentRow - targetRow;
 		int diffCol = currentCol - targetCol;
 		return validMoveVertically(board, diffRow, diffCol, currentRow,
-				currentCol, targetRow, targetCol)
+				currentCol, targetRow)
 				|| validMoveHorizontally(board, diffRow, diffCol, currentRow,
-						currentCol, targetRow, targetCol);
+						currentCol, targetCol);
 	}
 
 	private boolean validMoveVertically(Square[][] board, int diffRow,
-			int diffCol, int currentRow, int currentCol, int targetRow,
-			int targetCol) {
+			int diffCol, int currentRow, int currentCol, int targetRow) {
 		if ((diffRow < 0 || diffRow > 0) && diffCol == 0) {
 			int i = ((targetRow < currentRow) ? targetRow : currentRow) + 1;
 			int upperLimit = (targetRow > currentRow) ? targetRow : currentRow;
@@ -36,8 +35,7 @@ public class PieceChariot extends Piece {
 	}
 
 	private boolean validMoveHorizontally(Square[][] board, int diffRow,
-			int diffCol, int currentRow, int currentCol, int targetRow,
-			int targetCol) {
+			int diffCol, int currentRow, int currentCol, int targetCol) {
 		if (diffRow == 0 && (diffCol < 0 || diffCol > 0)) {
 			int i = ((targetCol < currentCol) ? targetCol : currentCol) + 1;
 			int upperLimit = (targetCol > currentCol) ? targetCol : currentCol;
