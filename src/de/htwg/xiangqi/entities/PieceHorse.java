@@ -28,34 +28,18 @@ public class PieceHorse extends Piece {
 	}
 
 	private boolean validMoveNorth(int diffRow, int diffCol) {
-		if (diffRow == POS_DIFF && (diffCol == 1 || diffCol == -1)) {
-			return true;
-		} else {
-			return false;
-		}
+		return diffRow == POS_DIFF && (diffCol == 1 || diffCol == -1);
 	}
 
 	private boolean validMoveEast(int diffRow, int diffCol) {
-		if (diffCol == NEG_DIFF && (diffRow == 1 || diffRow == -1)) {
-			return true;
-		} else {
-			return false;
-		}
+		return diffCol == NEG_DIFF && (diffRow == 1 || diffRow == -1);
 	}
 
 	private boolean validMoveSouth(int diffRow, int diffCol) {
-		if (diffRow == NEG_DIFF && (diffCol == 1 || diffCol == -1)) {
-			return true;
-		} else {
-			return false;
-		}
+		return diffRow == NEG_DIFF && (diffCol == 1 || diffCol == -1);
 	}
 
 	private boolean validMoveWest(int diffRow, int diffCol) {
-		if (diffCol == POS_DIFF && (diffRow == 1 || diffRow == -1)) {
-			return true;
-		} else {
-			return false;
-		}
+		return diffCol == POS_DIFF && (diffRow == 1 || diffRow == -1);
 	}
 }

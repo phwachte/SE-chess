@@ -23,7 +23,7 @@ public class PieceCannonTest {
 	public void testValidMoveHorizontally() {
 		board[7][4] = new Square(new PieceCannon(7, 4, Player.RED));
 		board[4][4] = new Square(new PieceCannon(7, 4, Player.BLACK));
-		assertEquals(true, board[7][4].getPiece().validMove(board, 7, 0));
+		assertTrue(board[7][4].getPiece().validMove(board, 7, 0));
 		assertEquals(true, board[7][4].getPiece().validMove(board, 7, 8));
 		assertEquals(false, board[7][4].getPiece().validMove(board, 6, 0));
 		assertEquals(false, board[7][4].getPiece().validMove(board, 8, 7));
