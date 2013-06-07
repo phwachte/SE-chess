@@ -13,6 +13,7 @@ public abstract class Piece {
 	private int column;
 	private final char pieceType;
 	private final Player player;
+	private boolean isCaptured;
 
 	public enum Player {
 		RED, BLACK
@@ -23,6 +24,7 @@ public abstract class Piece {
 		this.column = c;
 		this.pieceType = pt;
 		this.player = p;
+		this.isCaptured = false;
 	}
 
 	public int getPosRow() {
@@ -44,6 +46,14 @@ public abstract class Piece {
 
 	public char getPieceType() {
 		return this.pieceType;
+	}
+	
+	public void setIsCaptured(boolean b) {
+		this.isCaptured = b;
+	}
+	
+	public boolean getIsCaptured() {
+		return this.isCaptured;
 	}
 
 	public boolean inRedPalace(int row, int col) {

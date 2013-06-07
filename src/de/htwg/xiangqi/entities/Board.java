@@ -18,6 +18,8 @@ public class Board {
 	private static final int SEVEN = 7;
 	private static final int EIGHT = 8;
 	private static final int NINE = 9;
+	private Piece redGeneral;
+	private Piece blackGeneral;
 
 	public Board() {
 		this.board = new Square[MAX_ROW][MAX_COL];
@@ -31,9 +33,18 @@ public class Board {
 		return (targetRow >= MIN && targetRow < MAX_ROW && targetCol >= MIN &&
 				targetCol < MAX_COL);
 	}
+	
+	public Piece getRedGeneral() {
+		return this.redGeneral;
+	}
+	
+	public Piece getBlackGeneral() {
+		return this.blackGeneral;
+	}
 
 	public void setPiecesRed() {
 		board[NINE][FOUR] = new Square(new PieceGeneral(NINE, FOUR, Player.RED));
+		this.redGeneral = board[NINE][FOUR].getPiece();
 		board[NINE][THREE] = new Square(new PieceAdvisor(NINE, THREE, Player.RED));
 		board[NINE][FIVE] = new Square(new PieceAdvisor(NINE, FIVE, Player.RED));
 		board[NINE][TWO] = new Square(new PieceElephant(NINE, TWO, Player.RED));
@@ -53,6 +64,7 @@ public class Board {
 
 	public void setPiecesBlack() {
 		board[ZERO][FOUR] = new Square(new PieceGeneral(ZERO, FOUR, Player.BLACK));
+		this.blackGeneral = board[ZERO][FOUR].getPiece();
 		board[ZERO][THREE] = new Square(new PieceAdvisor(ZERO, THREE, Player.BLACK));
 		board[ZERO][FIVE] = new Square(new PieceAdvisor(ZERO, FIVE, Player.BLACK));
 		board[ZERO][TWO] = new Square(new PieceElephant(ZERO, TWO, Player.BLACK));
