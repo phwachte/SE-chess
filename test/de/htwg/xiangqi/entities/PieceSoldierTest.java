@@ -24,11 +24,10 @@ public class PieceSoldierTest {
 		board[6][4] = new Square(new PieceSoldier(6, 4, Player.RED));
 		assertEquals(true, board[6][4].getPiece().validMove(board, 5, 4));
 		assertEquals(false, board[6][4].getPiece().validMove(board, 7, 4));
-//		assertEquals(false, board[6][4].getPiece().validMove(board, 6, 5));
-//		assertEquals(false, board[6][4].getPiece().validMove(board, 6, 4));
-		assertEquals(false, board[6][4].getPiece().validMove(board, 4, 4));
+		assertEquals(false, board[6][4].getPiece().validMove(board, 5, 5));
 		board[4][4] = new Square(new PieceSoldier(4, 4, Player.RED));
 		assertEquals(true, board[4][4].getPiece().validMove(board, 4, 5));
+		assertEquals(true, board[4][4].getPiece().validMove(board, 4, 3));
 		assertEquals(true, board[4][4].getPiece().validMove(board, 3, 4));
 		assertEquals(false, board[4][4].getPiece().validMove(board, 4, 4));
 		assertEquals(false, board[4][4].getPiece().validMove(board, 3, 3));
@@ -40,7 +39,7 @@ public class PieceSoldierTest {
 		board[3][4] = new Square(new PieceSoldier(3, 4, Player.BLACK));
 		assertEquals(true, board[3][4].getPiece().validMove(board, 4, 4));
 		assertEquals(false, board[3][4].getPiece().validMove(board, 2, 4));
-		assertEquals(false, board[3][4].getPiece().validMove(board, 3, 4));
+		assertEquals(false, board[3][4].getPiece().validMove(board, 4, 3));
 		board[5][4] = new Square(new PieceSoldier(5, 4, Player.BLACK));
 		assertEquals(true, board[5][4].getPiece().validMove(board, 5, 5));
 		assertEquals(true, board[5][4].getPiece().validMove(board, 6, 4));

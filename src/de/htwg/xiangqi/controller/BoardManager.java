@@ -50,12 +50,11 @@ public class BoardManager {
 	public boolean validChoose(Piece choosen) {
 		if (choosen.getPlayer() == Player.RED && this.getPlayersTurn() == 1) {
 			return true;
-		} else if (choosen.getPlayer() == Player.BLACK
-				&& this.getPlayersTurn() == 0) {
-			return true;
-		} else {
-			return false;
 		}
+		if (choosen.getPlayer() == Player.BLACK && this.getPlayersTurn() == 0) {
+			return true;
+		}
+		return false;
 	}
 
 	public boolean validMove(Piece piece, int targetRow, int targetCol) {

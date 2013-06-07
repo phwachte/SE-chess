@@ -47,6 +47,7 @@ public class PieceTest {
 		assertEquals(false, p.inRedPalace(8, 9));
 		assertEquals(false, p.inBlackPalace(-1, 4));
 		assertEquals(false, p.inBlackPalace(1, 9));
+		assertEquals(false, p.inBlackPalace(1, 2));
 	}
 	
 	@Test

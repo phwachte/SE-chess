@@ -11,6 +11,9 @@ public class TUIApplication {
 	private static final int ROW = 10;
 	private static final int COL = 9;
 	private static final Scanner EINGABE = new Scanner(System.in);
+	
+	private TUIApplication() {
+	}
 
 	/**
 	 * @param args
