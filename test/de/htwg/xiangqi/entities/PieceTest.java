@@ -35,6 +35,21 @@ public class PieceTest {
 	}
 	
 	@Test
+	public void testIsCaptured() {
+		assertEquals(false, p.getIsCaptured());
+		p.setIsCaptured(true);
+		assertEquals(true, p.getIsCaptured());
+	}
+	
+	@Test
+	public void testInPalace() {
+		assertEquals(false, p.inRedPalace(10, 4));
+		assertEquals(false, p.inRedPalace(8, 9));
+		assertEquals(false, p.inBlackPalace(-1, 4));
+		assertEquals(false, p.inBlackPalace(1, 9));
+	}
+	
+	@Test
 	public void testPieceTypes() {
 		assertEquals('G', p.getPieceType());
 		p = new PieceAdvisor(0, 3, Player.RED);
@@ -58,36 +73,6 @@ public class PieceTest {
 		testPlayer[0] = Piece.Player.valueOf("RED");
 		testPlayer[1] = Piece.Player.valueOf(Piece.Player.class, "BLACK");
 		assertArrayEquals(testPlayer, player);
-	}
-	
-	@Test
-	public void testInRedPalace() {
-		assertEquals(true, p.inRedPalace(7, 3));
-		assertEquals(false, p.inRedPalace(6, 3));
-		assertEquals(false, p.inRedPalace(10, 5));
-		assertEquals(false, p.inRedPalace(7, 6));
-		assertEquals(false, p.inRedPalace(9, 2));
-	}
-	
-	@Test
-	public void testInBlackPalace() {
-		assertEquals(true, p.inBlackPalace(2, 5));
-		assertEquals(false, p.inBlackPalace(-1, 3));
-		assertEquals(false, p.inBlackPalace(3, 5));
-		assertEquals(false, p.inBlackPalace(0, 6));
-		assertEquals(false, p.inBlackPalace(2, 2));
-	}
-	
-	@Test
-	public void testInRedHalf() {
-		assertEquals(true, p.inRedHalf(5));
-		assertEquals(false, p.inRedHalf(4));
-	}
-	
-	@Test
-	public void testInBlackHalf() {
-		assertEquals(true, p.inBlackHalf(4));
-		assertEquals(false, p.inBlackHalf(5));
 	}
 
 }

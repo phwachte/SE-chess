@@ -77,6 +77,7 @@ public class BoardTest {
 		assertEquals('S', board[6][4].getPiece().getPieceType());
 		assertEquals('S', board[6][6].getPiece().getPieceType());
 		assertEquals('S', board[6][8].getPiece().getPieceType());
+		assertEquals('G', b.getRedGeneral().getPieceType());
 	}
 
 	@Test
@@ -98,5 +99,6 @@ public class BoardTest {
 		assertEquals('S', board[3][4].getPiece().getPieceType());
 		assertEquals('S', board[3][6].getPiece().getPieceType());
 		assertEquals('S', board[3][8].getPiece().getPieceType());
+		assertEquals('G', b.getBlackGeneral().getPieceType());
 	}
 }
