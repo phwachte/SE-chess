@@ -4,70 +4,19 @@ import java.util.Scanner;
 
 import de.htwg.xiangqi.controller.BoardManager;
 
-public class TUIApplication {
+public final class TUIApplication {
 
 	private static final int ROW = 10;
 	private static final int COL = 9;
 	private static final Scanner EINGABE = new Scanner(System.in);
 
-	public TUIApplication() {
+	private TUIApplication() {
 	}
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		
-		TUIApplication myTUIapp = new TUIApplication();
-		myTUIapp.run();
-
-//		BoardManager bm = new BoardManager();
-//		bm.setStartBoard();
-//		System.out.println(printBoard(bm));
-//		int choosenRow;
-//		int choosenCol;
-//		int targetRow;
-//		int targetCol;
-//		boolean continueMoving = true;
-//
-//		while (continueMoving) {
-//			System.out.println(playersTurn(bm));
-//			choosenRow = EINGABE.nextInt();
-//			choosenCol = EINGABE.nextInt();
-//			targetRow = EINGABE.nextInt();
-//			targetCol = EINGABE.nextInt();
-//
-//			if (bm.choosenPiece(choosenRow, choosenCol) == null) {
-//				System.out.println("No piece on choosen point, try again!");
-//				continue;
-//			}
-//			if (!bm.validChoose(bm.choosenPiece(choosenRow, choosenCol))) {
-//				System.out
-//						.println("Invalid choose of piece, choose your own piece!");
-//				continue;
-//			}
-//			if (!bm.validMove(bm.choosenPiece(choosenRow, choosenCol),
-//					targetRow, targetCol)) {
-//				System.out.println("Invalid move, try again!");
-//				continue;
-//			}
-//			if (bm.movePiece(choosenRow, choosenCol, targetRow, targetCol)) {
-//				bm.increaseMoveCounter();
-//				System.out.println(printBoard(bm));
-//			} else {
-//				System.out.println("Invalid move, try again!");
-//				continue;
-//			}
-//
-//			if (bm.isCheckmate() != 'n') {
-//				continueMoving = false;
-//				System.out.println(winnerMessage(bm.isCheckmate()));
-//			}
-//		}
-
-	}
-	
-	public void run() {
 		
 		BoardManager bm = new BoardManager();
 		bm.setStartBoard();
@@ -112,7 +61,7 @@ public class TUIApplication {
 				System.out.println(winnerMessage(bm.isCheckmate()));
 			}
 		}
-		
+
 	}
 
 	public static String printBoard(BoardManager bm) {

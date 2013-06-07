@@ -36,10 +36,4 @@ public class TUIApplicationTest {
 		assertNotNull(TUIApplication.printBoard(bm));
 	}
 	
-	@Test
-	public void testRun() {
-		TUIApplication tuiapp = new TUIApplication();
-		tuiapp.run();
-	}
-	
 }
