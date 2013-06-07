@@ -1,73 +1,121 @@
 package de.htwg.xiangqi.tui;
 
 import java.util.Scanner;
+
 import de.htwg.xiangqi.controller.BoardManager;
-import de.htwg.xiangqi.entities.Piece;
-import de.htwg.xiangqi.entities.Piece.Player;
-import de.htwg.xiangqi.entities.Square;
 
 public class TUIApplication {
-	
+
 	private static final int ROW = 10;
 	private static final int COL = 9;
 	private static final Scanner EINGABE = new Scanner(System.in);
-	
-	private TUIApplication() {
+
+	public TUIApplication() {
 	}
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		
+		TUIApplication myTUIapp = new TUIApplication();
+		myTUIapp.run();
 
+//		BoardManager bm = new BoardManager();
+//		bm.setStartBoard();
+//		System.out.println(printBoard(bm));
+//		int choosenRow;
+//		int choosenCol;
+//		int targetRow;
+//		int targetCol;
+//		boolean continueMoving = true;
+//
+//		while (continueMoving) {
+//			System.out.println(playersTurn(bm));
+//			choosenRow = EINGABE.nextInt();
+//			choosenCol = EINGABE.nextInt();
+//			targetRow = EINGABE.nextInt();
+//			targetCol = EINGABE.nextInt();
+//
+//			if (bm.choosenPiece(choosenRow, choosenCol) == null) {
+//				System.out.println("No piece on choosen point, try again!");
+//				continue;
+//			}
+//			if (!bm.validChoose(bm.choosenPiece(choosenRow, choosenCol))) {
+//				System.out
+//						.println("Invalid choose of piece, choose your own piece!");
+//				continue;
+//			}
+//			if (!bm.validMove(bm.choosenPiece(choosenRow, choosenCol),
+//					targetRow, targetCol)) {
+//				System.out.println("Invalid move, try again!");
+//				continue;
+//			}
+//			if (bm.movePiece(choosenRow, choosenCol, targetRow, targetCol)) {
+//				bm.increaseMoveCounter();
+//				System.out.println(printBoard(bm));
+//			} else {
+//				System.out.println("Invalid move, try again!");
+//				continue;
+//			}
+//
+//			if (bm.isCheckmate() != 'n') {
+//				continueMoving = false;
+//				System.out.println(winnerMessage(bm.isCheckmate()));
+//			}
+//		}
+
+	}
+	
+	public void run() {
+		
 		BoardManager bm = new BoardManager();
 		bm.setStartBoard();
-		System.out.println(printBoard(bm.getBoard()));
+		System.out.println(printBoard(bm));
 		int choosenRow;
 		int choosenCol;
 		int targetRow;
 		int targetCol;
-		Piece choosen;
 		boolean continueMoving = true;
-		
+
 		while (continueMoving) {
 			System.out.println(playersTurn(bm));
 			choosenRow = EINGABE.nextInt();
 			choosenCol = EINGABE.nextInt();
 			targetRow = EINGABE.nextInt();
 			targetCol = EINGABE.nextInt();
-			choosen = bm.choosenPiece(choosenRow, choosenCol);
-			
-			if (choosen == null) {
+
+			if (bm.choosenPiece(choosenRow, choosenCol) == null) {
 				System.out.println("No piece on choosen point, try again!");
 				continue;
 			}
-			if (!bm.validChoose(choosen)) {
-				System.out.println("Invalid choose of piece, choose your own piece!");
+			if (!bm.validChoose(bm.choosenPiece(choosenRow, choosenCol))) {
+				System.out
+						.println("Invalid choose of piece, choose your own piece!");
 				continue;
 			}
-			if (!bm.validMove(choosen, targetRow, targetCol)) {
+			if (!bm.validMove(bm.choosenPiece(choosenRow, choosenCol),
+					targetRow, targetCol)) {
 				System.out.println("Invalid move, try again!");
 				continue;
 			}
 			if (bm.movePiece(choosenRow, choosenCol, targetRow, targetCol)) {
 				bm.increaseMoveCounter();
-				System.out.println(printBoard(bm.getBoard()));
+				System.out.println(printBoard(bm));
 			} else {
 				System.out.println("Invalid move, try again!");
 				continue;
 			}
-			
-			Piece general = bm.isCheckmate();
-			if (general != null) {
+
+			if (bm.isCheckmate() != 'n') {
 				continueMoving = false;
-				System.out.println(winnerMessage(general));
+				System.out.println(winnerMessage(bm.isCheckmate()));
 			}
 		}
 		
 	}
 
-	public static String printBoard(Square[][] board) {
+	public static String printBoard(BoardManager bm) {
 		StringBuilder sb = new StringBuilder();
 		int i = 0;
 		int j;
@@ -77,16 +125,7 @@ public class TUIApplication {
 			sb.append(i).append(" ");
 			while (j < COL) {
 				sb.append("[");
-				Piece piece = board[i][j].getPiece();
-				if (piece != null) {
-					if (piece.getPlayer() == Player.RED) {
-						sb.append("R").append(piece.getPieceType());
-					} else {
-						sb.append("B").append(piece.getPieceType());
-					}
-				} else {
-					sb.append("  ");
-				}
+				sb.append(bm.getOutput(i, j));
 				sb.append("]");
 				++j;
 			}
@@ -95,25 +134,27 @@ public class TUIApplication {
 		}
 		return sb.toString();
 	}
-	
+
 	public static String playersTurn(BoardManager bm) {
 		StringBuilder sb = new StringBuilder();
 		if (bm.getPlayersTurn() == 1) {
-			sb.append(bm.getMoveCounter()).append(": Player Red, choose piece and point: ");
+			sb.append(bm.getMoveCounter()).append(
+					": Player Red, choose piece and point: ");
 		} else {
-			sb.append(bm.getMoveCounter()).append(": Player Black, choose piece and point: ");
+			sb.append(bm.getMoveCounter()).append(
+					": Player Black, choose piece and point: ");
 		}
 		return sb.toString();
 	}
-	
-	public static String winnerMessage(Piece general) {
+
+	public static String winnerMessage(char general) {
 		StringBuilder sb = new StringBuilder();
-		if (general.getPlayer() == Player.RED) {
+		if (general == 'r') {
 			sb.append("Congratulation Player Black, you are the winner!");
 		} else {
 			sb.append("Congratulation Player Red, you are the winner!");
 		}
 		return sb.toString();
 	}
-	
+
 }

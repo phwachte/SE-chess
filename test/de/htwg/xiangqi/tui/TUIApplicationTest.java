@@ -26,14 +26,20 @@ public class TUIApplicationTest {
 	@Test
 	public void testWinnerMessage() {
 		bm.setStartBoard();
-		assertNotNull(TUIApplication.winnerMessage(bm.getBoard()[9][4].getPiece()));
-		assertNotNull(TUIApplication.winnerMessage(bm.getBoard()[0][4].getPiece()));
+		assertNotNull(TUIApplication.winnerMessage('r'));
+		assertNotNull(TUIApplication.winnerMessage('b'));
 	}
 	
 	@Test
 	public void testPrintBoard() {
 		bm.setStartBoard();
-		assertNotNull(TUIApplication.printBoard(bm.getBoard()));
+		assertNotNull(TUIApplication.printBoard(bm));
+	}
+	
+	@Test
+	public void testRun() {
+		TUIApplication tuiapp = new TUIApplication();
+		tuiapp.run();
 	}
 	
 }

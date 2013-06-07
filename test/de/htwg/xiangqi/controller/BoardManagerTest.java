@@ -87,12 +87,12 @@ public class BoardManagerTest {
 	@Test
 	public void testCheckMate() {
 		bm.setStartBoard();
-		assertNull(bm.isCheckmate());
+		assertEquals('n', bm.isCheckmate());
 		bm.getBoard()[9][4].getPiece().setIsCaptured(true);
-		assertEquals('G', bm.isCheckmate().getPieceType());
+		assertEquals('r', bm.isCheckmate());
 		bm.getBoard()[9][4].getPiece().setIsCaptured(false);
 		bm.getBoard()[0][4].getPiece().setIsCaptured(true);
-		assertEquals('G', bm.isCheckmate().getPieceType());
+		assertEquals('b', bm.isCheckmate());
 	}
 
 }

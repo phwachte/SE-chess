@@ -98,16 +98,31 @@ public class BoardManager {
 		return (choosenPiece.getPlayer() != targetPiece.getPlayer());
 	}
 	
-	public Piece isCheckmate() {
+	public char isCheckmate() {
 		Piece redGeneral = b.getRedGeneral();
 		Piece blackGeneral = b.getBlackGeneral();
 		if (redGeneral.getIsCaptured()) {
-			return redGeneral;
+			return 'r';
 		} else if (blackGeneral.getIsCaptured()) {
-			return blackGeneral;
+			return 'b';
 		} else {
-			return null;
+			return 'n';
 		}
+	}
+	
+	public String getOutput(int i, int j) {
+		StringBuilder sb = new StringBuilder();
+		Piece piece = board[i][j].getPiece();
+		if (piece != null) {
+			if (piece.getPlayer() == Player.RED) {
+				sb.append("R").append(piece.getPieceType());
+			} else {
+				sb.append("B").append(piece.getPieceType());
+			}
+		} else {
+			sb.append("  ");
+		}
+		return sb.toString();
 	}
 
 }
