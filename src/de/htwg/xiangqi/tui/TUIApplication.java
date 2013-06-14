@@ -20,7 +20,7 @@ public final class TUIApplication {
 		
 		BoardManager bm = new BoardManager();
 		bm.setStartBoard();
-		System.out.println(printBoard(bm));
+		printMessage(printBoard(bm));
 		int choosenRow;
 		int choosenCol;
 		int targetRow;
@@ -28,7 +28,7 @@ public final class TUIApplication {
 		boolean continueMoving = true;
 
 		while (continueMoving) {
-			System.out.println(playersTurn(bm));
+			printMessage(playersTurn(bm));
 			choosenRow = EINGABE.nextInt();
 			choosenCol = EINGABE.nextInt();
 			targetRow = EINGABE.nextInt();
