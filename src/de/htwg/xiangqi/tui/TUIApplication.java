@@ -35,30 +35,29 @@ public final class TUIApplication {
 			targetCol = EINGABE.nextInt();
 
 			if (bm.choosenPiece(choosenRow, choosenCol) == null) {
-				System.out.println("No piece on choosen point, try again!");
+				printMessage("No piece on choosen point, try again!");
 				continue;
 			}
 			if (!bm.validChoose(bm.choosenPiece(choosenRow, choosenCol))) {
-				System.out
-						.println("Invalid choose of piece, choose your own piece!");
+				printMessage("Invalid choose of piece, choose your own piece!");
 				continue;
 			}
 			if (!bm.validMove(bm.choosenPiece(choosenRow, choosenCol),
 					targetRow, targetCol)) {
-				System.out.println("Invalid move, try again!");
+				printMessage("Invalid move, try again!");
 				continue;
 			}
 			if (bm.movePiece(choosenRow, choosenCol, targetRow, targetCol)) {
 				bm.increaseMoveCounter();
-				System.out.println(printBoard(bm));
+				printMessage(printBoard(bm));
 			} else {
-				System.out.println("Invalid move, try again!");
+				printMessage("Invalid move, try again!");
 				continue;
 			}
 
 			if (bm.isCheckmate() != 'n') {
 				continueMoving = false;
-				System.out.println(winnerMessage(bm.isCheckmate()));
+				printMessage(winnerMessage(bm.isCheckmate()));
 			}
 		}
 
@@ -104,6 +103,10 @@ public final class TUIApplication {
 			sb.append("Congratulation Player Red, you are the winner!");
 		}
 		return sb.toString();
+	}
+	
+	private static void printMessage(String str) {
+		System.out.println(str);
 	}
 
 }
