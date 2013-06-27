@@ -1,21 +1,94 @@
 package de.htwg.xiangqi.controller;
 
-import de.htwg.xiangqi.entities.Board;
-import de.htwg.xiangqi.entities.Piece;
-import de.htwg.xiangqi.entities.Piece.Player;
-import de.htwg.xiangqi.entities.Square;
+import com.google.inject.Inject;
 
-public class BoardManager {
+import de.htwg.util.observer.Observable;
+import de.htwg.xiangqi.model.Board;
+import de.htwg.xiangqi.model.Piece;
+import de.htwg.xiangqi.model.Square;
+import de.htwg.xiangqi.model.Piece.Player;
 
+/**
+ * class BoardManager controls the game
+ * 
+ * @author P. Wachter
+ * 
+ */
+public class BoardManager extends Observable implements IBoardManager {
+
+	private static final int NUMBER_OF_PLAYERS = 2;
 	private Board b;
 	private Square[][] board;
 	private int moveCounter;
-	private static final int NUMBER_OF_PLAYERS = 2;
+	private String message;
 
+	/**
+	 * create a BoardManager object
+	 */
+	@Inject
 	public BoardManager() {
 		this.b = new Board();
 		this.board = this.b.getBoard();
 		this.moveCounter = 1;
+	}
+
+	public boolean inputMove(String values) {
+		int chosenRow = 0;
+		int chosenCol = 0;
+		int targetRow = 0;
+		int targetCol = 0;
+		String[] chosenValues = values.split(" ");
+		
+		try {
+			chosenRow = Integer.parseInt(chosenValues[0]);
+			chosenCol = Integer.parseInt(chosenValues[1]);
+			targetRow = Integer.parseInt(chosenValues[2]);
+			targetCol = Integer.parseInt(chosenValues[3]);
+		} catch (NumberFormatException e) {
+			message = "Invalid value(s): " + values;
+			notifyObservers();
+			return false;
+		}
+		
+		String input = "Input error (" + chosenRow + " " + chosenCol + " "
+				+ targetRow + " " + targetCol + "):\n";
+		message = null;
+		if (chosenPiece(chosenRow, chosenCol) == null) {
+			message = input + "No piece on chosen point!\n";
+			notifyObservers();
+			return false;
+		}
+		if (!validChoose(chosenPiece(chosenRow, chosenCol))) {
+			message = input
+					+ "Invalid choose of piece, choose your own piece!\n";
+			notifyObservers();
+			return false;
+		}
+		if (!validMove(chosenPiece(chosenRow, chosenCol), targetRow, targetCol)) {
+			message = input + "Target point is not valid for this piece!\n";
+			notifyObservers();
+			return false;
+		}
+		if (!movePiece(chosenRow, chosenCol, targetRow, targetCol)) {
+			message = input + "Taking your own piece is invalid!\n";
+			notifyObservers();
+			return false;
+		}
+
+		moveTo(chosenRow, chosenCol, targetRow, targetCol);
+		increaseMoveCounter();
+
+		if (isCheckmate() != '-') {
+			notifyObservers();
+			return true;
+		}
+
+		notifyObservers();
+		return false;
+	}
+
+	public String getMessage() {
+		return this.message;
 	}
 
 	public Square[][] getBoard() {
@@ -40,64 +113,117 @@ public class BoardManager {
 		this.b.fillBoard();
 	}
 
-	public Piece choosenPiece(int currentRow, int currentCol) {
+	/**
+	 * @param currentRow
+	 *            the index of the current row
+	 * @param currentCol
+	 *            the index of the current column
+	 * @return the piece which is set on the current point, null, if no piece is
+	 *         set
+	 */
+	private Piece chosenPiece(int currentRow, int currentCol) {
 		if (this.b.onBoard(currentRow, currentCol)) {
 			return this.board[currentRow][currentCol].getPiece();
 		}
 		return null;
 	}
-	
-	public boolean validChoose(Piece choosen) {
-		if (choosen.getPlayer() == Player.RED && this.getPlayersTurn() == 1) {
+
+	/**
+	 * @param chosen
+	 *            the piece which is chosen
+	 * @return true, if the player chose his own piece, false, if not
+	 */
+	private boolean validChoose(Piece chosen) {
+		if (chosen.getPlayer() == Player.RED && this.getPlayersTurn() == 1) {
 			return true;
 		}
-		if (choosen.getPlayer() == Player.BLACK && this.getPlayersTurn() == 0) {
+		if (chosen.getPlayer() == Player.BLACK && this.getPlayersTurn() == 0) {
 			return true;
 		}
 		return false;
 	}
 
-	public boolean validMove(Piece piece, int targetRow, int targetCol) {
+	/**
+	 * @param piece
+	 *            the piece which is chosen
+	 * @param targetRow
+	 *            the index of the target row
+	 * @param targetCol
+	 *            the index of the target column
+	 * @return true, if the move is valid, false, if not
+	 */
+	private boolean validMove(Piece piece, int targetRow, int targetCol) {
 		if (this.b.onBoard(targetRow, targetCol)) {
 			return piece.validMove(this.board, targetRow, targetCol);
 		}
 		return false;
 	}
 
-	public boolean movePiece(int currentRow, int currentCol, int targetRow,
+	/**
+	 * @param currentRow
+	 *            the index of the current row
+	 * @param currentCol
+	 *            the index of the current column
+	 * @param targetRow
+	 *            the index of the target row
+	 * @param targetCol
+	 *            the index of the target column
+	 * @return true, if the move is valid, false, if not
+	 */
+	private boolean movePiece(int currentRow, int currentCol, int targetRow,
 			int targetCol) {
-		Square choosen = this.board[currentRow][currentCol];
+		Square chosen = this.board[currentRow][currentCol];
 		Square target = this.board[targetRow][targetCol];
 		Piece toCapture = target.getPiece();
 		if (toCapture != null) {
-			if (validCapture(choosen, target)) {
+			if (validCapture(chosen, target)) {
 				toCapture = target.getPiece();
 				toCapture.setIsCaptured(true);
-				moveTo(choosen, targetRow, targetCol);
 				return true;
 			} else {
 				return false;
 			}
 		} else {
-			moveTo(choosen, targetRow, targetCol);
 			return true;
 		}
 	}
 
-	private void moveTo(Square choosen, int targetRow, int targetCol) {
-		Piece choosenPiece = choosen.getPiece();
+	/**
+	 * move a piece from one point to another point
+	 * 
+	 * @param currentRow
+	 *            the index of the current row
+	 * @param currentCol
+	 *            the index of the current column
+	 * @param targetRow
+	 *            the index of the target row
+	 * @param targetCol
+	 *            the index of the target column
+	 */
+	private void moveTo(int currentRow, int currentCol, int targetRow,
+			int targetCol) {
+		Square chosen = this.board[currentRow][currentCol];
+		Piece chosenPiece = chosen.getPiece();
 		Square target = this.board[targetRow][targetCol];
-		choosenPiece.setPosition(targetRow, targetCol);
-		target.setPiece(choosen.getPiece());
-		choosen.setPiece(null);
+		chosenPiece.setPosition(targetRow, targetCol);
+		target.setPiece(chosen.getPiece());
+		chosen.setPiece(null);
 	}
 
-	private boolean validCapture(Square choosen, Square target) {
-		Piece choosenPiece = choosen.getPiece();
+	/**
+	 * @param chosen
+	 *            the point of the chosen piece
+	 * @param target
+	 *            the target point
+	 * @return true, if the piece on target point is an enemy piece, false, if
+	 *         not
+	 */
+	private boolean validCapture(Square chosen, Square target) {
+		Piece chosenPiece = chosen.getPiece();
 		Piece targetPiece = target.getPiece();
-		return (choosenPiece.getPlayer() != targetPiece.getPlayer());
+		return (chosenPiece.getPlayer() != targetPiece.getPlayer());
 	}
-	
+
 	public char isCheckmate() {
 		Piece redGeneral = b.getRedGeneral();
 		Piece blackGeneral = b.getBlackGeneral();
@@ -106,13 +232,24 @@ public class BoardManager {
 		} else if (blackGeneral.getIsCaptured()) {
 			return 'b';
 		} else {
-			return 'n';
+			return '-';
 		}
 	}
-	
-	public String getOutput(int i, int j) {
+
+	public String winnerMessage() {
 		StringBuilder sb = new StringBuilder();
-		Piece piece = board[i][j].getPiece();
+		char general = isCheckmate();
+		if (general == 'r') {
+			sb.append("Congratulation player black, you are the winner!");
+		} else {
+			sb.append("Congratulation player red, you are the winner!");
+		}
+		return sb.toString();
+	}
+
+	public String getTUIOutput(int row, int col) {
+		StringBuilder sb = new StringBuilder();
+		Piece piece = board[row][col].getPiece();
 		if (piece != null) {
 			if (piece.getPlayer() == Player.RED) {
 				sb.append("R").append(piece.getPieceType());
@@ -123,6 +260,15 @@ public class BoardManager {
 			sb.append("  ");
 		}
 		return sb.toString();
+	}
+
+	public String pieceAtPoint(int row, int col) {
+		Piece current = board[row][col].getPiece();
+		if (current != null) {
+			return current.getPieceIcon();
+		} else {
+			return null;
+		}
 	}
 
 }

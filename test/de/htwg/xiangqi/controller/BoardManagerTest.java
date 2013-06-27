@@ -1,14 +1,16 @@
 package de.htwg.xiangqi.controller;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import de.htwg.xiangqi.entities.Piece;
-import de.htwg.xiangqi.entities.PieceElephant;
-import de.htwg.xiangqi.entities.Square;
-import de.htwg.xiangqi.entities.Piece.Player;
+import de.htwg.xiangqi.model.Square;
 
 public class BoardManagerTest {
 
@@ -18,6 +20,31 @@ public class BoardManagerTest {
 	@Before
 	public void setUp() {
 		bm = new BoardManager();
+	}
+	
+	@Test
+	public void testInputMove() {
+		bm.setStartBoard();
+		assertFalse(bm.inputMove("8 0 7 0"));
+		assertFalse(bm.inputMove("8 9 8 8"));
+		assertFalse(bm.inputMove("0 0 1 0"));
+		assertFalse(bm.inputMove("9 0 8 1"));
+		assertFalse(bm.inputMove("9 0 6 0"));
+		assertFalse(bm.inputMove("9 0 8 0"));
+		assertFalse(bm.inputMove("8 0 8 1"));
+		assertFalse(bm.inputMove("0 0 0 9"));
+		assertFalse(bm.inputMove("2 1 9 1"));
+		assertFalse(bm.inputMove("2 1 g 1"));
+		bm.getBoard()[0][4].getPiece().setIsCaptured(true);
+		assertTrue(bm.inputMove("8 0 8 1"));
+		bm.getBoard()[0][4].getPiece().setIsCaptured(false);
+		bm.getBoard()[9][4].getPiece().setIsCaptured(true);
+		assertTrue(bm.inputMove("0 0 1 0"));
+	}
+	
+	@Test
+	public void testGetMessage() {
+		assertNull(bm.getMessage());
 	}
 
 	@Test
@@ -50,49 +77,28 @@ public class BoardManagerTest {
 	}
 	
 	@Test
-	public void testChoosenPiece() {
+	public void testWinnerMessage() {
 		bm.setStartBoard();
-		assertNull(bm.choosenPiece(7, 9));
-		assertEquals('R', bm.choosenPiece(0, 0).getPieceType());
-		assertNull(bm.choosenPiece(1, 0));
-	}
-	
-	@Test
-	public void testValidChoose() {
-		Piece elephant = new PieceElephant(9, 2, Player.RED);
-		assertTrue(bm.validChoose(elephant));
-		bm.increaseMoveCounter();
-		assertFalse(bm.validChoose(elephant));
-		elephant = new PieceElephant(0, 2, Player.BLACK);
-		assertTrue(bm.validChoose(elephant));
-		bm.increaseMoveCounter();
-		assertFalse(bm.validChoose(elephant));
-	}
-	
-	@Test
-	public void testValidMove() {
-		bm.setStartBoard();
-		assertFalse(bm.validMove(bm.choosenPiece(7, 1), 7, 9));
-		assertTrue(bm.validMove(bm.choosenPiece(7, 1), 5, 1));
-	}
-	
-	@Test
-	public void testMovePiece() {
-		bm.setStartBoard();
-		assertTrue(bm.movePiece(6, 0, 5, 0));
-		assertTrue(bm.movePiece(7, 1, 0, 1));
-		assertFalse(bm.movePiece(9, 0, 9, 1));
-	}
-	
-	@Test
-	public void testCheckMate() {
-		bm.setStartBoard();
-		assertEquals('n', bm.isCheckmate());
 		bm.getBoard()[9][4].getPiece().setIsCaptured(true);
-		assertEquals('r', bm.isCheckmate());
+		assertEquals("Congratulation player black, you are the winner!", bm.winnerMessage());
 		bm.getBoard()[9][4].getPiece().setIsCaptured(false);
 		bm.getBoard()[0][4].getPiece().setIsCaptured(true);
-		assertEquals('b', bm.isCheckmate());
+		assertEquals("Congratulation player red, you are the winner!", bm.winnerMessage());
+	}
+	
+	@Test
+	public void testGetTUIOutput() {
+		bm.setStartBoard();
+		assertEquals("BR", bm.getTUIOutput(0, 0));
+		assertEquals("RR", bm.getTUIOutput(9, 0));
+		assertEquals("  ", bm.getTUIOutput(1, 0));
+	}
+	
+	@Test
+	public void testPieceAtPoint() {
+		bm.setStartBoard();
+		assertNull(bm.pieceAtPoint(1, 0));
+		assertNotNull(bm.pieceAtPoint(0, 0));
 	}
 
 }
