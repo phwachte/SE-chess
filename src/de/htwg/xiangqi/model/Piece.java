@@ -21,6 +21,9 @@ public abstract class Piece implements IPiece {
 	private final Player player;
 	private boolean isCaptured;
 
+	/**
+	 * an identifying color for the players
+	 */
 	public enum Player {
 		RED, BLACK
 	}

@@ -25,6 +25,15 @@ public class PieceCannon extends Piece {
 		super(r, c, 'C', p);
 	}
 
+	/**
+	 * @param board
+	 *            the board on which is played
+	 * @param targetRow
+	 *            the index of the target row
+	 * @param targetCol
+	 *            the index of the target column
+	 * @return true, if the move is valid, false, if not
+	 */
 	public boolean validMove(Square[][] board, int targetRow, int targetCol) {
 		int currentRow = this.getPosRow();
 		int currentCol = this.getPosColumn();
@@ -34,36 +43,14 @@ public class PieceCannon extends Piece {
 						targetRow, targetCol);
 	}
 
-	/**
-	 * @param blockerCount
-	 *            the count of pieces between current point and target point
-	 * @return true, if blockerCount equals one, false, if not
-	 */
 	private boolean existingScreen(int blockerCount) {
 		return blockerCount == 1;
 	}
 
-	/**
-	 * @param piece
-	 *            the piece on target point
-	 * @return true, if the piece on target is an enemy piece, false, if not
-	 */
 	private boolean enemyOnTarget(Piece piece) {
 		return this.getPlayer() != piece.getPlayer();
 	}
 
-	/**
-	 * @param board
-	 *            the board on which is played
-	 * @param targetRow
-	 *            the index of the target row
-	 * @param targetCol
-	 *            the index of the target column
-	 * @param blockerCount
-	 *            the count of pieces between current point and target point
-	 * @return return true, if there is a screen and the piece on target point
-	 *         is an enemy piece
-	 */
 	private boolean validCaptureMove(Square[][] board, int targetRow,
 			int targetCol, int blockerCount) {
 		if (board[targetRow][targetCol].occupiedPoint()) {
@@ -74,19 +61,6 @@ public class PieceCannon extends Piece {
 		}
 	}
 
-	/**
-	 * @param board
-	 *            the board on which is played
-	 * @param currentRow
-	 *            the index of current row
-	 * @param currentCol
-	 *            the index of current column
-	 * @param targetRow
-	 *            the index of target row
-	 * @param targetCol
-	 *            the index of target column
-	 * @return true, if the vertically move is valid, false, if not
-	 */
 	private boolean validMoveVertically(Square[][] board, int currentRow,
 			int currentCol, int targetRow, int targetCol) {
 		int diffRow = currentRow - targetRow;
@@ -109,19 +83,6 @@ public class PieceCannon extends Piece {
 		}
 	}
 
-	/**
-	 * @param board
-	 *            the board on which is played
-	 * @param currentRow
-	 *            the index of current row
-	 * @param currentCol
-	 *            the index of current column
-	 * @param targetRow
-	 *            the index of target row
-	 * @param targetCol
-	 *            the index of target column
-	 * @return true, if the horizontally move is valid, false, if not
-	 */
 	private boolean validMoveHorizontally(Square[][] board, int currentRow,
 			int currentCol, int targetRow, int targetCol) {
 		int diffRow = currentRow - targetRow;
@@ -144,6 +105,9 @@ public class PieceCannon extends Piece {
 		}
 	}
 
+	/**
+	 * @return the string which references the icon of the piece
+	 */
 	public String getPieceIcon() {
 		if (this.getPlayer() == Player.RED) {
 			return RC;

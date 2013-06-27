@@ -27,6 +27,15 @@ public class PieceElephant extends Piece {
 		super(r, c, 'E', p);
 	}
 
+	/**
+	 * @param board
+	 *            the board on which is played
+	 * @param targetRow
+	 *            the index of the target row
+	 * @param targetCol
+	 *            the index of the target column
+	 * @return true, if the move is valid, false, if not
+	 */
 	public boolean validMove(Square[][] board, int targetRow, int targetCol) {
 		if (this.getPlayer() == Player.RED) {
 			return validMoveRedE(board, targetRow, targetCol);
@@ -35,16 +44,6 @@ public class PieceElephant extends Piece {
 		}
 	}
 
-	/**
-	 * check, if the move is valid for a red elephant
-	 * 
-	 * @param board
-	 *            the board on which is played
-	 * @param @param targetRow the index of the target row
-	 * @param targetCol
-	 *            the index of the target column
-	 * @return true, if the move is valid, false, if not
-	 */
 	private boolean validMoveRedE(Square[][] board, int targetRow, int targetCol) {
 		if (this.inBlackHalf(targetRow)) {
 			return false;
@@ -53,16 +52,6 @@ public class PieceElephant extends Piece {
 		}
 	}
 
-	/**
-	 * check, if the move is valid for a black elephant
-	 * 
-	 * @param board
-	 *            the board on which is played
-	 * @param @param targetRow the index of the target row
-	 * @param targetCol
-	 *            the index of the target column
-	 * @return true, if the move is valid, false, if not
-	 */
 	private boolean validMoveBlackE(Square[][] board, int targetRow,
 			int targetCol) {
 		if (this.inRedHalf(targetRow)) {
@@ -72,14 +61,6 @@ public class PieceElephant extends Piece {
 		}
 	}
 
-	/**
-	 * @param board
-	 *            the board on which is played
-	 * @param @param targetRow the index of the target row
-	 * @param targetCol
-	 *            the index of the target column
-	 * @return true, if the move is valid, false, if not
-	 */
 	private boolean validMoveE(Square[][] board, int targetRow, int targetCol) {
 		int currentRow = this.getPosRow();
 		int currentCol = this.getPosColumn();
@@ -94,6 +75,9 @@ public class PieceElephant extends Piece {
 		}
 	}
 
+	/**
+	 * @return the string which references the icon of the piece
+	 */
 	public String getPieceIcon() {
 		if (this.getPlayer() == Player.RED) {
 			return RE;

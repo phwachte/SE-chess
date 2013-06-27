@@ -25,6 +25,15 @@ public class PieceChariot extends Piece {
 		super(r, c, 'R', p);
 	}
 
+	/**
+	 * @param board
+	 *            the board on which is played
+	 * @param targetRow
+	 *            the index of the target row
+	 * @param targetCol
+	 *            the index of the target column
+	 * @return true, if the move is valid, false, if not
+	 */
 	public boolean validMove(Square[][] board, int targetRow, int targetCol) {
 		int currentRow = this.getPosRow();
 		int currentCol = this.getPosColumn();
@@ -34,19 +43,6 @@ public class PieceChariot extends Piece {
 						targetRow, targetCol);
 	}
 
-	/**
-	 * @param board
-	 *            the board on which is played
-	 * @param currentRow
-	 *            the index of current row
-	 * @param currentCol
-	 *            the index of current column
-	 * @param targetRow
-	 *            the index of target row
-	 * @param targetCol
-	 *            the index of target column
-	 * @return true, if the vertically move is valid, false, if not
-	 */
 	private boolean validMoveVertically(Square[][] board, int currentRow,
 			int currentCol, int targetRow, int targetCol) {
 		int diffRow = currentRow - targetRow;
@@ -66,19 +62,6 @@ public class PieceChariot extends Piece {
 		}
 	}
 
-	/**
-	 * @param board
-	 *            the board on which is played
-	 * @param currentRow
-	 *            the index of current row
-	 * @param currentCol
-	 *            the index of current column
-	 * @param targetRow
-	 *            the index of target row
-	 * @param targetCol
-	 *            the index of target column
-	 * @return true, if the horizontally move is valid, false, if not
-	 */
 	private boolean validMoveHorizontally(Square[][] board, int currentRow,
 			int currentCol, int targetRow, int targetCol) {
 		int diffRow = currentRow - targetRow;
@@ -98,6 +81,9 @@ public class PieceChariot extends Piece {
 		}
 	}
 
+	/**
+	 * @return the string which references the icon of the piece
+	 */
 	public String getPieceIcon() {
 		if (this.getPlayer() == Player.RED) {
 			return RR;

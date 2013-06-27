@@ -27,6 +27,15 @@ public class PieceHorse extends Piece {
 		super(r, c, 'H', p);
 	}
 
+	/**
+	 * @param board
+	 *            the board on which is played
+	 * @param targetRow
+	 *            the index of the target row
+	 * @param targetCol
+	 *            the index of the target column
+	 * @return true, if the move is valid, false, if not
+	 */
 	public boolean validMove(Square[][] board, int targetRow, int targetCol) {
 		int currentRow = this.getPosRow();
 		int currentCol = this.getPosColumn();
@@ -45,54 +54,25 @@ public class PieceHorse extends Piece {
 		}
 	}
 
-	/**
-	 * @param diffRow
-	 *            the difference of the index of current row and target row
-	 * @param diffCol
-	 *            the difference of the index of current column and target
-	 *            column
-	 * @return true, if the move to the North is valid, false, if not
-	 */
 	private boolean validMoveNorth(int diffRow, int diffCol) {
 		return diffRow == POS_DIFF && (diffCol == 1 || diffCol == -1);
 	}
 
-	/**
-	 * @param diffRow
-	 *            the difference of the index of current row and target row
-	 * @param diffCol
-	 *            the difference of the index of current column and target
-	 *            column
-	 * @return true, if the move to the East is valid, false, if not
-	 */
 	private boolean validMoveEast(int diffRow, int diffCol) {
 		return diffCol == NEG_DIFF && (diffRow == 1 || diffRow == -1);
 	}
 
-	/**
-	 * @param diffRow
-	 *            the difference of the index of current row and target row
-	 * @param diffCol
-	 *            the difference of the index of current column and target
-	 *            column
-	 * @return true, if the move to the South is valid, false, if not
-	 */
 	private boolean validMoveSouth(int diffRow, int diffCol) {
 		return diffRow == NEG_DIFF && (diffCol == 1 || diffCol == -1);
 	}
 
-	/**
-	 * @param diffRow
-	 *            the difference of the index of current row and target row
-	 * @param diffCol
-	 *            the difference of the index of current column and target
-	 *            column
-	 * @return true, if the move to the West is valid, false, if not
-	 */
 	private boolean validMoveWest(int diffRow, int diffCol) {
 		return diffCol == POS_DIFF && (diffRow == 1 || diffRow == -1);
 	}
 
+	/**
+	 * @return the string which references the icon of the piece
+	 */
 	public String getPieceIcon() {
 		if (this.getPlayer() == Player.RED) {
 			return RH;

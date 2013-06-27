@@ -38,6 +38,19 @@ public class BoardManager extends Observable implements IBoardManager {
 		this.moveCounter = 1;
 	}
 
+	/**
+	 * check, if the move is valid, create an error message, if not
+	 * 
+	 * @param chosenRow
+	 *            the index of the chosen row
+	 * @param chosenCol
+	 *            the index of the chosen column
+	 * @param targetRow
+	 *            the index of the target row
+	 * @param targetCol
+	 *            the index of the target column
+	 * @return true, if game is finished, false, if not
+	 */
 	public boolean inputMove(String values) {
 		int chosenRow = 0;
 		int chosenCol = 0;
@@ -93,40 +106,50 @@ public class BoardManager extends Observable implements IBoardManager {
 		return false;
 	}
 
+	/**
+	 * @return the error message
+	 */
 	public String getMessage() {
 		return this.message;
 	}
 
+	/**
+	 * @return the board on which is played
+	 */
 	public Square[][] getBoard() {
 		return this.board;
 	}
 
+	/**
+	 * @return the count of valid moves
+	 */
 	public int getMoveCounter() {
 		return this.moveCounter;
 	}
 
+	/**
+	 * increase the count of valid moves
+	 */
 	public void increaseMoveCounter() {
 		++this.moveCounter;
 	}
 
+	/**
+	 * @return the identifying number of the player who is turning next
+	 */
 	public int getPlayersTurn() {
 		return this.moveCounter % NUMBER_OF_PLAYERS;
 	}
 
+	/**
+	 * initialize the board
+	 */
 	public void setStartBoard() {
 		this.b.setPiecesRed();
 		this.b.setPiecesBlack();
 		this.b.fillBoard();
 	}
 
-	/**
-	 * @param currentRow
-	 *            the index of the current row
-	 * @param currentCol
-	 *            the index of the current column
-	 * @return the piece which is set on the current point, null, if no piece is
-	 *         set
-	 */
 	private Piece chosenPiece(int currentRow, int currentCol) {
 		if (this.b.onBoard(currentRow, currentCol)) {
 			return this.board[currentRow][currentCol].getPiece();
@@ -134,11 +157,6 @@ public class BoardManager extends Observable implements IBoardManager {
 		return null;
 	}
 
-	/**
-	 * @param chosen
-	 *            the piece which is chosen
-	 * @return true, if the player chose his own piece, false, if not
-	 */
 	private boolean validChoose(Piece chosen) {
 		if (chosen.getPlayer() == Player.RED && this.getPlayersTurn() == 1) {
 			return true;
@@ -149,15 +167,6 @@ public class BoardManager extends Observable implements IBoardManager {
 		return false;
 	}
 
-	/**
-	 * @param piece
-	 *            the piece which is chosen
-	 * @param targetRow
-	 *            the index of the target row
-	 * @param targetCol
-	 *            the index of the target column
-	 * @return true, if the move is valid, false, if not
-	 */
 	private boolean validMove(Piece piece, int targetRow, int targetCol) {
 		if (this.b.onBoard(targetRow, targetCol)) {
 			return piece.validMove(this.board, targetRow, targetCol);
@@ -165,17 +174,6 @@ public class BoardManager extends Observable implements IBoardManager {
 		return false;
 	}
 
-	/**
-	 * @param currentRow
-	 *            the index of the current row
-	 * @param currentCol
-	 *            the index of the current column
-	 * @param targetRow
-	 *            the index of the target row
-	 * @param targetCol
-	 *            the index of the target column
-	 * @return true, if the move is valid, false, if not
-	 */
 	private boolean movePiece(int currentRow, int currentCol, int targetRow,
 			int targetCol) {
 		Square chosen = this.board[currentRow][currentCol];
@@ -194,18 +192,6 @@ public class BoardManager extends Observable implements IBoardManager {
 		}
 	}
 
-	/**
-	 * move a piece from one point to another point
-	 * 
-	 * @param currentRow
-	 *            the index of the current row
-	 * @param currentCol
-	 *            the index of the current column
-	 * @param targetRow
-	 *            the index of the target row
-	 * @param targetCol
-	 *            the index of the target column
-	 */
 	private void moveTo(int currentRow, int currentCol, int targetRow,
 			int targetCol) {
 		Square chosen = this.board[currentRow][currentCol];
@@ -216,20 +202,16 @@ public class BoardManager extends Observable implements IBoardManager {
 		chosen.setPiece(null);
 	}
 
-	/**
-	 * @param chosen
-	 *            the point of the chosen piece
-	 * @param target
-	 *            the target point
-	 * @return true, if the piece on target point is an enemy piece, false, if
-	 *         not
-	 */
 	private boolean validCapture(Square chosen, Square target) {
 		Piece chosenPiece = chosen.getPiece();
 		Piece targetPiece = target.getPiece();
 		return (chosenPiece.getPlayer() != targetPiece.getPlayer());
 	}
 
+	/**
+	 * @return the identifying character of the general, who is captured, if no
+	 *         general is captured the returned character is '-'
+	 */
 	public char isCheckmate() {
 		Piece redGeneral = b.getRedGeneral();
 		Piece blackGeneral = b.getBlackGeneral();
@@ -242,6 +224,9 @@ public class BoardManager extends Observable implements IBoardManager {
 		}
 	}
 
+	/**
+	 * @return the string which represents the winner message
+	 */
 	public String winnerMessage() {
 		StringBuilder sb = new StringBuilder();
 		char general = isCheckmate();
@@ -253,6 +238,13 @@ public class BoardManager extends Observable implements IBoardManager {
 		return sb.toString();
 	}
 
+	/**
+	 * @param row
+	 *            the index of the row
+	 * @param col
+	 *            the index of the column
+	 * @return the string for the tui output
+	 */
 	public String getTUIOutput(int row, int col) {
 		StringBuilder sb = new StringBuilder();
 		Piece piece = board[row][col].getPiece();
@@ -268,6 +260,13 @@ public class BoardManager extends Observable implements IBoardManager {
 		return sb.toString();
 	}
 
+	/**
+	 * @param row
+	 *            the index of the row
+	 * @param col
+	 *            the index of the column
+	 * @return the string which represents the path of the icon
+	 */
 	public String pieceAtPoint(int row, int col) {
 		Piece current = board[row][col].getPiece();
 		if (current != null) {
