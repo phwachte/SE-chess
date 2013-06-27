@@ -1,6 +1,7 @@
 package de.htwg.xiangqi.controller;
 
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
 import de.htwg.util.observer.Observable;
 import de.htwg.xiangqi.model.Board;
@@ -14,9 +15,14 @@ import de.htwg.xiangqi.model.Piece.Player;
  * @author P. Wachter
  * 
  */
+@Singleton
 public class BoardManager extends Observable implements IBoardManager {
 
 	private static final int NUMBER_OF_PLAYERS = 2;
+	private static final int ZERO = 0;
+	private static final int ONE = 1;
+	private static final int TWO = 2;
+	private static final int THREE = 3;
 	private Board b;
 	private Square[][] board;
 	private int moveCounter;
@@ -40,10 +46,10 @@ public class BoardManager extends Observable implements IBoardManager {
 		String[] chosenValues = values.split(" ");
 		
 		try {
-			chosenRow = Integer.parseInt(chosenValues[0]);
-			chosenCol = Integer.parseInt(chosenValues[1]);
-			targetRow = Integer.parseInt(chosenValues[2]);
-			targetCol = Integer.parseInt(chosenValues[3]);
+			chosenRow = Integer.parseInt(chosenValues[ZERO]);
+			chosenCol = Integer.parseInt(chosenValues[ONE]);
+			targetRow = Integer.parseInt(chosenValues[TWO]);
+			targetCol = Integer.parseInt(chosenValues[THREE]);
 		} catch (NumberFormatException e) {
 			message = "Invalid value(s): " + values;
 			notifyObservers();

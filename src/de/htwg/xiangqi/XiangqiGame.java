@@ -38,12 +38,10 @@ public final class XiangqiGame {
 		Injector injector = Guice.createInjector(new XiangqiGameModule());
 		IBoardManager bm = injector.getInstance(IBoardManager.class);
 		bm.setStartBoard();
-//		@SuppressWarnings("unused")
-//		XiangqiGUI gui = injector.getInstance(XiangqiGUI.class);
-//		@SuppressWarnings("unused")
-//		XiangqiTUI tui = injector.getInstance(XiangqiTUI.class);
-		new XiangqiGUI(bm);
-		new XiangqiTUI(bm);
+		XiangqiGUI gui = injector.getInstance(XiangqiGUI.class);
+		XiangqiTUI tui = injector.getInstance(XiangqiTUI.class);
+		gui.update();
+		tui.update();
 
 		StringBuilder input;
 		boolean end = false;

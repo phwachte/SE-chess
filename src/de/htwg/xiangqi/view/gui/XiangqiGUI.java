@@ -30,6 +30,7 @@ import de.htwg.xiangqi.controller.IBoardManager;
 public class XiangqiGUI extends JFrame implements IObserver, ActionListener {
 
 	private static final int ZERO = 0;
+	private static final int ONE = 1;
 	private static final int TWO = 2;
 	private static final int THREE = 3;
 	private static final int FIVE = 5;
@@ -37,6 +38,21 @@ public class XiangqiGUI extends JFrame implements IObserver, ActionListener {
 	private static final int NINE = 9;
 	private static final int ROW = 10;
 	private static final int COL = 9;
+	private static final int panelX = 450;
+	private static final int panelY = 250;
+	private static final int mainX = 550;
+	private static final int mainY = 720;
+	private static final int textY = 30;
+	private static final int buttonSize = 50;
+	private static final int pbR = 50;
+	private static final int pbG = 110;
+	private static final int pbB = 30;
+	private static final int pbA = 255;
+	private static final int fbRB = 20;
+	private static final int fbG = 80;
+	private static final int btop = 40;
+	private static final int bside = 10;
+
 	private IBoardManager bm;
 	private JButton[][] buttonArray;
 	private JButton playerButton;
@@ -58,20 +74,20 @@ public class XiangqiGUI extends JFrame implements IObserver, ActionListener {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		JPanel blackPanel = new JPanel();
-		blackPanel.setLayout(new GridLayout(5, 9));
-		blackPanel.setMaximumSize(new Dimension(450, 250));
+		blackPanel.setLayout(new GridLayout(FIVE, NINE));
+		blackPanel.setMaximumSize(new Dimension(panelX, panelY));
 		JPanel riverPanel = new JPanel();
-		riverPanel.setLayout(new GridLayout(1, 1));
-		riverPanel.setMaximumSize(new Dimension(450, 25));
+		riverPanel.setLayout(new GridLayout(ONE, ONE));
+		riverPanel.setMaximumSize(new Dimension(panelX, buttonSize / TWO));
 		JPanel redPanel = new JPanel();
-		redPanel.setLayout(new GridLayout(5, 9));
-		redPanel.setMaximumSize(new Dimension(450, 250));
+		redPanel.setLayout(new GridLayout(FIVE, NINE));
+		redPanel.setMaximumSize(new Dimension(panelX, panelY));
 		JPanel playerPanel = new JPanel();
-		playerPanel.setLayout(new GridLayout(1, 2));
-		playerPanel.setMaximumSize(new Dimension(450, 50));
+		playerPanel.setLayout(new GridLayout(ONE, TWO));
+		playerPanel.setMaximumSize(new Dimension(panelX, buttonSize));
 		JPanel textPanel = new JPanel();
-		textPanel.setLayout(new GridLayout(1, 1));
-		textPanel.setMaximumSize(new Dimension(450, 30));
+		textPanel.setLayout(new GridLayout(ONE, ONE));
+		textPanel.setMaximumSize(new Dimension(panelX, textY));
 
 		buttonArray = new JButton[ROW][COL];
 		JButton point;
@@ -79,20 +95,10 @@ public class XiangqiGUI extends JFrame implements IObserver, ActionListener {
 			for (int j = 0; j < COL; ++j) {
 				point = new JButton();
 				point.setName("" + i + " " + j + " ");
-				point.setMinimumSize(new Dimension(50, 50));
+				point.setMinimumSize(new Dimension(buttonSize, buttonSize));
 				point.addActionListener(this);
 				buttonArray[i][j] = point;
-				if (j >= THREE && j <= FIVE && i >= SEVEN && i <= NINE) {
-					point.setBackground(new Color(20, 80, 20, 255));
-				} else if (j >= THREE && j <= FIVE && i >= ZERO && i <= TWO) {
-					point.setBackground(new Color(20, 80, 20, 255));
-				} else {
-					if (i < FIVE) {
-						point.setBackground(new Color(50, 110, 30, 255));
-					} else {
-						point.setBackground(new Color(50, 110, 30, 255));
-					}
-				}
+				setButtonColor(point, i, j);
 				if (i < FIVE) {
 					blackPanel.add(point);
 				} else {
@@ -109,7 +115,8 @@ public class XiangqiGUI extends JFrame implements IObserver, ActionListener {
 
 		JLabel turn = new JLabel("Next turn:");
 		playerButton = new JButton();
-		playerButton.setMinimumSize(new Dimension(100, 50));
+		playerButton.setMinimumSize(new Dimension(buttonSize + buttonSize,
+				buttonSize));
 		playerButton.setBackground(Color.RED);
 		playerButton.setEnabled(false);
 		playerPanel.add(turn);
@@ -120,7 +127,7 @@ public class XiangqiGUI extends JFrame implements IObserver, ActionListener {
 		textPanel.add(txt);
 
 		JPanel mainPanel = new JPanel();
-		mainPanel.setBorder(BorderFactory.createEmptyBorder(40, 10, 0, 10));
+		mainPanel.setBorder(BorderFactory.createEmptyBorder(btop, bside, 0, bside));
 		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
 		mainPanel.add(blackPanel);
 		mainPanel.add(riverPanel);
@@ -130,12 +137,25 @@ public class XiangqiGUI extends JFrame implements IObserver, ActionListener {
 
 		this.add(mainPanel);
 		this.setContentPane(mainPanel);
-		this.setMinimumSize(new Dimension(550, 720));
+		this.setMinimumSize(new Dimension(mainX, mainY));
 		this.setResizable(false);
 		this.setVisible(true);
 
 		this.bm.addObserver(this);
-		update();
+	}
+
+	private void setButtonColor(JButton point, int i, int j) {
+		if (j >= THREE && j <= FIVE && i >= SEVEN && i <= NINE) {
+			point.setBackground(new Color(fbRB, fbG, fbRB, pbA));
+		} else if (j >= THREE && j <= FIVE && i >= ZERO && i <= TWO) {
+			point.setBackground(new Color(fbRB, fbG, fbRB, pbA));
+		} else {
+			if (i < FIVE) {
+				point.setBackground(new Color(pbR, pbB, pbG, pbA));
+			} else {
+				point.setBackground(new Color(pbR, pbB, pbG, pbA));
+			}
+		}
 	}
 
 	@Override

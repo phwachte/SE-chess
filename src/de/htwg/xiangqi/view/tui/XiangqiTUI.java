@@ -30,7 +30,6 @@ public class XiangqiTUI implements IObserver {
 	public XiangqiTUI(IBoardManager bm) {
 		this.bm = bm;
 		this.bm.addObserver(this);
-		update();
 	}
 
 	/**
