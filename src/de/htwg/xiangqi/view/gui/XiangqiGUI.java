@@ -151,9 +151,9 @@ public class XiangqiGUI extends JFrame implements IObserver, ActionListener {
 			point.setBackground(new Color(FBRB, FBG, FBRB, PBA));
 		} else {
 			if (i < FIVE) {
-				point.setBackground(new Color(PBR, PBB, PBG, PBA));
+				point.setBackground(new Color(PBR, PBG, PBB, PBA));
 			} else {
-				point.setBackground(new Color(PBR, PBB, PBG, PBA));
+				point.setBackground(new Color(PBR, PBG, PBB, PBA));
 			}
 		}
 	}
