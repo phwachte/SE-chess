@@ -1,0 +1,111 @@
+INFO main de.htwg.xiangqi.view.tui - 
+   0   1   2   3   4   5   6   7   8
+0 [BR][BH][BE][BA][BG][BA][BE][BH][BR]
+1 [  ][  ][  ][  ][  ][  ][  ][  ][  ]
+2 [  ][BC][  ][  ][  ][  ][  ][BC][  ]
+3 [BS][  ][BS][  ][BS][  ][BS][  ][BS]
+4 [  ][  ][  ][  ][  ][  ][  ][  ][  ]
+5 [  ][  ][  ][  ][  ][  ][  ][  ][  ]
+6 [RS][  ][RS][  ][RS][  ][RS][  ][RS]
+7 [  ][RC][  ][  ][  ][  ][  ][RC][  ]
+8 [  ][  ][  ][  ][  ][  ][  ][  ][  ]
+9 [RR][RH][RE][RA][RG][RA][RE][RH][RR]
+
+INFO main de.htwg.xiangqi.view.tui - 
+1: Player Red, choose piece and point: 
+INFO AWT-EventQueue-0 de.htwg.xiangqi.view.tui - 
+   0   1   2   3   4   5   6   7   8
+0 [BR][BH][BE][BA][BG][BA][BE][BH][BR]
+1 [  ][  ][  ][  ][  ][  ][  ][  ][  ]
+2 [  ][BC][  ][  ][  ][  ][  ][BC][  ]
+3 [BS][  ][BS][  ][BS][  ][BS][  ][BS]
+4 [  ][  ][  ][  ][  ][  ][  ][  ][  ]
+5 [  ][  ][  ][  ][  ][  ][RS][  ][  ]
+6 [RS][  ][RS][  ][RS][  ][  ][  ][RS]
+7 [  ][RC][  ][  ][  ][  ][  ][RC][  ]
+8 [  ][  ][  ][  ][  ][  ][  ][  ][  ]
+9 [RR][RH][RE][RA][RG][RA][RE][RH][RR]
+
+INFO AWT-EventQueue-0 de.htwg.xiangqi.view.tui - 
+2: Player Black, choose piece and point: 
+INFO AWT-EventQueue-0 de.htwg.xiangqi.view.tui - 
+   0   1   2   3   4   5   6   7   8
+0 [BR][BH][BE][BA][BG][BA][BE][BH][BR]
+1 [  ][  ][  ][  ][  ][  ][  ][  ][  ]
+2 [  ][BC][  ][  ][  ][  ][  ][BC][  ]
+3 [BS][  ][BS][  ][BS][  ][BS][  ][  ]
+4 [  ][  ][  ][  ][  ][  ][  ][  ][BS]
+5 [  ][  ][  ][  ][  ][  ][RS][  ][  ]
+6 [RS][  ][RS][  ][RS][  ][  ][  ][RS]
+7 [  ][RC][  ][  ][  ][  ][  ][RC][  ]
+8 [  ][  ][  ][  ][  ][  ][  ][  ][  ]
+9 [RR][RH][RE][RA][RG][RA][RE][RH][RR]
+
+INFO AWT-EventQueue-0 de.htwg.xiangqi.view.tui - 
+3: Player Red, choose piece and point: 
+INFO AWT-EventQueue-0 de.htwg.xiangqi.view.tui - 
+Input error (3 2 4 2):
+Invalid choose of piece, choose your own piece!
+
+INFO AWT-EventQueue-0 de.htwg.xiangqi.view.tui - 
+3: Player Red, choose piece and point: 
+INFO AWT-EventQueue-0 de.htwg.xiangqi.view.tui - 
+   0   1   2   3   4   5   6   7   8
+0 [BR][BH][BE][BA][BG][BA][BE][BH][BR]
+1 [  ][  ][  ][  ][  ][  ][  ][  ][  ]
+2 [  ][BC][  ][  ][  ][  ][  ][BC][  ]
+3 [BS][  ][BS][  ][BS][  ][BS][  ][  ]
+4 [  ][  ][  ][  ][  ][  ][  ][  ][BS]
+5 [  ][  ][RS][  ][  ][  ][RS][  ][  ]
+6 [RS][  ][  ][  ][RS][  ][  ][  ][RS]
+7 [  ][RC][  ][  ][  ][  ][  ][RC][  ]
+8 [  ][  ][  ][  ][  ][  ][  ][  ][  ]
+9 [RR][RH][RE][RA][RG][RA][RE][RH][RR]
+
+INFO AWT-EventQueue-0 de.htwg.xiangqi.view.tui - 
+4: Player Black, choose piece and point: 
+INFO AWT-EventQueue-0 de.htwg.xiangqi.view.tui - 
+   0   1   2   3   4   5   6   7   8
+0 [BR][BH][BE][BA][BG][BA][BE][BH][BR]
+1 [  ][  ][  ][  ][  ][  ][  ][  ][  ]
+2 [  ][  ][  ][  ][  ][  ][  ][BC][  ]
+3 [BS][  ][BS][  ][BS][  ][BS][  ][  ]
+4 [  ][  ][  ][  ][  ][  ][  ][  ][BS]
+5 [  ][  ][RS][  ][  ][  ][RS][  ][  ]
+6 [RS][  ][  ][  ][RS][  ][  ][  ][RS]
+7 [  ][RC][  ][  ][  ][  ][  ][RC][  ]
+8 [  ][  ][  ][  ][  ][  ][  ][  ][  ]
+9 [RR][BC][RE][RA][RG][RA][RE][RH][RR]
+
+INFO AWT-EventQueue-0 de.htwg.xiangqi.view.tui - 
+5: Player Red, choose piece and point: 
+INFO main de.htwg.xiangqi.view.tui - 
+   0   1   2   3   4   5   6   7   8
+0 [BR][BH][BE][BA][BG][BA][BE][BH][BR]
+1 [  ][  ][  ][  ][  ][  ][  ][  ][  ]
+2 [  ][BC][  ][  ][  ][  ][  ][BC][  ]
+3 [BS][  ][BS][  ][BS][  ][BS][  ][BS]
+4 [  ][  ][  ][  ][  ][  ][  ][  ][  ]
+5 [  ][  ][  ][  ][  ][  ][  ][  ][  ]
+6 [RS][  ][RS][  ][RS][  ][RS][  ][RS]
+7 [  ][RC][  ][  ][  ][  ][  ][RC][  ]
+8 [  ][  ][  ][  ][  ][  ][  ][  ][  ]
+9 [RR][RH][RE][RA][RG][RA][RE][RH][RR]
+
+INFO main de.htwg.xiangqi.view.tui - 
+1: Player Red, choose piece and point: 
+INFO AWT-EventQueue-0 de.htwg.xiangqi.view.tui - 
+   0   1   2   3   4   5   6   7   8
+0 [BR][BH][BE][BA][BG][BA][BE][BH][BR]
+1 [  ][  ][  ][  ][  ][  ][  ][  ][  ]
+2 [  ][BC][  ][  ][  ][  ][  ][BC][  ]
+3 [BS][  ][BS][  ][BS][  ][BS][  ][BS]
+4 [  ][  ][  ][  ][  ][  ][  ][  ][  ]
+5 [  ][  ][  ][  ][  ][  ][  ][  ][RS]
+6 [RS][  ][RS][  ][RS][  ][RS][  ][  ]
+7 [  ][RC][  ][  ][  ][  ][  ][RC][  ]
+8 [  ][  ][  ][  ][  ][  ][  ][  ][  ]
+9 [RR][RH][RE][RA][RG][RA][RE][RH][RR]
+
+INFO AWT-EventQueue-0 de.htwg.xiangqi.view.tui - 
+2: Player Black, choose piece and point: 
