@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Set;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -19,6 +20,7 @@ import com.google.inject.Inject;
 
 import de.htwg.util.observer.IObserver;
 import de.htwg.xiangqi.controller.IBoardManager;
+import de.htwg.xiangqi.view.viewPlugin.viewPlugin;
 
 /**
  * class XiangqiGUI creates and manages a GUI for the game
@@ -60,6 +62,9 @@ public class XiangqiGUI extends JFrame implements IObserver, ActionListener {
 	private StringBuilder sb = new StringBuilder();
 	private boolean click = false;
 	private boolean end = false;
+	
+	/*GUICE MULTIBINDER PLUGIN SET*/
+	private final Set<viewPlugin> plugins;
 
 	/**
 	 * GUI constructor
@@ -68,7 +73,8 @@ public class XiangqiGUI extends JFrame implements IObserver, ActionListener {
 	 *            the BoardManager object
 	 */
 	@Inject
-	public XiangqiGUI(final IBoardManager bm) {
+	public XiangqiGUI(final IBoardManager bm, Set<viewPlugin> set) {
+		this.plugins = set;
 		this.bm = bm;
 		this.setTitle("Xiangqi");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -192,6 +198,11 @@ public class XiangqiGUI extends JFrame implements IObserver, ActionListener {
 					buttonArray[i][j].setIcon(null);
 				}
 			}
+		}
+		
+		/*LET ALL THE PLUGINS THAT WANT TO ADD FUNCTIONALITY ADD IT HERE*/
+		for(viewPlugin plugin : plugins){
+			plugin.updateBoardExtension();
 		}
 	}
 
