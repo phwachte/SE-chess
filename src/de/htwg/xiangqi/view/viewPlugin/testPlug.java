@@ -1,31 +1,41 @@
 package de.htwg.xiangqi.view.viewPlugin;
 
-import de.htwg.xiangqi.controller.BoardManager;
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+
+import de.htwg.xiangqi.view.gui.XiangqiGUI;
 
 public class testPlug implements viewPlugin{
 	
-	private BoardManager bm;
+	private XiangqiGUI gui;
 
 	@Override
-	public void constructorExtension(BoardManager bm) {
-		this.bm = bm;
+	public void constructorExtension(XiangqiGUI gui) {
+		this.gui = gui;
 	}
 
 	@Override
-	public void buttonColorExtension() {
-		// TODO Auto-generated method stub
+	public void setButtonColorExtension() {
 		
+	}
+
+	@Override
+	public void actionPerformedExtension(ActionEvent e) {
+		System.out.println("[JULIS TEST-PLUGIN]:\taction was performed!!!!\n");
 	}
 
 	@Override
 	public void updateBoardExtension() {
-		System.out.println("[JULIS TEST-PLUGIN]: hallo!\n");
+		System.out.println("[JULIS TEST-PLUGIN]:\thallo!\n");
 	}
 
 	@Override
 	public void playersTurnExtension() {
-		// TODO Auto-generated method stub
-		
+		if (gui.bm.getPlayersTurn() == 1) {
+			gui.playerButton.setBackground(Color.GREEN);
+		} else {
+			gui.playerButton.setBackground(Color.BLUE);
+		}
 	}
 
 	@Override

@@ -55,16 +55,17 @@ public class XiangqiGUI extends JFrame implements IObserver, ActionListener {
 	private static final int BTOP = 40;
 	private static final int BSIDE = 10;
 
-	private IBoardManager bm;
-	private JButton[][] buttonArray;
-	private JButton playerButton;
-	private JTextField txt;
-	private StringBuilder sb = new StringBuilder();
-	private boolean click = false;
-	private boolean end = false;
+	public IBoardManager bm;
+	public JButton[][] buttonArray;
+	public JButton playerButton;
+	public JTextField txt;
+	public StringBuilder sb = new StringBuilder();
+	public boolean click = false;
+	public boolean end = false;
 	
 	/*GUICE MULTIBINDER PLUGIN SET*/
 	private final Set<viewPlugin> plugins;
+	
 
 	/**
 	 * GUI constructor
@@ -148,6 +149,11 @@ public class XiangqiGUI extends JFrame implements IObserver, ActionListener {
 		this.setVisible(true);
 
 		this.bm.addObserver(this);
+		
+		/*LET ALL THE PLUGINS THAT WANT TO ADD FUNCTIONALITY ADD IT HERE*/
+		for(viewPlugin plugin : plugins){
+			plugin.constructorExtension(this);
+		}
 	}
 
 	private void setButtonColor(JButton point, int i, int j) {
@@ -161,6 +167,11 @@ public class XiangqiGUI extends JFrame implements IObserver, ActionListener {
 			} else {
 				point.setBackground(new Color(PBR, PBG, PBB, PBA));
 			}
+		}
+		
+		/*LET ALL THE PLUGINS THAT WANT TO ADD FUNCTIONALITY ADD IT HERE*/
+		for(viewPlugin plugin : plugins){
+			plugin.setButtonColorExtension();
 		}
 	}
 
@@ -180,6 +191,11 @@ public class XiangqiGUI extends JFrame implements IObserver, ActionListener {
 		} else {
 			sb.append(jb.getName());
 			click = true;
+		}
+		
+		/*LET ALL THE PLUGINS THAT WANT TO ADD FUNCTIONALITY ADD IT HERE*/
+		for(viewPlugin plugin : plugins){
+			plugin.actionPerformedExtension(e);
 		}
 	}
 
@@ -215,6 +231,10 @@ public class XiangqiGUI extends JFrame implements IObserver, ActionListener {
 		} else {
 			playerButton.setBackground(Color.BLACK);
 		}
+		/*LET ALL THE PLUGINS THAT WANT TO ADD FUNCTIONALITY ADD IT HERE*/
+		for(viewPlugin plugin : plugins){
+			plugin.playersTurnExtension();
+		}
 	}
 
 	@Override
@@ -230,6 +250,11 @@ public class XiangqiGUI extends JFrame implements IObserver, ActionListener {
 			} else {
 				playersTurn();
 			}
+		}
+		
+		/*LET ALL THE PLUGINS THAT WANT TO ADD FUNCTIONALITY ADD IT HERE*/
+		for(viewPlugin plugin : plugins){
+			plugin.updateExtension();
 		}
 	}
 
