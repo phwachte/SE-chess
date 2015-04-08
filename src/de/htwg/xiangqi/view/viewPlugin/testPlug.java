@@ -16,7 +16,7 @@ public class testPlug implements viewPlugin{
 
 	@Override
 	public void setButtonColorExtension() {
-		
+		//TODO auto-generated methode stub
 	}
 
 	@Override
