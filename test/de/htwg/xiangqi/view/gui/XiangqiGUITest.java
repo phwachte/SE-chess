@@ -5,6 +5,10 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+
+import de.htwg.xiangqi.XiangqiGameModule;
 import de.htwg.xiangqi.controller.BoardManager;
 import de.htwg.xiangqi.view.gui.XiangqiGUI;
 
@@ -15,9 +19,10 @@ public class XiangqiGUITest {
 	
 	@Before
 	public void setUp() {
+		Injector injector = Guice.createInjector(new XiangqiGameModule());
 		bm = new BoardManager();
 		bm.setStartBoard();
-		gui = new XiangqiGUI(bm);
+		gui = injector.getInstance(XiangqiGUI.class);
 	}
 	
 	@Test
