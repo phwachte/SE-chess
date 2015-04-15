@@ -31,7 +31,6 @@ public class DB4O_Board implements IDataAccessObject {
 
 	@Override
 	public Object read(final Object obj, boolean wrapper) {
-		/*TODO native or prototype*/
 		List <Board_Wrapper> list = db.query(new Predicate<Board_Wrapper>(){
 			public boolean match(Board_Wrapper bw){
 				return bw.getName().equals((String)obj);
