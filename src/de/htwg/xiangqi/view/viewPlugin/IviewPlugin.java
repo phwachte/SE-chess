@@ -4,8 +4,7 @@ import java.awt.event.ActionEvent;
 
 import de.htwg.xiangqi.view.gui.XiangqiGUI;
 
-public interface viewPlugin {
-	
+public interface IviewPlugin {
 	void constructorExtension(XiangqiGUI gui); //gets boardmanager for the existing context
 	void setButtonColorExtension();
 	void updateBoardExtension();	
