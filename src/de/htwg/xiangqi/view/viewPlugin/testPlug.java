@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 
 import de.htwg.xiangqi.view.gui.XiangqiGUI;
 
-public class testPlug implements viewPlugin{
+public class testPlug implements IviewPlugin{
 	
 	private XiangqiGUI gui;
 

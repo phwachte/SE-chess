@@ -8,9 +8,8 @@ import com.db4o.ObjectContainer;
 import com.db4o.query.Predicate;
 
 import de.htwg.xiangqi.controller.IBoardManager;
-import de.htwg.xiangqi.model.Board;
-import de.htwg.xiangqi.persistence.SaveGame_Wrapper;
 import de.htwg.xiangqi.persistence.IDataAccessObject;
+import de.htwg.xiangqi.persistence.SaveGame_Wrapper;
 
 public class DB4O_Board implements IDataAccessObject {
 	
@@ -24,27 +23,33 @@ public class DB4O_Board implements IDataAccessObject {
 	public void createOrUpdate(Object obj) {
 		try {
 			Date d = new Date();
-			db.store(new SaveGame_Wrapper(d.toString(), (IBoardManager)obj));
+			db.store(new Object(){private int b = 2;});
+			//db.store(new SaveGame_Wrapper(d.toString(), (IBoardManager)obj));
+			System.out.println("bla");
 		} finally {
 			db.close();
+			System.out.println("bla2");
 		}
 	}
 
 	@Override
-	public Object read(final String name, boolean wrapper) {
+	public List<SaveGame_Wrapper> read(final String pattern) {
 		List <SaveGame_Wrapper> list = db.query(new Predicate<SaveGame_Wrapper>(){
 			public boolean match(SaveGame_Wrapper bw){
-				return bw.getName().equals(name);
+				return bw.getName().matches(pattern);
 			}
 		});
 		
-		return wrapper ? list.get(0) : list.get(0).getSaveGame();
+		return list;
 	}
 
 	@Override
 	public void delete(String name) {
 		try {
-			db.delete(read(name, true));
+			List<SaveGame_Wrapper> toIter = read(name);
+			for(SaveGame_Wrapper sgw : toIter){
+				db.delete(sgw.getName());
+			}
 		} finally {
 			db.close();
 		}

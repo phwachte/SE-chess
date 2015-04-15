@@ -1,7 +1,10 @@
 package de.htwg.xiangqi.controller;
 
+import java.util.List;
+
 import de.htwg.util.observer.IObservable;
 import de.htwg.xiangqi.model.Square;
+import de.htwg.xiangqi.persistence.SaveGame_Wrapper;
 
 /**
  * IBoardManager is an interface for the class Piece
@@ -86,7 +89,7 @@ public interface IBoardManager extends IObservable {
 	String pieceAtPoint(int row, int col);
 	
 	void saveGame();
-	
+	List<SaveGame_Wrapper> loadSaveGames();
 	IBoardManager loadGame(String name);
 
 }

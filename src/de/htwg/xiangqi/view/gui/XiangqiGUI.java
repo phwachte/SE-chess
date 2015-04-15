@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import javax.swing.BorderFactory;
@@ -13,6 +15,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -20,7 +25,8 @@ import com.google.inject.Inject;
 
 import de.htwg.util.observer.IObserver;
 import de.htwg.xiangqi.controller.IBoardManager;
-import de.htwg.xiangqi.view.viewPlugin.viewPlugin;
+import de.htwg.xiangqi.persistence.SaveGame_Wrapper;
+import de.htwg.xiangqi.view.viewPlugin.IviewPlugin;
 
 /**
  * class XiangqiGUI creates and manages a GUI for the game
@@ -30,6 +36,9 @@ import de.htwg.xiangqi.view.viewPlugin.viewPlugin;
  */
 @SuppressWarnings("serial")
 public class XiangqiGUI extends JFrame implements IObserver, ActionListener {
+	
+	private static List<SaveGame_Wrapper> saveGames;
+	private static List<JMenuItem> loadableSaveGames;
 
 	private static final int ZERO = 0;
 	private static final int ONE = 1;
@@ -63,8 +72,14 @@ public class XiangqiGUI extends JFrame implements IObserver, ActionListener {
 	public boolean click = false;
 	public boolean end = false;
 	
+	/*persistence*/
+	public JMenuBar jmenubar = new JMenuBar();
+	private JMenu jmenu = new JMenu("Datei");
+	private JMenuItem save = new JMenuItem("Save");
+	private JMenu load = new JMenu("Load");
+	
 	/*GUICE MULTIBINDER PLUGIN SET*/
-	private final Set<viewPlugin> plugins;
+	private final Set<IviewPlugin> plugins;
 	
 
 	/**
@@ -74,7 +89,7 @@ public class XiangqiGUI extends JFrame implements IObserver, ActionListener {
 	 *            the BoardManager object
 	 */
 	@Inject
-	public XiangqiGUI(final IBoardManager bm, Set<viewPlugin> set) {
+	public XiangqiGUI(final IBoardManager bm, Set<IviewPlugin> set) {
 		this.plugins = set;
 		this.bm = bm;
 		this.setTitle("Xiangqi");
@@ -113,7 +128,23 @@ public class XiangqiGUI extends JFrame implements IObserver, ActionListener {
 				}
 			}
 		}
-
+		
+		/*persistence-----------------------------------------------------*/
+		jmenubar.add(jmenu);
+		
+		
+		
+		save.addActionListener(this);
+		load.addActionListener(this);
+		
+		jmenu.add(save);
+		jmenu.add(load);
+		
+		this.setJMenuBar(jmenubar);
+		/*----------------------------------------------------------------*/
+		
+		
+		
 		point = new JButton();
 		point.setBackground(Color.BLUE);
 		point.setBorderPainted(false);
@@ -151,7 +182,7 @@ public class XiangqiGUI extends JFrame implements IObserver, ActionListener {
 		this.bm.addObserver(this);
 		
 		/*LET ALL THE PLUGINS THAT WANT TO ADD FUNCTIONALITY ADD IT HERE*/
-		for(viewPlugin plugin : plugins){
+		for(IviewPlugin plugin : plugins){
 			plugin.constructorExtension(this);
 		}
 	}
@@ -170,7 +201,7 @@ public class XiangqiGUI extends JFrame implements IObserver, ActionListener {
 		}
 		
 		/*LET ALL THE PLUGINS THAT WANT TO ADD FUNCTIONALITY ADD IT HERE*/
-		for(viewPlugin plugin : plugins){
+		for(IviewPlugin plugin : plugins){
 			plugin.setButtonColorExtension();
 		}
 	}
@@ -180,6 +211,32 @@ public class XiangqiGUI extends JFrame implements IObserver, ActionListener {
 		if (end) {
 			return;
 		}
+		
+		
+		if(e.getSource() == save){
+			this.bm.saveGame();
+		}else if(e.getSource() == load){
+			
+			saveGames = this.bm.loadSaveGames();
+			
+			for(SaveGame_Wrapper w : saveGames){
+				JMenuItem jmi = new JMenuItem(w.getName());
+				jmi.addActionListener(this);
+				load.add(jmi);
+				loadableSaveGames.add(jmi);
+			}
+		}
+		
+		int index = 0;
+		for(JMenuItem jmi : loadableSaveGames){
+			if(e.getSource() == jmi){
+				this.bm = saveGames.get(index).getSaveGame();
+			}
+			index++;
+		}
+		
+		
+		
 		JButton jb = (JButton) e.getSource();
 		String choose;
 		if (click) {
@@ -194,7 +251,7 @@ public class XiangqiGUI extends JFrame implements IObserver, ActionListener {
 		}
 		
 		/*LET ALL THE PLUGINS THAT WANT TO ADD FUNCTIONALITY ADD IT HERE*/
-		for(viewPlugin plugin : plugins){
+		for(IviewPlugin plugin : plugins){
 			plugin.actionPerformedExtension(e);
 		}
 	}
@@ -217,7 +274,7 @@ public class XiangqiGUI extends JFrame implements IObserver, ActionListener {
 		}
 		
 		/*LET ALL THE PLUGINS THAT WANT TO ADD FUNCTIONALITY ADD IT HERE*/
-		for(viewPlugin plugin : plugins){
+		for(IviewPlugin plugin : plugins){
 			plugin.updateBoardExtension();
 		}
 	}
@@ -232,7 +289,7 @@ public class XiangqiGUI extends JFrame implements IObserver, ActionListener {
 			playerButton.setBackground(Color.BLACK);
 		}
 		/*LET ALL THE PLUGINS THAT WANT TO ADD FUNCTIONALITY ADD IT HERE*/
-		for(viewPlugin plugin : plugins){
+		for(IviewPlugin plugin : plugins){
 			plugin.playersTurnExtension();
 		}
 	}
@@ -253,7 +310,7 @@ public class XiangqiGUI extends JFrame implements IObserver, ActionListener {
 		}
 		
 		/*LET ALL THE PLUGINS THAT WANT TO ADD FUNCTIONALITY ADD IT HERE*/
-		for(viewPlugin plugin : plugins){
+		for(IviewPlugin plugin : plugins){
 			plugin.updateExtension();
 		}
 	}
