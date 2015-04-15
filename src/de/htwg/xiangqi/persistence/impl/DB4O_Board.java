@@ -30,7 +30,7 @@ public class DB4O_Board implements IDataAccessObject {
 	}
 
 	@Override
-	public Object read(final Object obj) {
+	public Object read(final Object obj, boolean wrapper) {
 		/*TODO native or prototype*/
 		List <Board_Wrapper> list = db.query(new Predicate<Board_Wrapper>(){
 			public boolean match(Board_Wrapper bw){
@@ -38,14 +38,13 @@ public class DB4O_Board implements IDataAccessObject {
 			}
 		});
 		
-		return list.get(0).getBoard();
+		return wrapper ? list.get(0) : list.get(0).getBoard();
 	}
 
 	@Override
 	public void delete(Object obj) {
 		try {
-			/*TODO get the right non wrapper object to delete, then delete wrapper out of db*/
-			db.delete(obj);
+			db.delete(read(obj, true));
 		} finally {
 			db.close();
 		}
