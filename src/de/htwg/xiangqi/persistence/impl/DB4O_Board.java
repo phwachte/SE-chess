@@ -8,6 +8,7 @@ import com.db4o.ObjectContainer;
 import com.db4o.query.Predicate;
 
 import de.htwg.xiangqi.model.Board;
+import de.htwg.xiangqi.persistence.Board_Wrapper;
 import de.htwg.xiangqi.persistence.IDataAccessObject;
 
 public class DB4O_Board implements IDataAccessObject {
@@ -52,32 +53,7 @@ public class DB4O_Board implements IDataAccessObject {
 	
 	
 	
-	private class Board_Wrapper{
-		private String name;
-		private Board board;
-		
-		/*CONSTRUCTOR*/
-		public Board_Wrapper(String name, Board board){
-			this.name = name;
-			this.board = board;
-		}
-		
-		/*GETTERS AND SETTERS*/
-		public String getName() {
-			return name;
-		}
-		public void setName(String name) {
-			this.name = name;
-		}
-		public Board getBoard() {
-			return board;
-		}
-		public void setBoard(Board board) {
-			this.board = board;
-		}
-		
-		
-	}
+	
 	
 	
 
