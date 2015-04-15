@@ -7,8 +7,9 @@ import com.db4o.Db4oEmbedded;
 import com.db4o.ObjectContainer;
 import com.db4o.query.Predicate;
 
+import de.htwg.xiangqi.controller.IBoardManager;
 import de.htwg.xiangqi.model.Board;
-import de.htwg.xiangqi.persistence.Board_Wrapper;
+import de.htwg.xiangqi.persistence.SaveGame_Wrapper;
 import de.htwg.xiangqi.persistence.IDataAccessObject;
 
 public class DB4O_Board implements IDataAccessObject {
@@ -23,27 +24,27 @@ public class DB4O_Board implements IDataAccessObject {
 	public void createOrUpdate(Object obj) {
 		try {
 			Date d = new Date();
-			db.store(new Board_Wrapper(d.toString(), (Board)obj));
+			db.store(new SaveGame_Wrapper(d.toString(), (IBoardManager)obj));
 		} finally {
 			db.close();
 		}
 	}
 
 	@Override
-	public Object read(final Object obj, boolean wrapper) {
-		List <Board_Wrapper> list = db.query(new Predicate<Board_Wrapper>(){
-			public boolean match(Board_Wrapper bw){
-				return bw.getName().equals((String)obj);
+	public Object read(final String name, boolean wrapper) {
+		List <SaveGame_Wrapper> list = db.query(new Predicate<SaveGame_Wrapper>(){
+			public boolean match(SaveGame_Wrapper bw){
+				return bw.getName().equals(name);
 			}
 		});
 		
-		return wrapper ? list.get(0) : list.get(0).getBoard();
+		return wrapper ? list.get(0) : list.get(0).getSaveGame();
 	}
 
 	@Override
-	public void delete(Object obj) {
+	public void delete(String name) {
 		try {
-			db.delete(read(obj, true));
+			db.delete(read(name, true));
 		} finally {
 			db.close();
 		}

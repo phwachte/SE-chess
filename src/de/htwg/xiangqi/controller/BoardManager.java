@@ -1,13 +1,17 @@
 package de.htwg.xiangqi.controller;
 
+import com.google.inject.Guice;
 import com.google.inject.Inject;
+import com.google.inject.Injector;
 import com.google.inject.Singleton;
 
 import de.htwg.util.observer.Observable;
+import de.htwg.xiangqi.XiangqiGameModule;
 import de.htwg.xiangqi.model.Board;
 import de.htwg.xiangqi.model.Piece;
-import de.htwg.xiangqi.model.Square;
 import de.htwg.xiangqi.model.Piece.Player;
+import de.htwg.xiangqi.model.Square;
+import de.htwg.xiangqi.persistence.IDataAccessObject;
 
 /**
  * class BoardManager controls the game
@@ -27,6 +31,10 @@ public class BoardManager extends Observable implements IBoardManager {
 	private Square[][] board;
 	private int moveCounter;
 	private String message;
+	private Injector injector;
+	
+	/*persistence*/
+	private IDataAccessObject dao;
 
 	/**
 	 * create a BoardManager object
@@ -36,6 +44,8 @@ public class BoardManager extends Observable implements IBoardManager {
 		this.b = new Board();
 		this.board = this.b.getBoard();
 		this.moveCounter = 1;
+		this.injector = Guice.createInjector(new XiangqiGameModule());
+		this.dao = injector.getInstance(IDataAccessObject.class);
 	}
 
 	/**
@@ -276,4 +286,15 @@ public class BoardManager extends Observable implements IBoardManager {
 		}
 	}
 
+	
+	/*persistence*/
+	@Override
+	public void saveGame() {
+		this.dao.createOrUpdate(this);
+	}
+
+	@Override
+	public IBoardManager loadGame(String name) {
+		return (IBoardManager)this.dao.read(name, false);
+	}
 }

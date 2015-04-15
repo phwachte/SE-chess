@@ -84,5 +84,9 @@ public interface IBoardManager extends IObservable {
 	 * @return the string which represents the path of the icon
 	 */
 	String pieceAtPoint(int row, int col);
+	
+	void saveGame();
+	
+	IBoardManager loadGame(String name);
 
 }

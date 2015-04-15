@@ -4,7 +4,7 @@ public interface IDataAccessObject {
 
 	void createOrUpdate(Object obj);
 	
-	void delete(Object obj);
+	void delete(String name);
 
-	Object read(Object obj, boolean wrapper);
+	Object read(String name, boolean wrapper);
 }
