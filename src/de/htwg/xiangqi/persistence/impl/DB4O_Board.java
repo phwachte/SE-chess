@@ -12,19 +12,20 @@ import de.htwg.xiangqi.persistence.IDataAccessObject;
 import de.htwg.xiangqi.persistence.SaveGame_Wrapper;
 
 public class DB4O_Board implements IDataAccessObject {
-	
+
 	private ObjectContainer db;
-	
+
 	public DB4O_Board() {
-		db = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "xiangqi.db");
+		db = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(),
+				"xiangqi.db");
 	}
 
 	@Override
 	public void createOrUpdate(Object obj) {
 		try {
 			Date d = new Date();
-			db.store(new Object(){private int b = 2;});
-			//db.store(new SaveGame_Wrapper(d.toString(), (IBoardManager)obj));
+			// db.store(new Object(){private int b = 2;});
+			db.store(new SaveGame_Wrapper(d.toString(), (IBoardManager) obj));
 			System.out.println("bla");
 		} finally {
 			db.close();
@@ -34,12 +35,14 @@ public class DB4O_Board implements IDataAccessObject {
 
 	@Override
 	public List<SaveGame_Wrapper> read(final String pattern) {
-		List <SaveGame_Wrapper> list = db.query(new Predicate<SaveGame_Wrapper>(){
-			public boolean match(SaveGame_Wrapper bw){
-				return bw.getName().matches(pattern);
-			}
-		});
-		
+		List<SaveGame_Wrapper> list = db
+				.query(new Predicate<SaveGame_Wrapper>() {
+					private static final long serialVersionUID = 1L;
+					public boolean match(SaveGame_Wrapper bw) {
+						return bw.getName().matches(pattern);
+					}
+				});
+
 		return list;
 	}
 
@@ -47,18 +50,12 @@ public class DB4O_Board implements IDataAccessObject {
 	public void delete(String name) {
 		try {
 			List<SaveGame_Wrapper> toIter = read(name);
-			for(SaveGame_Wrapper sgw : toIter){
+			for (SaveGame_Wrapper sgw : toIter) {
 				db.delete(sgw.getName());
 			}
 		} finally {
 			db.close();
 		}
 	}
-	
-	
-	
-	
-	
-	
 
 }

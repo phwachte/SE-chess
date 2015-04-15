@@ -10,6 +10,6 @@
 	<classpathentry kind="lib" path="lib/javax.inject.jar"/>
 	<classpathentry kind="lib" path="lib/log4j-1.2.17.jar"/>
 	<classpathentry kind="lib" path="lib/guice-multibindings-3.0.jar"/>
-	<classpathentry kind="lib" path="lib/db4o-8.0.224.15975-all-java5.jar"/>
+	<classpathentry kind="lib" path="Z:/Xiangqi_Softwarearchitektur/lib/db4o-8.0.224.15975-all-java5.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
