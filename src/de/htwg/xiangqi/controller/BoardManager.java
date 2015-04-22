@@ -29,8 +29,6 @@ public class BoardManager extends Observable implements IBoardManager {
 	private static final int TWO = 2;
 	private static final int THREE = 3;
 	private Board b;
-	private Square[][] board;
-	private int moveCounter;
 	private String message;
 	private Injector injector;
 	
@@ -43,8 +41,6 @@ public class BoardManager extends Observable implements IBoardManager {
 	@Inject
 	public BoardManager() {
 		this.b = new Board();
-		this.board = this.b.getBoard();
-		this.moveCounter = 1;
 		this.injector = Guice.createInjector(new XiangqiGameModule());
 		this.dao = injector.getInstance(IDataAccessObject.class);
 	}
@@ -106,7 +102,7 @@ public class BoardManager extends Observable implements IBoardManager {
 		}
 
 		moveTo(chosenRow, chosenCol, targetRow, targetCol);
-		increaseMoveCounter();
+		this.b.increaseMoveCounter();
 
 		if (isCheckmate() != '-') {
 			notifyObservers();
@@ -127,29 +123,8 @@ public class BoardManager extends Observable implements IBoardManager {
 	/**
 	 * @return the board on which is played
 	 */
-	public Square[][] getBoard() {
-		return this.board;
-	}
-
-	/**
-	 * @return the count of valid moves
-	 */
-	public int getMoveCounter() {
-		return this.moveCounter;
-	}
-
-	/**
-	 * increase the count of valid moves
-	 */
-	public void increaseMoveCounter() {
-		++this.moveCounter;
-	}
-
-	/**
-	 * @return the identifying number of the player who is turning next
-	 */
-	public int getPlayersTurn() {
-		return this.moveCounter % NUMBER_OF_PLAYERS;
+	public Board getBoard() {
+		return this.b;
 	}
 
 	/**
@@ -160,10 +135,17 @@ public class BoardManager extends Observable implements IBoardManager {
 		this.b.setPiecesBlack();
 		this.b.fillBoard();
 	}
+	
+	/**
+	 * Set the Board
+	 */
+	public void setBoard(Board b){
+		this.b = b;
+	}
 
 	private Piece chosenPiece(int currentRow, int currentCol) {
 		if (this.b.onBoard(currentRow, currentCol)) {
-			return this.board[currentRow][currentCol].getPiece();
+			return b.getSquareMatrix()[currentRow][currentCol].getPiece();
 		}
 		return null;
 	}
@@ -180,15 +162,15 @@ public class BoardManager extends Observable implements IBoardManager {
 
 	private boolean validMove(Piece piece, int targetRow, int targetCol) {
 		if (this.b.onBoard(targetRow, targetCol)) {
-			return piece.validMove(this.board, targetRow, targetCol);
+			return piece.validMove(b.getSquareMatrix(), targetRow, targetCol);
 		}
 		return false;
 	}
 
 	private boolean movePiece(int currentRow, int currentCol, int targetRow,
 			int targetCol) {
-		Square chosen = this.board[currentRow][currentCol];
-		Square target = this.board[targetRow][targetCol];
+		Square chosen = b.getSquareMatrix()[currentRow][currentCol];
+		Square target = b.getSquareMatrix()[targetRow][targetCol];
 		Piece toCapture = target.getPiece();
 		if (toCapture != null) {
 			if (validCapture(chosen, target)) {
@@ -205,9 +187,9 @@ public class BoardManager extends Observable implements IBoardManager {
 
 	private void moveTo(int currentRow, int currentCol, int targetRow,
 			int targetCol) {
-		Square chosen = this.board[currentRow][currentCol];
+		Square chosen = b.getSquareMatrix()[currentRow][currentCol];
 		Piece chosenPiece = chosen.getPiece();
-		Square target = this.board[targetRow][targetCol];
+		Square target = b.getSquareMatrix()[targetRow][targetCol];
 		chosenPiece.setPosition(targetRow, targetCol);
 		target.setPiece(chosen.getPiece());
 		chosen.setPiece(null);
@@ -258,7 +240,7 @@ public class BoardManager extends Observable implements IBoardManager {
 	 */
 	public String getTUIOutput(int row, int col) {
 		StringBuilder sb = new StringBuilder();
-		Piece piece = board[row][col].getPiece();
+		Piece piece = b.getSquareMatrix()[row][col].getPiece();
 		if (piece != null) {
 			if (piece.getPlayer() == Player.RED) {
 				sb.append("R").append(piece.getPieceType());
@@ -279,9 +261,12 @@ public class BoardManager extends Observable implements IBoardManager {
 	 * @return the string which represents the path of the icon
 	 */
 	public String pieceAtPoint(int row, int col) {
-		Piece current = board[row][col].getPiece();
+		Piece current = b.getSquareMatrix()[row][col].getPiece();
 		if (current != null) {
-			return current.getPieceIcon();
+			/*
+			 * especially and solely for linux because the paths are wrong with \\ we need to use / instead
+			 * */
+			return current.getPieceIcon().replace("\\", "/");
 		} else {
 			return null;
 		}
@@ -291,17 +276,21 @@ public class BoardManager extends Observable implements IBoardManager {
 	/*persistence*/
 	@Override
 	public void saveGame() {
-		this.dao.createOrUpdate(this);
+		this.dao.createOrUpdate(this.b);
 	}
 	
 	@Override
 	public List<SaveGame_Wrapper> loadSaveGames() {
-		System.out.println("in loadSaveGames: " + this.dao.read("*"));
-		return (List<SaveGame_Wrapper>) this.dao.read("*");
+		return (List<SaveGame_Wrapper>) this.dao.read(".*");
 	}
 
 	@Override
 	public IBoardManager loadGame(String name) {
 		return (IBoardManager)this.dao.read(name);
+	}
+
+	@Override
+	public int getPlayersTurn() {
+		return this.b.getMoveCounter()%NUMBER_OF_PLAYERS;
 	}
 }

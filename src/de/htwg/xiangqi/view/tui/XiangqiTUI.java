@@ -61,10 +61,10 @@ public class XiangqiTUI implements IObserver {
 	public void playersTurn() {
 		StringBuilder sb = new StringBuilder();
 		if (bm.getPlayersTurn() == 1) {
-			sb.append(bm.getMoveCounter());
+			sb.append(bm.getBoard().getMoveCounter());
 			sb.append(": Player Red, choose piece and point: ");
 		} else {
-			sb.append(bm.getMoveCounter());
+			sb.append(bm.getBoard().getMoveCounter());
 			sb.append(": Player Black, choose piece and point: ");
 		}
 		logger.info(newLine + sb.toString());

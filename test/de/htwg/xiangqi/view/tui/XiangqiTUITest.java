@@ -23,7 +23,7 @@ public class XiangqiTUITest {
 	@Test
 	public void testPlayersTurn() {
 		tui.playersTurn();
-		bm.increaseMoveCounter();
+		bm.getBoard().increaseMoveCounter();
 		tui.playersTurn();
 	}
 	
@@ -37,7 +37,7 @@ public class XiangqiTUITest {
 		bm.inputMove("9 0 8 5");
 		tui.update();
 		bm.inputMove("9 0 8 0");
-		bm.getBoard()[9][4].getPiece().setIsCaptured(true);
+		bm.getBoard().getSquareMatrix()[9][4].getPiece().setIsCaptured(true);
 		tui.update();
 	}
 	

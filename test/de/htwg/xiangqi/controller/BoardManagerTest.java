@@ -35,10 +35,10 @@ public class BoardManagerTest {
 		assertFalse(bm.inputMove("0 0 0 9"));
 		assertFalse(bm.inputMove("2 1 9 1"));
 		assertFalse(bm.inputMove("2 1 g 1"));
-		bm.getBoard()[0][4].getPiece().setIsCaptured(true);
+		bm.getBoard().getSquareMatrix()[0][4].getPiece().setIsCaptured(true);
 		assertTrue(bm.inputMove("8 0 8 1"));
-		bm.getBoard()[0][4].getPiece().setIsCaptured(false);
-		bm.getBoard()[9][4].getPiece().setIsCaptured(true);
+		bm.getBoard().getSquareMatrix()[0][4].getPiece().setIsCaptured(false);
+		bm.getBoard().getSquareMatrix()[9][4].getPiece().setIsCaptured(true);
 		assertTrue(bm.inputMove("0 0 1 0"));
 	}
 	
@@ -49,40 +49,40 @@ public class BoardManagerTest {
 
 	@Test
 	public void testGetBoard() {
-		assertNotNull(bm.getBoard());
+		assertNotNull(bm.getBoard().getSquareMatrix());
 		board = new Square[10][9];
-		assertSame(board.length, bm.getBoard().length);
+		assertSame(board.length, bm.getBoard().getSquareMatrix().length);
 	}
 
 	@Test
 	public void testMoveCounter() {
-		assertEquals(1, bm.getMoveCounter());
+		assertEquals(1, bm.getBoard().getMoveCounter());
 		assertEquals(1, bm.getPlayersTurn());
-		bm.increaseMoveCounter();
-		assertEquals(2, bm.getMoveCounter());
+		bm.getBoard().increaseMoveCounter();
+		assertEquals(2, bm.getBoard().getMoveCounter());
 		assertEquals(0, bm.getPlayersTurn());
-		bm.increaseMoveCounter();
-		assertEquals(3, bm.getMoveCounter());
+		bm.getBoard().increaseMoveCounter();
+		assertEquals(3, bm.getBoard().getMoveCounter());
 		assertEquals(1, bm.getPlayersTurn());
-		bm.increaseMoveCounter();
-		assertEquals(4, bm.getMoveCounter());
+		bm.getBoard().increaseMoveCounter();
+		assertEquals(4, bm.getBoard().getMoveCounter());
 		assertEquals(0, bm.getPlayersTurn());
 	}
 	
 	@Test
 	public void testSetStartBoard() {
 		bm.setStartBoard();
-		assertEquals('H', bm.getBoard()[9][7].getPiece().getPieceType());
-		assertEquals('S', bm.getBoard()[3][6].getPiece().getPieceType());
+		assertEquals('H', bm.getBoard().getSquareMatrix()[9][7].getPiece().getPieceType());
+		assertEquals('S', bm.getBoard().getSquareMatrix()[3][6].getPiece().getPieceType());
 	}
 	
 	@Test
 	public void testWinnerMessage() {
 		bm.setStartBoard();
-		bm.getBoard()[9][4].getPiece().setIsCaptured(true);
+		bm.getBoard().getSquareMatrix()[9][4].getPiece().setIsCaptured(true);
 		assertEquals("Congratulation player black, you are the winner!", bm.winnerMessage());
-		bm.getBoard()[9][4].getPiece().setIsCaptured(false);
-		bm.getBoard()[0][4].getPiece().setIsCaptured(true);
+		bm.getBoard().getSquareMatrix()[9][4].getPiece().setIsCaptured(false);
+		bm.getBoard().getSquareMatrix()[0][4].getPiece().setIsCaptured(true);
 		assertEquals("Congratulation player red, you are the winner!", bm.winnerMessage());
 	}
 	

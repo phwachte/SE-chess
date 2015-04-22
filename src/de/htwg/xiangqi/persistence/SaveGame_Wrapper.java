@@ -1,13 +1,13 @@
 package de.htwg.xiangqi.persistence;
 
-import de.htwg.xiangqi.controller.IBoardManager;
+import de.htwg.xiangqi.model.Board;
 
 public class SaveGame_Wrapper{
 	private String name;
-	private IBoardManager saveGame;
+	private Board saveGame;
 	
 	/*CONSTRUCTOR*/
-	public SaveGame_Wrapper(String name, IBoardManager saveGame){
+	public SaveGame_Wrapper(String name, Board saveGame){
 		this.name = name;
 		this.saveGame = saveGame;
 	}
@@ -19,10 +19,10 @@ public class SaveGame_Wrapper{
 	public void setName(String name) {
 		this.name = name;
 	}
-	public IBoardManager getSaveGame() {
+	public Board getSaveGame() {
 		return saveGame;
 	}
-	public void setSaveGame(IBoardManager saveGame) {
+	public void setSaveGame(Board saveGame) {
 		this.saveGame = saveGame;
 	}
 	

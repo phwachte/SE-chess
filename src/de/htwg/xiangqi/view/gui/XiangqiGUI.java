@@ -138,6 +138,8 @@ public class XiangqiGUI extends JFrame implements IObserver, ActionListener {
 		jmenu.add(save);
 		jmenu.add(load);
 		
+		updateJMenuBar();
+		
 		this.setJMenuBar(jmenubar);
 		/*----------------------------------------------------------------*/
 		
@@ -203,6 +205,28 @@ public class XiangqiGUI extends JFrame implements IObserver, ActionListener {
 			plugin.setButtonColorExtension();
 		}
 	}
+	
+	private void updateJMenuBar(){
+		loadableSaveGames = new ArrayList<JMenuItem>();
+
+		int index= 0;
+		saveGames = this.bm.loadSaveGames();
+		for(SaveGame_Wrapper w : saveGames){
+			System.out.println("at: " + index++ + " -> " + w.getName());
+			JMenuItem jmi = new JMenuItem(w.getName());
+			jmi.addActionListener(this);
+			load.add(jmi);
+			loadableSaveGames.add(jmi);
+		}
+		
+		load = new JMenu("load");
+		for(JMenuItem jmi : loadableSaveGames){
+			load.add(jmi);
+		}
+		
+		System.out.println(loadableSaveGames.toString());
+		System.out.println(saveGames.toString());
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -210,28 +234,16 @@ public class XiangqiGUI extends JFrame implements IObserver, ActionListener {
 			return;
 		}
 		
-		
 		if(e.getSource() == save){
 			this.bm.saveGame();
-			saveGames = this.bm.loadSaveGames();
-			loadableSaveGames = new ArrayList<JMenuItem>();
-			
-			int index= 0;
-			System.out.println(saveGames.toString());
-			for(SaveGame_Wrapper w : saveGames){
-				System.out.println("at: " + index++ + " -> " + w.getName());
-				JMenuItem jmi = new JMenuItem(w.getName());
-				jmi.addActionListener(this);
-				load.add(jmi);
-				loadableSaveGames.add(jmi);
-			}
+			updateJMenuBar();
 			return;
 		}
 		
 		int index = 0;
 		for(JMenuItem jmi : loadableSaveGames){
 			if(e.getSource() == jmi){
-				this.bm = saveGames.get(index).getSaveGame();
+				this.bm.setBoard(saveGames.get(index).getSaveGame());
 				return;
 			}
 			index++;
