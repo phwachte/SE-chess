@@ -9,4 +9,6 @@ public interface IDataAccessObject {
 	void delete(String name);
 
 	List<SaveGame_Wrapper> read(String name);
+	
+	void cloe();
 }

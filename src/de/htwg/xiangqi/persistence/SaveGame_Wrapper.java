@@ -27,4 +27,14 @@ public class SaveGame_Wrapper{
 	}
 	
 	
+	/*IMPORTANT INHERITED METHODES*/
+	@Override
+	public boolean equals(Object sgw){
+		if(this.name.equals(((SaveGame_Wrapper) sgw).getName())){
+			return true;
+		}
+		return false;
+	}
+	
+	
 }

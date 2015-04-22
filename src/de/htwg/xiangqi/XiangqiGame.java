@@ -63,5 +63,7 @@ public final class XiangqiGame {
 				bm.removeAllObservers();
 			}
 		}
+		
+		/*TODO close database*/
 	}
 }

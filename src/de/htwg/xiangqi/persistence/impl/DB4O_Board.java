@@ -2,6 +2,7 @@ package de.htwg.xiangqi.persistence.impl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import com.db4o.Db4oEmbedded;
 import com.db4o.ObjectContainer;
@@ -23,23 +24,22 @@ public class DB4O_Board implements IDataAccessObject {
 	public void createOrUpdate(Object obj) {
 		try {
 			Date d = new Date();
-			db.store(new Object(){private int b = 2;});
-			//db.store(new SaveGame_Wrapper(d.toString(), (IBoardManager)obj));
-			System.out.println("bla");
-		} finally {
-			db.close();
-			System.out.println("bla2");
-		}
+			//db.store(new Object(){private int b = 2;public String getName(){return "*";}});
+			db.store(new SaveGame_Wrapper(d.toString(), (IBoardManager)obj));
+		} finally{}
 	}
 
 	@Override
 	public List<SaveGame_Wrapper> read(final String pattern) {
+		System.out.println("Pattern is: " + pattern);
 		List <SaveGame_Wrapper> list = db.query(new Predicate<SaveGame_Wrapper>(){
 			public boolean match(SaveGame_Wrapper bw){
-				return bw.getName().matches(pattern);
+				System.out.println("found object, name: " + bw.getName());
+				return Pattern.matches(pattern, bw.getName());
 			}
 		});
 		
+		System.out.println("in read: " + list.toString());
 		return list;
 	}
 
@@ -50,15 +50,11 @@ public class DB4O_Board implements IDataAccessObject {
 			for(SaveGame_Wrapper sgw : toIter){
 				db.delete(sgw.getName());
 			}
-		} finally {
-			db.close();
-		}
+		}finally{}
 	}
-	
-	
-	
-	
-	
-	
 
+	@Override
+	public void cloe() {
+		db.close();
+	}
 }

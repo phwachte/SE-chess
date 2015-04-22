@@ -18,9 +18,7 @@ import de.htwg.xiangqi.persistence.SaveGame_Wrapper;
 
 /**
  * class BoardManager controls the game
- * 
  * @author P. Wachter
- * 
  */
 @Singleton
 public class BoardManager extends Observable implements IBoardManager {
@@ -298,6 +296,7 @@ public class BoardManager extends Observable implements IBoardManager {
 	
 	@Override
 	public List<SaveGame_Wrapper> loadSaveGames() {
+		System.out.println("in loadSaveGames: " + this.dao.read("*"));
 		return (List<SaveGame_Wrapper>) this.dao.read("*");
 	}
 
