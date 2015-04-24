@@ -319,6 +319,7 @@ INFO main de.htwg.xiangqi.view.tui -
 
 INFO main de.htwg.xiangqi.view.tui - 
 1: Player Red, choose piece and point: 
+<<<<<<< HEAD
 INFO main de.htwg.xiangqi.view.tui - 
    0   1   2   3   4   5   6   7   8
 0 [BR][BH][BE][BA][BG][BA][BE][BH][BR]
@@ -1495,3 +1496,5 @@ INFO main de.htwg.xiangqi.view.tui -
 
 INFO main de.htwg.xiangqi.view.tui - 
 1: Player Red, choose piece and point: 
+=======
+>>>>>>> 61b1720ec471db8b9e21663d202354d6b09117fb

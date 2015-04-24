@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.htwg</groupId>
-	<artifactId>SE-Xiangqi</artifactId>
+	<artifactId>SA-Xiangqi</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<build>
 		<sourceDirectory>src</sourceDirectory>
@@ -31,7 +31,44 @@
 			<artifactId> guice-multibindings </artifactId>
 			<version> 3.0 </version>
 		</dependency>
+		<dependency>
+			<groupId>com.db4o</groupId>
+			<artifactId>db4o-full-java5</artifactId>
+			<version>8.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate</artifactId>
+			<version>3.5.4-Final</version>
+			<type>pom</type>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-annotations</artifactId>
+			<version>3.5.6-Final</version>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.26</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.5.8</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<version>1.5.8</version>
+		</dependency>
+		<dependency>
+			<groupId>javassist</groupId>
+			<artifactId>javassist</artifactId>
+			<version>3.12.1.GA</version>
+		</dependency>
 	</dependencies>
+	
 	<distributionManagement>
 		<snapshotRepository>
 			<id>lenny2</id>
@@ -39,4 +76,19 @@
 			<url>http://lenny2.in.htwg-konstanz.de:8081/artifactory/libs-snapshot-local</url>
 		</snapshotRepository>
 	</distributionManagement>
+
+	<!-- Additional Remote Repositories -->
+	<repositories>
+		<repository>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+				<checksumPolicy>fail</checksumPolicy>
+			</snapshots>
+			<id>db4o</id>
+			<name>DB4O</name>
+			<url>http://source.db4o.com/maven</url>
+			<layout>default</layout>
+		</repository>
+	</repositories>
 </project>

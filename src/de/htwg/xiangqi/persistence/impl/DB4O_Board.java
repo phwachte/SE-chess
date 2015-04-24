@@ -14,9 +14,9 @@ import de.htwg.xiangqi.persistence.IDataAccessObject;
 import de.htwg.xiangqi.persistence.SaveGame_Wrapper;
 
 public class DB4O_Board implements IDataAccessObject {
-	
+
 	private ObjectContainer db;
-	
+
 	public DB4O_Board() {
 		db = Db4oEmbedded.openFile("xiangqi.db");
 	}
@@ -46,7 +46,7 @@ public class DB4O_Board implements IDataAccessObject {
 	public void delete(String name) {
 		try {
 			List<SaveGame_Wrapper> toIter = read(name);
-			for(SaveGame_Wrapper sgw : toIter){
+			for (SaveGame_Wrapper sgw : toIter) {
 				db.delete(sgw.getName());
 			}
 		}finally{}
