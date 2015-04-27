@@ -5,7 +5,6 @@ import com.google.inject.multibindings.Multibinder;
 
 import de.htwg.xiangqi.controller.IBoardManager;
 import de.htwg.xiangqi.persistence.IDataAccessObject;
-import de.htwg.xiangqi.view.viewPlugin.testPlug;
 import de.htwg.xiangqi.view.viewPlugin.IviewPlugin;
 import de.htwg.xiangqi.view.viewPlugin.voidPlugin;
 
@@ -31,7 +30,7 @@ public class XiangqiGameModule extends AbstractModule {
 		bind(IBoardManager.class).to(de.htwg.xiangqi.controller.BoardManager.class);
 		
 		/*persistence*/
-		bind(IDataAccessObject.class).to(de.htwg.xiangqi.persistence.impl.DB4O_Board.class);
+		bind(IDataAccessObject.class).to(de.htwg.xiangqi.persistence.DB4O.DB4O_Board.class);
 		
 		/*MULTIBINDER - PLUGINS FOR VIEW*/	    
 	    Multibinder<IviewPlugin> viewPluginBinder = Multibinder.newSetBinder(binder(), IviewPlugin.class);
