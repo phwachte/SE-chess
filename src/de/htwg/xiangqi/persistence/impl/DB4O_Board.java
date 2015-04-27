@@ -53,7 +53,7 @@ public class DB4O_Board implements IDataAccessObject {
 	}
 
 	@Override
-	public void cloe() {
+	public void close() {
 		db.close();
 	}
 }
