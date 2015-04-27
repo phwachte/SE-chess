@@ -224,6 +224,10 @@ public class XiangqiGUI extends JFrame implements IObserver, ActionListener {
 			load.add(jmi);
 		}
 		
+		/*TODO hopefully this will show the new menus*/
+		load.getPopupMenu().pack();
+		
+		
 		System.out.println(loadableSaveGames.toString());
 		System.out.println(saveGames.toString());
 	}
