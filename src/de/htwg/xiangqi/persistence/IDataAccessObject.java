@@ -12,5 +12,5 @@ public interface IDataAccessObject {
 	
 	void close();
 
-	void createOrUpdate(Board obj);
+	void createOrUpdate(Board board);
 }
