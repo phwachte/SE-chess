@@ -21,12 +21,11 @@ public class DB4O_Board implements IDataAccessObject {
 	}
 
 	@Override
-	public void createOrUpdate(Board obj) {
+
+	public void createOrUpdate(Board board) {
 			Date d = new Date();
-			// db.store(new Object(){private int b = 2;public String
-			// getName(){return "*";}});
-			SaveGame_Wrapper sgw = new SaveGame_Wrapper(d.toString(),
-					(Board) obj);
+			//db.store(new Object(){private int b = 2;public String getName(){return "*";}});
+			SaveGame_Wrapper sgw = new SaveGame_Wrapper(d.toString(), (Board) board);
 			db.store(sgw);
 	}
 

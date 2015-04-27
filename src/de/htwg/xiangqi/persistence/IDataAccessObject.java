@@ -1,7 +1,6 @@
 package de.htwg.xiangqi.persistence;
 
 import java.util.List;
-
 import de.htwg.xiangqi.model.Board;
 
 public interface IDataAccessObject {
@@ -14,3 +13,4 @@ public interface IDataAccessObject {
 
 	void createOrUpdate(Board obj);
 }
+
