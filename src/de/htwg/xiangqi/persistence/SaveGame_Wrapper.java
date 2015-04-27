@@ -36,5 +36,10 @@ public class SaveGame_Wrapper{
 		return false;
 	}
 	
+	@Override
+	public String toString(){
+		return name;
+	}
+	
 	
 }

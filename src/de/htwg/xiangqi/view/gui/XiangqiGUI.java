@@ -13,6 +13,7 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -25,6 +26,7 @@ import com.google.inject.Inject;
 
 import de.htwg.util.observer.IObserver;
 import de.htwg.xiangqi.controller.IBoardManager;
+import de.htwg.xiangqi.persistence.PersistenceLoadDialog;
 import de.htwg.xiangqi.persistence.SaveGame_Wrapper;
 import de.htwg.xiangqi.view.viewPlugin.IviewPlugin;
 
@@ -38,7 +40,6 @@ import de.htwg.xiangqi.view.viewPlugin.IviewPlugin;
 public class XiangqiGUI extends JFrame implements IObserver, ActionListener {
 	
 	private static List<SaveGame_Wrapper> saveGames = new ArrayList<SaveGame_Wrapper>();
-	private static List<JMenuItem> loadableSaveGames = new ArrayList<JMenuItem>();
 
 	private static final int ZERO = 0;
 	private static final int ONE = 1;
@@ -76,7 +77,7 @@ public class XiangqiGUI extends JFrame implements IObserver, ActionListener {
 	public JMenuBar jmenubar = new JMenuBar();
 	private JMenu jmenu = new JMenu("Datei");
 	private JMenuItem save = new JMenuItem("Save");
-	private JMenu load = new JMenu("Load");
+	private JMenuItem load = new JMenuItem("Load");
 	
 	/*GUICE MULTIBINDER PLUGIN SET*/
 	private final Set<IviewPlugin> plugins;
@@ -137,8 +138,6 @@ public class XiangqiGUI extends JFrame implements IObserver, ActionListener {
 		
 		jmenu.add(save);
 		jmenu.add(load);
-		
-		updateJMenuBar();
 		
 		this.setJMenuBar(jmenubar);
 		/*----------------------------------------------------------------*/
@@ -206,31 +205,7 @@ public class XiangqiGUI extends JFrame implements IObserver, ActionListener {
 		}
 	}
 	
-	private void updateJMenuBar(){
-		loadableSaveGames = new ArrayList<JMenuItem>();
 
-		int index= 0;
-		saveGames = this.bm.loadSaveGames();
-		for(SaveGame_Wrapper w : saveGames){
-			System.out.println("at: " + index++ + " -> " + w.getName());
-			JMenuItem jmi = new JMenuItem(w.getName());
-			jmi.addActionListener(this);
-			load.add(jmi);
-			loadableSaveGames.add(jmi);
-		}
-		
-		load = new JMenu("load");
-		for(JMenuItem jmi : loadableSaveGames){
-			load.add(jmi);
-		}
-		
-		/*TODO hopefully this will show the new menus*/
-		load.getPopupMenu().pack();
-		
-		
-		System.out.println(loadableSaveGames.toString());
-		System.out.println(saveGames.toString());
-	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -240,17 +215,12 @@ public class XiangqiGUI extends JFrame implements IObserver, ActionListener {
 		
 		if(e.getSource() == save){
 			this.bm.saveGame();
-			updateJMenuBar();
 			return;
-		}
-		
-		int index = 0;
-		for(JMenuItem jmi : loadableSaveGames){
-			if(e.getSource() == jmi){
-				this.bm.setBoard(saveGames.get(index).getSaveGame());
-				return;
-			}
-			index++;
+		}else if(e.getSource() == load){
+			
+			saveGames = this.bm.loadSaveGames();
+			JDialog dialog = new PersistenceLoadDialog(this, this.bm, saveGames);
+			return;
 		}
 		
 		JButton jb = (JButton) e.getSource();

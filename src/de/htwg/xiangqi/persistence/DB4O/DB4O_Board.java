@@ -1,4 +1,4 @@
-package de.htwg.xiangqi.persistence.impl;
+package de.htwg.xiangqi.persistence.DB4O;
 
 import java.util.Date;
 import java.util.List;
@@ -8,7 +8,6 @@ import com.db4o.Db4oEmbedded;
 import com.db4o.ObjectContainer;
 import com.db4o.query.Predicate;
 
-import de.htwg.xiangqi.controller.IBoardManager;
 import de.htwg.xiangqi.model.Board;
 import de.htwg.xiangqi.persistence.IDataAccessObject;
 import de.htwg.xiangqi.persistence.SaveGame_Wrapper;
