@@ -22,37 +22,39 @@ public class DB4O_Board implements IDataAccessObject {
 
 	@Override
 	public void createOrUpdate(Board obj) {
-		try {
 			Date d = new Date();
-			//db.store(new Object(){private int b = 2;public String getName(){return "*";}});
-			SaveGame_Wrapper sgw = new SaveGame_Wrapper(d.toString(), (Board) obj);
+			// db.store(new Object(){private int b = 2;public String
+			// getName(){return "*";}});
+			SaveGame_Wrapper sgw = new SaveGame_Wrapper(d.toString(),
+					(Board) obj);
 			db.store(sgw);
-		} finally{}
 	}
 
 	@Override
 	public List<SaveGame_Wrapper> read(final String pattern) {
-		List <SaveGame_Wrapper> list = db.query(new Predicate<SaveGame_Wrapper>(){
-			public boolean match(SaveGame_Wrapper bw){
-				if(Pattern.matches(pattern, bw.getName()))System.out.println("found object, name: " + bw.getName());
-				return Pattern.matches(pattern, bw.getName());
-			}
-		});
+		List<SaveGame_Wrapper> list = db
+				.query(new Predicate<SaveGame_Wrapper>() {
+					public boolean match(SaveGame_Wrapper bw) {
+						if (Pattern.matches(pattern, bw.getName()))
+							System.out.println("found object, name: "
+									+ bw.getName());
+						return Pattern.matches(pattern, bw.getName());
+					}
+				});
 		return list;
 	}
 
 	@Override
 	public void delete(String name) {
-		try {
+			db = Db4oEmbedded.openFile("xiangqi.db");
 			List<SaveGame_Wrapper> toIter = read(name);
 			for (SaveGame_Wrapper sgw : toIter) {
 				db.delete(sgw.getName());
 			}
-		}finally{}
 	}
 
 	@Override
-	public void cloe() {
+	public void close() {
 		db.close();
 	}
 }

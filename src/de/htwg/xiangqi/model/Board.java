@@ -61,21 +61,20 @@ public class Board {
 	public Piece getRedGeneral() {
 		return this.redGeneral;
 	}
-	
+
 	/**
 	 * increase the count of valid moves
 	 */
 	public void increaseMoveCounter() {
 		++this.moveCounter;
 	}
-	
+
 	/**
 	 * get the current move count
 	 */
 	public int getMoveCounter() {
 		return this.moveCounter;
 	}
-	
 
 	/**
 	 * @return the black general piece
@@ -162,5 +161,71 @@ public class Board {
 			}
 			++i;
 		}
+	}
+
+	@Override
+	public Object clone() {
+		Board b = new Board();
+		b.moveCounter = moveCounter;
+		b.fillBoard();
+		
+		for (int i = 0; i < MAX_ROW; ++i) {
+			for (int o = 0; o < MAX_COL; ++o) {
+				if(board[i][o].getPiece() instanceof PieceAdvisor){
+					if(board[i][o].getPiece().getPlayer() == Player.RED){
+						b.board[i][o] = new Square(new PieceAdvisor(i, o, Player.RED));
+					}else{
+						b.board[i][o] = new Square(new PieceAdvisor(i, o, Player.BLACK));
+					}
+				}
+				else if(board[i][o].getPiece() instanceof PieceCannon){
+					if(board[i][o].getPiece().getPlayer() == Player.RED){
+						b.board[i][o] = new Square(new PieceCannon(i, o, Player.RED));
+					}else{
+						b.board[i][o] = new Square(new PieceCannon(i, o, Player.BLACK));
+					}
+				}
+				else if(board[i][o].getPiece() instanceof PieceChariot){
+					if(board[i][o].getPiece().getPlayer() == Player.RED){
+						b.board[i][o] = new Square(new PieceChariot(i, o, Player.RED));
+					}else{
+						b.board[i][o] = new Square(new PieceChariot(i, o, Player.BLACK));
+					}
+				}
+				else if(board[i][o].getPiece() instanceof PieceElephant){
+					if(board[i][o].getPiece().getPlayer() == Player.RED){
+						b.board[i][o] = new Square(new PieceElephant(i, o, Player.RED));
+					}else{
+						b.board[i][o] = new Square(new PieceElephant(i, o, Player.BLACK));
+					}
+				}
+				else if(board[i][o].getPiece() instanceof PieceGeneral){
+					if(board[i][o].getPiece().getPlayer() == Player.RED){
+						b.board[i][o] = new Square(new PieceGeneral(i, o, Player.RED));
+						b.redGeneral = board[i][o].getPiece();
+					}else{
+						b.board[i][o] = new Square(new PieceGeneral(i, o, Player.BLACK));
+						b.blackGeneral = board[i][o].getPiece();
+					}
+				}
+				else if(board[i][o].getPiece() instanceof PieceHorse){
+					if(board[i][o].getPiece().getPlayer() == Player.RED){
+						b.board[i][o] = new Square(new PieceHorse(i, o, Player.RED));
+					}else{
+						b.board[i][o] = new Square(new PieceHorse(i, o, Player.BLACK));
+					}
+				}
+				else if(board[i][o].getPiece() instanceof PieceSoldier){
+					if(board[i][o].getPiece().getPlayer() == Player.RED){
+						b.board[i][o] = new Square(new PieceSoldier(i, o, Player.RED));
+					}else{
+						b.board[i][o] = new Square(new PieceSoldier(i, o, Player.BLACK));
+					}
+				}else{
+					board[i][o] = new Square(null);
+				}
+			}
+		}
+		return b;
 	}
 }

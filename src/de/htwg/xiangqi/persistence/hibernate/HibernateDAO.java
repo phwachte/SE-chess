@@ -21,7 +21,7 @@ public class HibernateDAO implements IDataAccessObject {
 	}
 
 	@Override
-	public void cloe() {
+	public void close() {
 		// TODO Auto-generated method stub
 		
 	}

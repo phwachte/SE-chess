@@ -4,7 +4,7 @@ import java.util.List;
 
 import de.htwg.util.observer.IObservable;
 import de.htwg.xiangqi.model.Board;
-import de.htwg.xiangqi.model.Square;
+import de.htwg.xiangqi.persistence.IDataAccessObject;
 import de.htwg.xiangqi.persistence.SaveGame_Wrapper;
 
 /**
@@ -84,5 +84,7 @@ public interface IBoardManager extends IObservable {
 	void saveGame();
 	List<SaveGame_Wrapper> loadSaveGames();
 	IBoardManager loadGame(String name);
+	
+	IDataAccessObject getDAO();
 
 }

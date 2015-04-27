@@ -10,7 +10,7 @@ public interface IDataAccessObject {
 
 	List<SaveGame_Wrapper> read(String name);
 	
-	void cloe();
+	void close();
 
 	void createOrUpdate(Board obj);
 }

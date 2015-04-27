@@ -261,6 +261,7 @@ public class BoardManager extends Observable implements IBoardManager {
 	 * @return the string which represents the path of the icon
 	 */
 	public String pieceAtPoint(int row, int col) {
+		System.out.println("row: "+row+", col: "+col);
 		Piece current = b.getSquareMatrix()[row][col].getPiece();
 		if (current != null) {
 			/*
@@ -292,5 +293,10 @@ public class BoardManager extends Observable implements IBoardManager {
 	@Override
 	public int getPlayersTurn() {
 		return this.b.getMoveCounter()%NUMBER_OF_PLAYERS;
+	}
+
+	@Override
+	public IDataAccessObject getDAO() {
+		return dao;
 	}
 }

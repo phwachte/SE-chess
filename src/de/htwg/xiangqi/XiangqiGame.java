@@ -64,6 +64,7 @@ public final class XiangqiGame {
 			}
 		}
 		
-		/*TODO close database*/
+		/*close databse*/
+		bm.getDAO().close();
 	}
 }
