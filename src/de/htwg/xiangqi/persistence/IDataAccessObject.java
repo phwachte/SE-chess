@@ -2,11 +2,15 @@ package de.htwg.xiangqi.persistence;
 
 import java.util.List;
 
-public interface IDataAccessObject {
+import de.htwg.xiangqi.model.Board;
 
-	void createOrUpdate(Object obj);
+public interface IDataAccessObject {
 	
 	void delete(String name);
 
 	List<SaveGame_Wrapper> read(String name);
+	
+	void cloe();
+
+	void createOrUpdate(Board obj);
 }

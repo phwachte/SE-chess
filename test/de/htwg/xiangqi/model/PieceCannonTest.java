@@ -21,7 +21,7 @@ public class PieceCannonTest {
 	@Before
 	public void setUp() {
 		b = new Board();
-		board = b.getBoard();
+		board = b.getSquareMatrix();
 		b.fillBoard();
 	}
 

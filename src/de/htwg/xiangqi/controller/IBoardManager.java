@@ -3,6 +3,7 @@ package de.htwg.xiangqi.controller;
 import java.util.List;
 
 import de.htwg.util.observer.IObservable;
+import de.htwg.xiangqi.model.Board;
 import de.htwg.xiangqi.model.Square;
 import de.htwg.xiangqi.persistence.SaveGame_Wrapper;
 
@@ -37,17 +38,7 @@ public interface IBoardManager extends IObservable {
 	/**
 	 * @return the board on which is played
 	 */
-	Square[][] getBoard();
-
-	/**
-	 * @return the count of valid moves
-	 */
-	int getMoveCounter();
-
-	/**
-	 * increase the count of valid moves
-	 */
-	void increaseMoveCounter();
+	Board getBoard();
 
 	/**
 	 * @return the identifying number of the player who is turning next
@@ -58,6 +49,8 @@ public interface IBoardManager extends IObservable {
 	 * initialize the board
 	 */
 	void setStartBoard();
+	
+	void setBoard(Board b);
 
 	/**
 	 * @return the identifying character of the general, who is captured, if no

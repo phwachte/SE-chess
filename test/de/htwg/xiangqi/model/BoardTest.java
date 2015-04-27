@@ -17,7 +17,7 @@ public class BoardTest {
 	@Before
 	public void setUp() {
 		b = new Board();
-		board = b.getBoard();
+		board = b.getSquareMatrix();
 	}
 	
 	@Test
@@ -25,9 +25,9 @@ public class BoardTest {
 		assertEquals(null, a);
 		a = new Board();
 		assertNotNull(a);
-		assertNotNull(a.getBoard());
+		assertNotNull(a.getSquareMatrix());
 		board = new Square[10][9];
-		assertSame(board.length, a.getBoard().length);
+		assertSame(board.length, a.getSquareMatrix().length);
 	}
 	
 	@Test

@@ -2,16 +2,11 @@ package de.htwg.xiangqi.persistence.hibernate;
 
 import java.util.List;
 
+import de.htwg.xiangqi.model.Board;
 import de.htwg.xiangqi.persistence.IDataAccessObject;
 import de.htwg.xiangqi.persistence.SaveGame_Wrapper;
 
 public class HibernateDAO implements IDataAccessObject {
-
-	@Override
-	public void createOrUpdate(Object obj) {
-		// TODO Auto-generated method stub
-
-	}
 
 	@Override
 	public void delete(String name) {
@@ -23,6 +18,18 @@ public class HibernateDAO implements IDataAccessObject {
 	public List<SaveGame_Wrapper> read(String name) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void cloe() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void createOrUpdate(Board obj) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

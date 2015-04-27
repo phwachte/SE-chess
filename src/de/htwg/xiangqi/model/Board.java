@@ -27,11 +27,14 @@ public class Board {
 	private Piece redGeneral;
 	private Piece blackGeneral;
 
+	private int moveCounter;
+
 	/**
 	 * create a new board with ten rows and nine columns.
 	 */
 	public Board() {
 		this.board = new Square[MAX_ROW][MAX_COL];
+		this.moveCounter = 1;
 	}
 
 	/**
@@ -39,7 +42,7 @@ public class Board {
 	 * 
 	 * @return the board
 	 */
-	public Square[][] getBoard() {
+	public Square[][] getSquareMatrix() {
 		return this.board;
 	}
 
@@ -58,6 +61,21 @@ public class Board {
 	public Piece getRedGeneral() {
 		return this.redGeneral;
 	}
+	
+	/**
+	 * increase the count of valid moves
+	 */
+	public void increaseMoveCounter() {
+		++this.moveCounter;
+	}
+	
+	/**
+	 * get the current move count
+	 */
+	public int getMoveCounter() {
+		return this.moveCounter;
+	}
+	
 
 	/**
 	 * @return the black general piece

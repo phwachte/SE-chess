@@ -34,7 +34,7 @@ public class XiangqiGUITest {
 		bm.inputMove("9 0 8 0");
 		gui.update();
 		assertNull(bm.getMessage());
-		bm.getBoard()[0][4].getPiece().setIsCaptured(true);
+		bm.getBoard().getSquareMatrix()[0][4].getPiece().setIsCaptured(true);
 		gui.update();
 	}
 

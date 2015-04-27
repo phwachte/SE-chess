@@ -2,12 +2,14 @@ package de.htwg.xiangqi.persistence.impl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import com.db4o.Db4oEmbedded;
 import com.db4o.ObjectContainer;
 import com.db4o.query.Predicate;
 
 import de.htwg.xiangqi.controller.IBoardManager;
+import de.htwg.xiangqi.model.Board;
 import de.htwg.xiangqi.persistence.IDataAccessObject;
 import de.htwg.xiangqi.persistence.SaveGame_Wrapper;
 
@@ -16,33 +18,27 @@ public class DB4O_Board implements IDataAccessObject {
 	private ObjectContainer db;
 
 	public DB4O_Board() {
-		db = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(),
-				"xiangqi.db");
+		db = Db4oEmbedded.openFile("xiangqi.db");
 	}
 
 	@Override
-	public void createOrUpdate(Object obj) {
+	public void createOrUpdate(Board obj) {
 		try {
 			Date d = new Date();
-			// db.store(new Object(){private int b = 2;});
-			db.store(new SaveGame_Wrapper(d.toString(), (IBoardManager) obj));
-			System.out.println("bla");
-		} finally {
-			db.close();
-			System.out.println("bla2");
-		}
+			//db.store(new Object(){private int b = 2;public String getName(){return "*";}});
+			SaveGame_Wrapper sgw = new SaveGame_Wrapper(d.toString(), (Board) obj);
+			db.store(sgw);
+		} finally{}
 	}
 
 	@Override
 	public List<SaveGame_Wrapper> read(final String pattern) {
-		List<SaveGame_Wrapper> list = db
-				.query(new Predicate<SaveGame_Wrapper>() {
-					private static final long serialVersionUID = 1L;
-					public boolean match(SaveGame_Wrapper bw) {
-						return bw.getName().matches(pattern);
-					}
-				});
-
+		List <SaveGame_Wrapper> list = db.query(new Predicate<SaveGame_Wrapper>(){
+			public boolean match(SaveGame_Wrapper bw){
+				if(Pattern.matches(pattern, bw.getName()))System.out.println("found object, name: " + bw.getName());
+				return Pattern.matches(pattern, bw.getName());
+			}
+		});
 		return list;
 	}
 
@@ -53,9 +49,11 @@ public class DB4O_Board implements IDataAccessObject {
 			for (SaveGame_Wrapper sgw : toIter) {
 				db.delete(sgw.getName());
 			}
-		} finally {
-			db.close();
-		}
+		}finally{}
 	}
 
+	@Override
+	public void cloe() {
+		db.close();
+	}
 }
