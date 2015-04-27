@@ -228,4 +228,12 @@ public class Board {
 		}
 		return b;
 	}
+
+	public static int getMaxRow() {
+		return MAX_ROW;
+	}
+
+	public static int getMaxCol() {
+		return MAX_COL;
+	}
 }
