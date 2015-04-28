@@ -7,13 +7,15 @@ public class HibernateUtil {
 
 	static SessionFactory sessionFactory;
 	static final AnnotationConfiguration cfg;
-	static{
+
+	static {
 		cfg = new AnnotationConfiguration();
 		cfg.configure("/hibernate.cfg.xml");
 		sessionFactory = cfg.buildSessionFactory();
 	}
 
-	private HibernateUtil() {}
+	private HibernateUtil() {
+	}
 
 	public static SessionFactory getInstance() {
 		return sessionFactory;

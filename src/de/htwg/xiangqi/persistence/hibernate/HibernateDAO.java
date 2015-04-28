@@ -54,28 +54,28 @@ public class HibernateDAO implements IDataAccessObject {
 	private static PersistentBoard copyBoard(Board b) {
 		PersistentBoard pb = new PersistentBoard();
 		pb.setMoveCounter(b.getMoveCounter());
-		pb.setBoard(((Board) b.clone()).getSquareMatrix());
+		pb.setBoard(b.clone().getSquareMatrix());
 
-		short generalCount = 0;
-		Piece p;
-		for (int i = 0; i < Board.getMaxRow(); ++i) {
-			for (int o = 0; o < Board.getMaxCol(); ++o) {
-				p = b.getSquareMatrix()[i][o].getPiece();
-				if (p instanceof PieceGeneral) {
-					if (p.getPlayer() == Player.BLACK) {
-						pb.setBlackGeneral(p);
-					} else {
-						pb.setRedGeneral(p);
-					}
-					if (++generalCount == 2) {
-						break;
-					}
-				}
-			}
-			if (generalCount == 2) {
-				break;
-			}
-		}
+//		short generalCount = 0;
+//		Piece p;
+//		for (int i = 0; i < Board.getMaxRow(); ++i) {
+//			for (int o = 0; o < Board.getMaxCol(); ++o) {
+//				p = b.getSquareMatrix()[i][o].getPiece();
+//				if (p instanceof PieceGeneral) {
+//					if (p.getPlayer() == Player.BLACK) {
+//						pb.setBlackGeneral(p);
+//					} else {
+//						pb.setRedGeneral(p);
+//					}
+//					if (++generalCount == 2) {
+//						break;
+//					}
+//				}
+//			}
+//			if (generalCount == 2) {
+//				break;
+//			}
+//		}
 		return pb;
 	}
 }

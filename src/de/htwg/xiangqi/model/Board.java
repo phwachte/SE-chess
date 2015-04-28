@@ -164,7 +164,7 @@ public class Board {
 	}
 
 	@Override
-	public Object clone() {
+	public Board clone() {
 		Board b = new Board();
 		b.moveCounter = moveCounter;
 		b.fillBoard();
