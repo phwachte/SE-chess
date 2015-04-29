@@ -7,9 +7,6 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import de.htwg.xiangqi.model.Board;
-import de.htwg.xiangqi.model.Piece;
-import de.htwg.xiangqi.model.Piece.Player;
-import de.htwg.xiangqi.model.PieceGeneral;
 import de.htwg.xiangqi.persistence.IDataAccessObject;
 import de.htwg.xiangqi.persistence.SaveGame_Wrapper;
 
@@ -23,7 +20,7 @@ public class HibernateDAO implements IDataAccessObject {
 
 	@Override
 	public List<SaveGame_Wrapper> read(String name) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
