@@ -1,5 +1,6 @@
 package de.htwg.xiangqi.persistence.hibernate;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.HibernateException;
@@ -7,6 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import de.htwg.xiangqi.model.Board;
+import de.htwg.xiangqi.model.Square;
 import de.htwg.xiangqi.persistence.IDataAccessObject;
 import de.htwg.xiangqi.persistence.SaveGame_Wrapper;
 
@@ -51,7 +53,18 @@ public class HibernateDAO implements IDataAccessObject {
 	private static PersistentBoard copyBoard(Board b) {
 		PersistentBoard pb = new PersistentBoard();
 		pb.setMoveCounter(b.getMoveCounter());
-		pb.setBoard(b.clone().getSquareMatrix());
+		Square[][] sq = b.clone().getSquareMatrix();
+		
+		ArrayList<PersistentSquare> list = new ArrayList<PersistentSquare>();
+		for (int i = 0; i < Board.getMaxRow(); ++i) {
+			for (int o = 0; o < Board.getMaxCol(); ++o) {
+				Square tmp =sq[i][o];
+				PersistentSquare psq =new PersistentSquare();
+				psq.setPiece(tmp.getPiece());
+				list.add(psq);
+			}
+		}
+		pb.setSquare(list);
 
 //		short generalCount = 0;
 //		Piece p;
