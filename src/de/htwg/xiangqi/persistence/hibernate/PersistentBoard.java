@@ -5,8 +5,6 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -17,13 +15,12 @@ public class PersistentBoard implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
-	private int boardID;
+	private String boardID;
 
 	@OneToMany(mappedBy = "board")
-	@Column(name = "squares")
-	private List<PersistentSquare> squares;
+	@Column(name = "piece")
+	private List<PersistentPiece> pieces;
 
 	@Column(name = "moveCounter")
 	private int moveCounter;
@@ -39,21 +36,21 @@ public class PersistentBoard implements Serializable {
 	 */
 	public PersistentBoard() {
 	}
-
-	public List<PersistentSquare> getSquare() {
-		return squares;
-	}
-
-	public void setSquare(List<PersistentSquare> square) {
-		this.squares = square;
-	}
-
-	public int getBoardID() {
+	
+	public String getBoardID() {
 		return boardID;
 	}
 
-	public void setBoardID(int boardID) {
+	public void setBoardID(String boardID) {
 		this.boardID = boardID;
+	}
+
+	public List<PersistentPiece> getPieces() {
+		return pieces;
+	}
+
+	public void setPieces(List<PersistentPiece> pieces) {
+		this.pieces = pieces;
 	}
 
 	public int getMoveCounter() {

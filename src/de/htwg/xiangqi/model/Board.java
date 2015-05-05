@@ -1,5 +1,7 @@
 package de.htwg.xiangqi.model;
 
+import java.util.Date;
+
 import de.htwg.xiangqi.model.Piece.Player;
 
 /**
@@ -10,6 +12,7 @@ import de.htwg.xiangqi.model.Piece.Player;
  */
 public class Board {
 
+	private String id;
 	private Square[][] board;
 	private static final int MAX_ROW = 10;
 	private static final int MAX_COL = 9;
@@ -26,15 +29,30 @@ public class Board {
 	private static final int NINE = 9;
 	private Piece redGeneral;
 	private Piece blackGeneral;
-
 	private int moveCounter;
 
 	/**
 	 * create a new board with ten rows and nine columns.
 	 */
 	public Board() {
+		Date d = new Date();
+		this.id = d.toString();
 		this.board = new Square[MAX_ROW][MAX_COL];
 		this.moveCounter = 1;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public String getId() {
+		return id;
+	}
+
+	/**
+	 * @param id
+	 */
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	/**
@@ -47,19 +65,19 @@ public class Board {
 	}
 
 	/**
+	 * @param board
+	 */
+	public void setSquareMatrix(Square[][] board) {
+		this.board = board;
+	}
+
+	/**
 	 * @param targetRow
 	 * @param targetCol
 	 * @return true, if the point is on the board, false, if not
 	 */
 	public boolean onBoard(int targetRow, int targetCol) {
 		return (targetRow >= MIN && targetRow < MAX_ROW && targetCol >= MIN && targetCol < MAX_COL);
-	}
-
-	/**
-	 * @return the red general piece
-	 */
-	public Piece getRedGeneral() {
-		return this.redGeneral;
 	}
 
 	/**
@@ -75,12 +93,40 @@ public class Board {
 	public int getMoveCounter() {
 		return this.moveCounter;
 	}
+	
+	/**
+	 * @param moveCounter
+	 */
+	public void setMoveCounter(int moveCounter) {
+		this.moveCounter = moveCounter;
+	}
+	
+	/**
+	 * @return the red general piece
+	 */
+	public Piece getRedGeneral() {
+		return this.redGeneral;
+	}
 
 	/**
 	 * @return the black general piece
 	 */
 	public Piece getBlackGeneral() {
 		return this.blackGeneral;
+	}
+
+	/**
+	 * @param redGeneral
+	 */
+	public void setRedGeneral(Piece redGeneral) {
+		this.redGeneral = redGeneral;
+	}
+
+	/**
+	 * @param blackGeneral
+	 */
+	public void setBlackGeneral(Piece blackGeneral) {
+		this.blackGeneral = blackGeneral;
 	}
 
 	/**
@@ -171,55 +217,70 @@ public class Board {
 		
 		for (int i = 0; i < MAX_ROW; ++i) {
 			for (int o = 0; o < MAX_COL; ++o) {
-				if(board[i][o].getPiece() instanceof PieceAdvisor){
-					if(board[i][o].getPiece().getPlayer() == Player.RED){
+				Piece p = board[i][o].getPiece();
+				if(p instanceof PieceAdvisor){
+					if(p.getPlayer() == Player.RED){
 						b.board[i][o] = new Square(new PieceAdvisor(i, o, Player.RED));
+						b.board[i][o].getPiece().setIsCaptured(p.getIsCaptured());
 					}else{
 						b.board[i][o] = new Square(new PieceAdvisor(i, o, Player.BLACK));
+						b.board[i][o].getPiece().setIsCaptured(p.getIsCaptured());
 					}
 				}
-				else if(board[i][o].getPiece() instanceof PieceCannon){
-					if(board[i][o].getPiece().getPlayer() == Player.RED){
+				else if(p instanceof PieceCannon){
+					if(p.getPlayer() == Player.RED){
 						b.board[i][o] = new Square(new PieceCannon(i, o, Player.RED));
+						b.board[i][o].getPiece().setIsCaptured(p.getIsCaptured());
 					}else{
 						b.board[i][o] = new Square(new PieceCannon(i, o, Player.BLACK));
+						b.board[i][o].getPiece().setIsCaptured(p.getIsCaptured());
 					}
 				}
-				else if(board[i][o].getPiece() instanceof PieceChariot){
-					if(board[i][o].getPiece().getPlayer() == Player.RED){
+				else if(p instanceof PieceChariot){
+					if(p.getPlayer() == Player.RED){
 						b.board[i][o] = new Square(new PieceChariot(i, o, Player.RED));
+						b.board[i][o].getPiece().setIsCaptured(p.getIsCaptured());
 					}else{
 						b.board[i][o] = new Square(new PieceChariot(i, o, Player.BLACK));
+						b.board[i][o].getPiece().setIsCaptured(p.getIsCaptured());
 					}
 				}
-				else if(board[i][o].getPiece() instanceof PieceElephant){
-					if(board[i][o].getPiece().getPlayer() == Player.RED){
+				else if(p instanceof PieceElephant){
+					if(p.getPlayer() == Player.RED){
 						b.board[i][o] = new Square(new PieceElephant(i, o, Player.RED));
+						b.board[i][o].getPiece().setIsCaptured(p.getIsCaptured());
 					}else{
 						b.board[i][o] = new Square(new PieceElephant(i, o, Player.BLACK));
+						b.board[i][o].getPiece().setIsCaptured(p.getIsCaptured());
 					}
 				}
-				else if(board[i][o].getPiece() instanceof PieceGeneral){
-					if(board[i][o].getPiece().getPlayer() == Player.RED){
+				else if(p instanceof PieceGeneral){
+					if(p.getPlayer() == Player.RED){
 						b.board[i][o] = new Square(new PieceGeneral(i, o, Player.RED));
-						b.redGeneral = board[i][o].getPiece();
+						b.board[i][o].getPiece().setIsCaptured(p.getIsCaptured());
+						b.redGeneral = p;
 					}else{
 						b.board[i][o] = new Square(new PieceGeneral(i, o, Player.BLACK));
-						b.blackGeneral = board[i][o].getPiece();
+						b.board[i][o].getPiece().setIsCaptured(p.getIsCaptured());
+						b.blackGeneral = p;
 					}
 				}
-				else if(board[i][o].getPiece() instanceof PieceHorse){
-					if(board[i][o].getPiece().getPlayer() == Player.RED){
+				else if(p instanceof PieceHorse){
+					if(p.getPlayer() == Player.RED){
 						b.board[i][o] = new Square(new PieceHorse(i, o, Player.RED));
+						b.board[i][o].getPiece().setIsCaptured(p.getIsCaptured());
 					}else{
 						b.board[i][o] = new Square(new PieceHorse(i, o, Player.BLACK));
+						b.board[i][o].getPiece().setIsCaptured(p.getIsCaptured());
 					}
 				}
-				else if(board[i][o].getPiece() instanceof PieceSoldier){
-					if(board[i][o].getPiece().getPlayer() == Player.RED){
+				else if(p instanceof PieceSoldier){
+					if(p.getPlayer() == Player.RED){
 						b.board[i][o] = new Square(new PieceSoldier(i, o, Player.RED));
+						b.board[i][o].getPiece().setIsCaptured(p.getIsCaptured());
 					}else{
 						b.board[i][o] = new Square(new PieceSoldier(i, o, Player.BLACK));
+						b.board[i][o].getPiece().setIsCaptured(p.getIsCaptured());
 					}
 				}else{
 					board[i][o] = new Square(null);
