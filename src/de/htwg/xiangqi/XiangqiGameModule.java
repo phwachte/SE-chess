@@ -31,7 +31,8 @@ public class XiangqiGameModule extends AbstractModule {
 		
 		/*persistence*/
 //		bind(IDataAccessObject.class).to(de.htwg.xiangqi.persistence.DB4O.DB4O_Board.class);
-		bind(IDataAccessObject.class).to(de.htwg.xiangqi.persistence.hibernate.HibernateDAO.class);
+//		bind(IDataAccessObject.class).to(de.htwg.xiangqi.persistence.hibernate.HibernateDAO.class);
+		bind(IDataAccessObject.class).to(de.htwg.xiangqi.persistence.couchdb.CouchDBDAO.class);
 		
 		/*MULTIBINDER - PLUGINS FOR VIEW*/	    
 	    Multibinder<IviewPlugin> viewPluginBinder = Multibinder.newSetBinder(binder(), IviewPlugin.class);

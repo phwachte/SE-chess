@@ -1,4 +1,4 @@
-package de.htwg.xiangqi.persistence.DB4O;
+package de.htwg.xiangqi.persistence.db4o;
 
 import java.util.Date;
 import java.util.List;
@@ -12,11 +12,11 @@ import de.htwg.xiangqi.model.Board;
 import de.htwg.xiangqi.persistence.IDataAccessObject;
 import de.htwg.xiangqi.persistence.SaveGame_Wrapper;
 
-public class DB4O_Board implements IDataAccessObject {
+public class DB4ODAO implements IDataAccessObject {
 
 	private ObjectContainer db;
 
-	public DB4O_Board() {
+	public DB4ODAO() {
 		db = Db4oEmbedded.openFile("xiangqi.db");
 	}
 

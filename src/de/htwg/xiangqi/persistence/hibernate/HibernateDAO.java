@@ -24,6 +24,9 @@ import de.htwg.xiangqi.persistence.SaveGame_Wrapper;
 
 public class HibernateDAO implements IDataAccessObject {
 
+	public HibernateDAO() {
+	}
+
 	@Override
 	public void delete(String boardID) {
 		Transaction tx = null;
@@ -52,11 +55,14 @@ public class HibernateDAO implements IDataAccessObject {
 		Criteria criteria = session.createCriteria(PersistentBoard.class);
 		@SuppressWarnings("unchecked")
 		List<PersistentBoard> results = criteria.list();
+		/* auskommentiert: für den Fall ohne SaveGame_Wrapper */
 		// List<Board> boards = new ArrayList<Board>();
 		// for (PersistentBoard pBoard : results) {
 		// Board board = copyBoard(pBoard);
 		// boards.add(board);
 		// }
+		// return boards;
+
 		List<SaveGame_Wrapper> list = new ArrayList<SaveGame_Wrapper>();
 		for (PersistentBoard pBoard : results) {
 			Board board = copyBoard(pBoard);
@@ -170,12 +176,12 @@ public class HibernateDAO implements IDataAccessObject {
 			for (int o = 0; o < Board.getMaxCol(); ++o) {
 				Piece tmp = sq[i][o].getPiece();
 				if (tmp != null) {
-					PersistentPiece pSquare = new PersistentPiece(
+					PersistentPiece pPiece = new PersistentPiece(
 							tmp.getPosRow(), tmp.getPosColumn(),
 							tmp.getPieceType(), tmp.getPlayer());
-					pSquare.setCaptured(tmp.getIsCaptured());
-					pSquare.setBoard(pBoard);
-					list.add(pSquare);
+					pPiece.setCaptured(tmp.getIsCaptured());
+					pPiece.setBoard(pBoard);
+					list.add(pPiece);
 				}
 			}
 		}
