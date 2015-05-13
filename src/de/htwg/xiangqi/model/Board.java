@@ -1,7 +1,5 @@
 package de.htwg.xiangqi.model;
 
-import java.util.Date;
-
 import de.htwg.xiangqi.model.Piece.Player;
 
 /**
@@ -297,5 +295,10 @@ public class Board {
 
 	public static int getMaxCol() {
 		return MAX_COL;
+	}
+	
+	@Override
+	public String toString(){
+		return sessionName;
 	}
 }
