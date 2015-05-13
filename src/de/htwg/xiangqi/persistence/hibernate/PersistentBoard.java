@@ -25,18 +25,12 @@ public class PersistentBoard implements Serializable {
 	@Column(name = "moveCounter")
 	private int moveCounter;
 
-	// @Column(name = "redGeneral")
-	// private Piece redGeneral;
-	//
-	// @Column(name = "blackGeneral")
-	// private Piece blackGeneral;
-
 	/**
 	 * create a new board with ten rows and nine columns.
 	 */
 	public PersistentBoard() {
 	}
-	
+
 	public String getBoardID() {
 		return boardID;
 	}

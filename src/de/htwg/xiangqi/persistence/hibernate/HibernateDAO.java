@@ -20,7 +20,6 @@ import de.htwg.xiangqi.model.PieceHorse;
 import de.htwg.xiangqi.model.PieceSoldier;
 import de.htwg.xiangqi.model.Square;
 import de.htwg.xiangqi.persistence.IDataAccessObject;
-import de.htwg.xiangqi.persistence.SaveGame_Wrapper;
 
 public class HibernateDAO implements IDataAccessObject {
 
@@ -49,27 +48,18 @@ public class HibernateDAO implements IDataAccessObject {
 	}
 
 	@Override
-	public List<SaveGame_Wrapper> read(String name) {
+	public List<Board> read(String name) {
 		Session session = HibernateUtil.getInstance().getCurrentSession();
 		session.beginTransaction();
 		Criteria criteria = session.createCriteria(PersistentBoard.class);
 		@SuppressWarnings("unchecked")
 		List<PersistentBoard> results = criteria.list();
-		/* auskommentiert: für den Fall ohne SaveGame_Wrapper */
-		// List<Board> boards = new ArrayList<Board>();
-		// for (PersistentBoard pBoard : results) {
-		// Board board = copyBoard(pBoard);
-		// boards.add(board);
-		// }
-		// return boards;
-
-		List<SaveGame_Wrapper> list = new ArrayList<SaveGame_Wrapper>();
+		List<Board> boards = new ArrayList<Board>();
 		for (PersistentBoard pBoard : results) {
 			Board board = copyBoard(pBoard);
-			SaveGame_Wrapper sgw = new SaveGame_Wrapper(board.getId(), board);
-			list.add(sgw);
+			boards.add(board);
 		}
-		return list;
+		return boards;
 	}
 
 	@Override
@@ -101,7 +91,7 @@ public class HibernateDAO implements IDataAccessObject {
 
 	private Board copyBoard(PersistentBoard pBoard) {
 		Board b = new Board();
-		b.setId(pBoard.getBoardID());
+		b.setSessionName(pBoard.getBoardID());
 		b.setMoveCounter(pBoard.getMoveCounter());
 		Square[][] sq = new Square[Board.getMaxRow()][Board.getMaxCol()];
 		Piece redGeneral = null, blackGeneral = null;
@@ -154,7 +144,7 @@ public class HibernateDAO implements IDataAccessObject {
 	}
 
 	private PersistentBoard copyBoard(Board board) {
-		String boardID = board.getId();
+		String boardID = board.getSessionName();
 		Square[][] sq = board.clone().getSquareMatrix();
 		PersistentBoard pBoard;
 		Session session = HibernateUtil.getInstance().getCurrentSession();

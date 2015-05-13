@@ -15,6 +15,7 @@ import org.ektorp.impl.StdCouchDbInstance;
 
 import de.htwg.xiangqi.model.Board;
 import de.htwg.xiangqi.model.Piece;
+import de.htwg.xiangqi.model.Piece.Player;
 import de.htwg.xiangqi.model.PieceAdvisor;
 import de.htwg.xiangqi.model.PieceCannon;
 import de.htwg.xiangqi.model.PieceChariot;
@@ -23,11 +24,7 @@ import de.htwg.xiangqi.model.PieceGeneral;
 import de.htwg.xiangqi.model.PieceHorse;
 import de.htwg.xiangqi.model.PieceSoldier;
 import de.htwg.xiangqi.model.Square;
-import de.htwg.xiangqi.model.Piece.Player;
-import de.htwg.xiangqi.persistence.couchdb.PersistentBoard;
-import de.htwg.xiangqi.persistence.couchdb.PersistentPiece;
 import de.htwg.xiangqi.persistence.IDataAccessObject;
-import de.htwg.xiangqi.persistence.SaveGame_Wrapper;
 
 public class CouchDBDAO implements IDataAccessObject {
 
@@ -36,10 +33,10 @@ public class CouchDBDAO implements IDataAccessObject {
 	public CouchDBDAO() {
 		HttpClient client = null;
 		try {
-//			client = new StdHttpClient.Builder().url(
-//					"http://lenny2.in.htwg-konstanz.de:5984").build();
-			client = new StdHttpClient.Builder().url(
-					"http://127.0.0.1:5984/").build();
+			// client = new StdHttpClient.Builder().url(
+			// "http://lenny2.in.htwg-konstanz.de:5984").build();
+			client = new StdHttpClient.Builder().url("http://127.0.0.1:5984/")
+					.build();
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
@@ -56,29 +53,16 @@ public class CouchDBDAO implements IDataAccessObject {
 	}
 
 	@Override
-	public List<SaveGame_Wrapper> read(String name) {
-		/* auskommentiert: für den Fall ohne SaveGame_Wrapper */
-		// List<Board> boards = new ArrayList<Board>();
-		// ViewQuery vQuery = new ViewQuery().allDocs();
-		// ViewResult vResult = db.queryView(vQuery);
-		// for (Row row : vResult.getRows()) {
-		// PersistentBoard pBoard = db
-		// .find(PersistentBoard.class, row.getId());
-		// boards.add(copyBoard(pBoard));
-		// }
-		// return boards;
-
-		List<SaveGame_Wrapper> list = new ArrayList<SaveGame_Wrapper>();
+	public List<Board> read(String name) {
+		List<Board> boards = new ArrayList<Board>();
 		ViewQuery vQuery = new ViewQuery().allDocs();
 		ViewResult vResult = db.queryView(vQuery);
 		for (Row row : vResult.getRows()) {
 			PersistentBoard pBoard = db
 					.find(PersistentBoard.class, row.getId());
-			Board board = copyBoard(pBoard);
-			SaveGame_Wrapper sgw = new SaveGame_Wrapper(board.getId(), board);
-			list.add(sgw);
+			boards.add(copyBoard(pBoard));
 		}
-		return list;
+		return boards;
 	}
 
 	@Override
@@ -88,16 +72,17 @@ public class CouchDBDAO implements IDataAccessObject {
 
 	@Override
 	public void createOrUpdate(Board board) {
-		PersistentBoard pBoard = db.find(PersistentBoard.class, board.getId());
+		PersistentBoard pBoard = db.find(PersistentBoard.class,
+				board.getSessionName());
 		if (pBoard == null) { // new database entry, else update
-			db.create(board.getId(), copyBoard(board, pBoard));
+			db.create(board.getSessionName(), copyBoard(board, pBoard));
 		} else {
 			db.update(copyBoard(board, pBoard));
 		}
 	}
 
 	private PersistentBoard copyBoard(Board board, PersistentBoard pBoard) {
-		String boardID = board.getId();
+		String boardID = board.getSessionName();
 		Square[][] sq = board.clone().getSquareMatrix();
 		if (pBoard == null) { // new database entry, else update
 			pBoard = new PersistentBoard();
@@ -128,7 +113,7 @@ public class CouchDBDAO implements IDataAccessObject {
 
 	private Board copyBoard(PersistentBoard pBoard) {
 		Board b = new Board();
-		b.setId(pBoard.getBoardID());
+		b.setSessionName(pBoard.getBoardID());
 		b.setMoveCounter(pBoard.getMoveCounter());
 		Square[][] sq = new Square[Board.getMaxRow()][Board.getMaxCol()];
 		Piece redGeneral = null, blackGeneral = null;

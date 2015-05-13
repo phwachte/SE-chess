@@ -12,7 +12,7 @@ import de.htwg.xiangqi.model.Piece.Player;
  */
 public class Board {
 
-	private String id;
+	private String sessionName;
 	private Square[][] board;
 	private static final int MAX_ROW = 10;
 	private static final int MAX_COL = 9;
@@ -35,8 +35,9 @@ public class Board {
 	 * create a new board with ten rows and nine columns.
 	 */
 	public Board() {
-		Date d = new Date();
-		this.id = d.toString();
+//		Date d = new Date();
+//		this.id = d.toString();
+		sessionName = null;
 		this.board = new Square[MAX_ROW][MAX_COL];
 		this.moveCounter = 1;
 	}
@@ -44,15 +45,15 @@ public class Board {
 	/**
 	 * @return the id
 	 */
-	public String getId() {
-		return id;
+	public String getSessionName() {
+		return sessionName;
 	}
 
 	/**
 	 * @param id
 	 */
-	public void setId(String id) {
-		this.id = id;
+	public void setSessionName(String id) {
+		this.sessionName = id;
 	}
 
 	/**

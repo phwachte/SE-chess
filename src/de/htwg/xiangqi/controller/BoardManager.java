@@ -14,7 +14,6 @@ import de.htwg.xiangqi.model.Piece;
 import de.htwg.xiangqi.model.Piece.Player;
 import de.htwg.xiangqi.model.Square;
 import de.htwg.xiangqi.persistence.IDataAccessObject;
-import de.htwg.xiangqi.persistence.SaveGame_Wrapper;
 
 /**
  * class BoardManager controls the game
@@ -280,8 +279,8 @@ public class BoardManager extends Observable implements IBoardManager {
 	}
 	
 	@Override
-	public List<SaveGame_Wrapper> loadSaveGames() {
-		return (List<SaveGame_Wrapper>) this.dao.read(".*");
+	public List<Board> loadSaveGames() {
+		return (List<Board>) this.dao.read(".*");
 	}
 
 	@Override

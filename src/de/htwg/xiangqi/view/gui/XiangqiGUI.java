@@ -19,6 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -26,8 +27,8 @@ import com.google.inject.Inject;
 
 import de.htwg.util.observer.IObserver;
 import de.htwg.xiangqi.controller.IBoardManager;
+import de.htwg.xiangqi.model.Board;
 import de.htwg.xiangqi.persistence.PersistenceLoadDialog;
-import de.htwg.xiangqi.persistence.SaveGame_Wrapper;
 import de.htwg.xiangqi.view.viewPlugin.IviewPlugin;
 
 /**
@@ -39,7 +40,7 @@ import de.htwg.xiangqi.view.viewPlugin.IviewPlugin;
 @SuppressWarnings("serial")
 public class XiangqiGUI extends JFrame implements IObserver, ActionListener {
 	
-	private static List<SaveGame_Wrapper> saveGames = new ArrayList<SaveGame_Wrapper>();
+	private static List<Board> saveGames = new ArrayList<Board>();
 
 	private static final int ZERO = 0;
 	private static final int ONE = 1;
@@ -214,6 +215,9 @@ public class XiangqiGUI extends JFrame implements IObserver, ActionListener {
 		}
 		
 		if(e.getSource() == save){
+			if(this.bm.getBoard().getSessionName() == null){
+				this.bm.getBoard().setSessionName(JOptionPane.showInputDialog("Please input a value"));
+			}
 			this.bm.saveGame();
 			return;
 		}else if(e.getSource() == load){

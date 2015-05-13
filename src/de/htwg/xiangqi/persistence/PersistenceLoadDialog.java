@@ -17,10 +17,10 @@ import de.htwg.xiangqi.model.Board;
 public class PersistenceLoadDialog extends JDialog implements ActionListener{
 	
 	private JButton ok = new JButton("ok"), cancel = new JButton("cancel");
-	private JComboBox<SaveGame_Wrapper> combobox = new JComboBox<SaveGame_Wrapper>();
+	private JComboBox<Board> combobox = new JComboBox<Board>();
 	private IBoardManager bm;
 
-	public PersistenceLoadDialog(JFrame f, final IBoardManager bm, List<SaveGame_Wrapper> list){
+	public PersistenceLoadDialog(JFrame f, final IBoardManager bm, List<Board> list){
 		super(f);
 		
 		this.bm = bm;
@@ -31,7 +31,7 @@ public class PersistenceLoadDialog extends JDialog implements ActionListener{
 		setModal(true);
 		getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 
-		for(SaveGame_Wrapper sgw : list){
+		for(Board sgw : list){
 			combobox.addItem(sgw);
 		}
 
@@ -50,7 +50,7 @@ public class PersistenceLoadDialog extends JDialog implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if((JButton)e.getSource() == ok){
-			bm.setBoard((Board) ((SaveGame_Wrapper)combobox.getSelectedItem()).getSaveGame().clone());
+			bm.setBoard((Board) ((Board)combobox.getSelectedItem()).clone());
 			bm.notifyObservers();
 			this.dispose();
 		}else{

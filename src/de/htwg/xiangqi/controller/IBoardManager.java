@@ -5,7 +5,6 @@ import java.util.List;
 import de.htwg.util.observer.IObservable;
 import de.htwg.xiangqi.model.Board;
 import de.htwg.xiangqi.persistence.IDataAccessObject;
-import de.htwg.xiangqi.persistence.SaveGame_Wrapper;
 
 /**
  * IBoardManager is an interface for the class Piece
@@ -82,7 +81,8 @@ public interface IBoardManager extends IObservable {
 	String pieceAtPoint(int row, int col);
 	
 	void saveGame();
-	List<SaveGame_Wrapper> loadSaveGames();
+	
+	List<Board> loadSaveGames();
 	IBoardManager loadGame(String name);
 	
 	IDataAccessObject getDAO();
