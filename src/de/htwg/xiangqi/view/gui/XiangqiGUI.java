@@ -216,7 +216,7 @@ public class XiangqiGUI extends JFrame implements IObserver, ActionListener {
 		
 		if(e.getSource() == save){
 			if(this.bm.getBoard().getSessionName() == null){
-				this.bm.getBoard().setSessionName(JOptionPane.showInputDialog("Please input a value"));
+				this.bm.getBoard().setSessionName(JOptionPane.showInputDialog("Please input a value"+this.bm.getBoard().getSessionName()));
 			}
 			this.bm.saveGame();
 			return;
