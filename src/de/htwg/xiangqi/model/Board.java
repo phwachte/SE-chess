@@ -212,6 +212,7 @@ public class Board {
 	public Board clone() {
 		Board b = new Board();
 		b.moveCounter = moveCounter;
+		b.setSessionName(this.sessionName);
 		b.fillBoard();
 		
 		for (int i = 0; i < MAX_ROW; ++i) {
@@ -286,6 +287,8 @@ public class Board {
 				}
 			}
 		}
+		
+		
 		return b;
 	}
 
