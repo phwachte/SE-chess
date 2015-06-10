@@ -297,4 +297,8 @@ public class BoardManager extends Observable implements IBoardManager {
 	public IDataAccessObject getDAO() {
 		return dao;
 	}
+	
+	public void close() {
+		this.dao.close();
+	}
 }

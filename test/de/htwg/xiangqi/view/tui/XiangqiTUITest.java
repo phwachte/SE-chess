@@ -2,6 +2,7 @@ package de.htwg.xiangqi.view.tui;
 
 import static org.junit.Assert.assertNotNull;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -39,6 +40,11 @@ public class XiangqiTUITest {
 		bm.inputMove("9 0 8 0");
 		bm.getBoard().getSquareMatrix()[9][4].getPiece().setIsCaptured(true);
 		tui.update();
+	}
+	
+	@After
+	public void tearDown() {
+		bm.close();
 	}
 	
 }
