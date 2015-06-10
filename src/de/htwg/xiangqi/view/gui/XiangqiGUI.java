@@ -208,6 +208,7 @@ public class XiangqiGUI extends JFrame implements IObserver, ActionListener {
 	
 
 
+	@SuppressWarnings("unused")
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (end) {
@@ -216,12 +217,15 @@ public class XiangqiGUI extends JFrame implements IObserver, ActionListener {
 		
 		if(e.getSource() == save){
 			if(this.bm.getBoard().getSessionName() == null){
-				this.bm.getBoard().setSessionName(JOptionPane.showInputDialog("Please input a value"));
+				String newName = JOptionPane.showInputDialog("Please input a value"+this.bm.getBoard().getSessionName());
+				if(newName == null){
+					return;					
+				}
+				this.bm.getBoard().setSessionName(newName);
 			}
 			this.bm.saveGame();
 			return;
 		}else if(e.getSource() == load){
-			
 			saveGames = this.bm.loadSaveGames();
 			JDialog dialog = new PersistenceLoadDialog(this, this.bm, saveGames);
 			return;

@@ -76,9 +76,21 @@ public class HibernateDAO implements IDataAccessObject {
 			session = HibernateUtil.getInstance().getCurrentSession();
 			tx = session.beginTransaction();
 			PersistentBoard pBoard = copyBoard(board);
-			session.saveOrUpdate(pBoard);
+			
+			boolean newEntry = session.get(PersistentBoard.class, board.getSessionName()) == null ? true : false;
+			
+			if(newEntry){
+				session.save(pBoard);
+			}else{
+				session.update(pBoard);
+			}
+			List<PersistentPiece> pieces = pBoard.getPieces();
 			for (PersistentPiece pPiece : pBoard.getPieces()) {
-				session.saveOrUpdate(pPiece);
+				if(newEntry){
+					session.save(pPiece);
+				}else{
+					session.update(pPiece);
+				}
 			}
 			tx.commit();
 		} catch (HibernateException ex) {
@@ -148,7 +160,6 @@ public class HibernateDAO implements IDataAccessObject {
 		Square[][] sq = board.clone().getSquareMatrix();
 		PersistentBoard pBoard;
 		Session session = HibernateUtil.getInstance().getCurrentSession();
-		session.beginTransaction();
 		pBoard = (PersistentBoard) session.get(PersistentBoard.class, boardID);
 		if (pBoard == null) { // new database entry, else update
 			pBoard = new PersistentBoard();
