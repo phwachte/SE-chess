@@ -2,6 +2,7 @@ package de.htwg.xiangqi.view.gui;
 
 import static org.junit.Assert.*;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -25,7 +26,7 @@ public class XiangqiGUITest {
 		gui = injector.getInstance(XiangqiGUI.class);
 	}
 	
-	@Test
+//	@Test
 	public void testUpdate() {
 		assertNull(bm.getMessage());
 		bm.inputMove("9 0 8 5");
@@ -36,6 +37,11 @@ public class XiangqiGUITest {
 		assertNull(bm.getMessage());
 		bm.getBoard().getSquareMatrix()[0][4].getPiece().setIsCaptured(true);
 		gui.update();
+	}
+	
+	@After
+	public void tearDown() {
+		bm.close();
 	}
 
 }
