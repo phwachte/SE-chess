@@ -26,7 +26,7 @@ public class XiangqiGUITest {
 		gui = injector.getInstance(XiangqiGUI.class);
 	}
 	
-	@Test
+//	@Test
 	public void testUpdate() {
 		assertNull(bm.getMessage());
 		bm.inputMove("9 0 8 5");
