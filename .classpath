@@ -29,5 +29,6 @@
 	<classpathentry kind="lib" path="lib/httpclient-cache-4.4.1.jar"/>
 	<classpathentry kind="lib" path="lib/jackson-core-asl-1.9.13.jar"/>
 	<classpathentry kind="lib" path="lib/jackson-mapper-asl-1.9.13.jar"/>
+	<classpathentry kind="lib" path="lib/akka-actor_2.10-2.3.11.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
