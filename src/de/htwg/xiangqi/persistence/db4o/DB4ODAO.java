@@ -3,6 +3,8 @@ package de.htwg.xiangqi.persistence.db4o;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import org.apache.log4j.Logger;
+
 import com.db4o.Db4oEmbedded;
 import com.db4o.ObjectContainer;
 import com.db4o.query.Predicate;
@@ -13,6 +15,8 @@ import de.htwg.xiangqi.persistence.IDataAccessObject;
 public class DB4ODAO implements IDataAccessObject {
 
 	private ObjectContainer db;
+	private Logger logger = Logger
+			.getLogger("de.htwg.xiangqi.persistence.db40.DB4ODAO");
 
 	public DB4ODAO() {
 		db = Db4oEmbedded.openFile("xiangqi.db");
@@ -25,15 +29,14 @@ public class DB4ODAO implements IDataAccessObject {
 
 	@Override
 	public List<Board> read(final String pattern) {
-		List<Board> list = db
-				.query(new Predicate<Board>() {
-					public boolean match(Board b) {
-						if (Pattern.matches(pattern, b.getSessionName()))
-							System.out.println("found object, name: "
-									+ b.getSessionName());
-						return Pattern.matches(pattern, b.getSessionName());
-					}
-				});
+		List<Board> list = db.query(new Predicate<Board>() {
+			public boolean match(Board b) {
+				if (Pattern.matches(pattern, b.getSessionName())) {
+					logger.info("found object, name: " + b.getSessionName());
+				}
+				return Pattern.matches(pattern, b.getSessionName());
+			}
+		});
 		return list;
 	}
 

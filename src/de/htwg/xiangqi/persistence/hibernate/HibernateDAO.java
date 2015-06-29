@@ -23,6 +23,9 @@ import de.htwg.xiangqi.persistence.IDataAccessObject;
 
 public class HibernateDAO implements IDataAccessObject {
 
+	private Piece redGeneral = null;
+	private Piece blackGeneral = null;
+
 	public HibernateDAO() {
 	}
 
@@ -41,8 +44,9 @@ public class HibernateDAO implements IDataAccessObject {
 			session.delete(pBoard);
 			tx.commit();
 		} catch (HibernateException ex) {
-			if (tx != null)
+			if (tx != null) {
 				tx.rollback();
+			}
 			throw new RuntimeException(ex.getMessage());
 		}
 	}
@@ -76,26 +80,28 @@ public class HibernateDAO implements IDataAccessObject {
 			session = HibernateUtil.getInstance().getCurrentSession();
 			tx = session.beginTransaction();
 			PersistentBoard pBoard = copyBoard(board);
-			
-			boolean newEntry = session.get(PersistentBoard.class, board.getSessionName()) == null ? true : false;
-			
-			if(newEntry){
+
+			boolean newEntry = session.get(PersistentBoard.class,
+					board.getSessionName()) == null ? true : false;
+
+			if (newEntry) {
 				session.save(pBoard);
-			}else{
+			} else {
 				session.update(pBoard);
 			}
 			List<PersistentPiece> pieces = pBoard.getPieces();
 			for (PersistentPiece pPiece : pBoard.getPieces()) {
-				if(newEntry){
+				if (newEntry) {
 					session.save(pPiece);
-				}else{
+				} else {
 					session.update(pPiece);
 				}
 			}
 			tx.commit();
 		} catch (HibernateException ex) {
-			if (tx != null)
+			if (tx != null) {
 				tx.rollback();
+			}
 			throw new RuntimeException(ex.getMessage());
 
 		}
@@ -106,9 +112,8 @@ public class HibernateDAO implements IDataAccessObject {
 		b.setSessionName(pBoard.getBoardID());
 		b.setMoveCounter(pBoard.getMoveCounter());
 		Square[][] sq = new Square[Board.getMaxRow()][Board.getMaxCol()];
-		Piece redGeneral = null, blackGeneral = null;
 		for (PersistentPiece pPiece : pBoard.getPieces()) {
-			setPieceToBoard(sq, pPiece, redGeneral, blackGeneral);
+			setPieceToBoard(sq, pPiece);
 		}
 		b.setSquareMatrix(sq);
 		b.setRedGeneral(redGeneral);
@@ -117,8 +122,7 @@ public class HibernateDAO implements IDataAccessObject {
 		return b;
 	}
 
-	private void setPieceToBoard(Square[][] sq, PersistentPiece pPiece,
-			Piece rG, Piece bG) {
+	private void setPieceToBoard(Square[][] sq, PersistentPiece pPiece) {
 		Piece p = null;
 		int row = pPiece.getRow();
 		int col = pPiece.getColumn();
@@ -139,10 +143,10 @@ public class HibernateDAO implements IDataAccessObject {
 		case 'G':
 			if (player == Player.RED) {
 				p = new PieceGeneral(row, col, player);
-				rG = p;
+				redGeneral = p;
 			} else {
 				p = new PieceGeneral(row, col, player);
-				bG = p;
+				blackGeneral = p;
 			}
 			break;
 		case 'H':

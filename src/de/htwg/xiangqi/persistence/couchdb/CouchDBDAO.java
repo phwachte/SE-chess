@@ -29,6 +29,8 @@ import de.htwg.xiangqi.persistence.IDataAccessObject;
 public class CouchDBDAO implements IDataAccessObject {
 
 	private CouchDbConnector db = null;
+	private Piece redGeneral = null;
+	private Piece blackGeneral = null;
 
 	public CouchDBDAO() {
 		HttpClient client = null;
@@ -85,14 +87,13 @@ public class CouchDBDAO implements IDataAccessObject {
 		if (pBoard == null) { // new database entry, else update
 			pBoard = new PersistentBoard();
 		}
-		pBoard.setPieces(getPersistentPieceList(sq, pBoard));
+		pBoard.setPieces(getPersistentPieceList(sq));
 		pBoard.setBoardID(boardID);
 		pBoard.setMoveCounter(board.getMoveCounter());
 		return pBoard;
 	}
 
-	private List<PersistentPiece> getPersistentPieceList(Square[][] sq,
-			PersistentBoard pBoard) {
+	private List<PersistentPiece> getPersistentPieceList(Square[][] sq) {
 		List<PersistentPiece> list = new ArrayList<PersistentPiece>();
 		for (int i = 0; i < Board.getMaxRow(); ++i) {
 			for (int o = 0; o < Board.getMaxCol(); ++o) {
@@ -114,9 +115,8 @@ public class CouchDBDAO implements IDataAccessObject {
 		b.setSessionName(pBoard.getBoardID());
 		b.setMoveCounter(pBoard.getMoveCounter());
 		Square[][] sq = new Square[Board.getMaxRow()][Board.getMaxCol()];
-		Piece redGeneral = null, blackGeneral = null;
 		for (PersistentPiece pPiece : pBoard.getPieces()) {
-			setPieceToBoard(sq, pPiece, redGeneral, blackGeneral);
+			setPieceToBoard(sq, pPiece);
 		}
 		b.setSquareMatrix(sq);
 		b.setRedGeneral(redGeneral);
@@ -125,8 +125,7 @@ public class CouchDBDAO implements IDataAccessObject {
 		return b;
 	}
 
-	private void setPieceToBoard(Square[][] sq, PersistentPiece pPiece,
-			Piece rG, Piece bG) {
+	private void setPieceToBoard(Square[][] sq, PersistentPiece pPiece) {
 		Piece p = null;
 		int row = pPiece.getRow();
 		int col = pPiece.getColumn();
@@ -147,10 +146,10 @@ public class CouchDBDAO implements IDataAccessObject {
 		case 'G':
 			if (player == Player.RED) {
 				p = new PieceGeneral(row, col, player);
-				rG = p;
+				redGeneral = p;
 			} else {
 				p = new PieceGeneral(row, col, player);
-				bG = p;
+				blackGeneral = p;
 			}
 			break;
 		case 'H':
