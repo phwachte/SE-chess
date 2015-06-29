@@ -62,6 +62,20 @@ public class XiangqiGUI extends JFrame implements IObserver, ActionListener {
 	private static final int FBG = 80;
 	private static final int BTOP = 40;
 	private static final int BSIDE = 10;
+	
+	private static final int CASTLE_BLACK_ROW_1 = 0;
+	private static final int CASTLE_BLACK_ROW_2 = 1;
+	private static final int CASTLE_BLACK_ROW_3 = 2;
+	
+	private static final int CASTLE_COL_1 = 3;
+	private static final int CASTLE_COL_2 = 4;
+	private static final int CASTLE_COL_3 = 5;
+	
+	private static final int CASTLE_RED_ROW_1 = 7;
+	private static final int CASTLE_RED_ROW_2 = 8;
+	private static final int CASTLE_RED_ROW_3 = 9;
+	
+	
 
 	private IBoardManager bm;
 	private JButton[][] buttonArray;
@@ -132,24 +146,24 @@ public class XiangqiGUI extends JFrame implements IObserver, ActionListener {
 			}
 		}
 		/*set colour of castle*/
-		buttons[0][4].setBackground(new Color(FBRB, FBG, FBRB, PBA));
-		buttons[0][5].setBackground(new Color(FBRB, FBG, FBRB, PBA));
-		buttons[0][3].setBackground(new Color(FBRB, FBG, FBRB, PBA));
-		buttons[1][4].setBackground(new Color(FBRB, FBG, FBRB, PBA));
-		buttons[1][5].setBackground(new Color(FBRB, FBG, FBRB, PBA));
-		buttons[1][3].setBackground(new Color(FBRB, FBG, FBRB, PBA));
-		buttons[2][4].setBackground(new Color(FBRB, FBG, FBRB, PBA));
-		buttons[2][5].setBackground(new Color(FBRB, FBG, FBRB, PBA));
-		buttons[2][3].setBackground(new Color(FBRB, FBG, FBRB, PBA));
-		buttons[8][4].setBackground(new Color(FBRB, FBG, FBRB, PBA));
-		buttons[8][5].setBackground(new Color(FBRB, FBG, FBRB, PBA));
-		buttons[8][3].setBackground(new Color(FBRB, FBG, FBRB, PBA));
-		buttons[7][4].setBackground(new Color(FBRB, FBG, FBRB, PBA));
-		buttons[7][5].setBackground(new Color(FBRB, FBG, FBRB, PBA));
-		buttons[7][3].setBackground(new Color(FBRB, FBG, FBRB, PBA));
-		buttons[9][4].setBackground(new Color(FBRB, FBG, FBRB, PBA));
-		buttons[9][5].setBackground(new Color(FBRB, FBG, FBRB, PBA));
-		buttons[9][3].setBackground(new Color(FBRB, FBG, FBRB, PBA));
+		buttons[CASTLE_BLACK_ROW_1][CASTLE_COL_1].setBackground(new Color(FBRB, FBG, FBRB, PBA));
+		buttons[CASTLE_BLACK_ROW_1][CASTLE_COL_2].setBackground(new Color(FBRB, FBG, FBRB, PBA));
+		buttons[CASTLE_BLACK_ROW_1][CASTLE_COL_3].setBackground(new Color(FBRB, FBG, FBRB, PBA));
+		buttons[CASTLE_BLACK_ROW_2][CASTLE_COL_1].setBackground(new Color(FBRB, FBG, FBRB, PBA));
+		buttons[CASTLE_BLACK_ROW_2][CASTLE_COL_2].setBackground(new Color(FBRB, FBG, FBRB, PBA));
+		buttons[CASTLE_BLACK_ROW_2][CASTLE_COL_3].setBackground(new Color(FBRB, FBG, FBRB, PBA));
+		buttons[CASTLE_BLACK_ROW_3][CASTLE_COL_1].setBackground(new Color(FBRB, FBG, FBRB, PBA));
+		buttons[CASTLE_BLACK_ROW_3][CASTLE_COL_2].setBackground(new Color(FBRB, FBG, FBRB, PBA));
+		buttons[CASTLE_BLACK_ROW_3][CASTLE_COL_3].setBackground(new Color(FBRB, FBG, FBRB, PBA));
+		buttons[CASTLE_RED_ROW_1][CASTLE_COL_1].setBackground(new Color(FBRB, FBG, FBRB, PBA));
+		buttons[CASTLE_RED_ROW_1][CASTLE_COL_2].setBackground(new Color(FBRB, FBG, FBRB, PBA));
+		buttons[CASTLE_RED_ROW_1][CASTLE_COL_3].setBackground(new Color(FBRB, FBG, FBRB, PBA));
+		buttons[CASTLE_RED_ROW_2][CASTLE_COL_1].setBackground(new Color(FBRB, FBG, FBRB, PBA));
+		buttons[CASTLE_RED_ROW_2][CASTLE_COL_2].setBackground(new Color(FBRB, FBG, FBRB, PBA));
+		buttons[CASTLE_RED_ROW_2][CASTLE_COL_3].setBackground(new Color(FBRB, FBG, FBRB, PBA));
+		buttons[CASTLE_RED_ROW_3][CASTLE_COL_1].setBackground(new Color(FBRB, FBG, FBRB, PBA));
+		buttons[CASTLE_RED_ROW_3][CASTLE_COL_2].setBackground(new Color(FBRB, FBG, FBRB, PBA));
+		buttons[CASTLE_RED_ROW_3][CASTLE_COL_3].setBackground(new Color(FBRB, FBG, FBRB, PBA));
 		
 		
 		
