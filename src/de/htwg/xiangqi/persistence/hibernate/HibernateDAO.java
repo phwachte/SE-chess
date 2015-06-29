@@ -47,7 +47,7 @@ public class HibernateDAO implements IDataAccessObject {
 			if (tx != null) {
 				tx.rollback();
 			}
-			throw new RuntimeException(ex.getMessage());
+			ex.printStackTrace();
 		}
 	}
 
@@ -102,8 +102,7 @@ public class HibernateDAO implements IDataAccessObject {
 			if (tx != null) {
 				tx.rollback();
 			}
-			throw new RuntimeException(ex.getMessage());
-
+			ex.printStackTrace();
 		}
 	}
 
