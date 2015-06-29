@@ -63,16 +63,19 @@ public class CouchDBDAO implements IDataAccessObject {
 		return boards;
 	}
 
+	/*
+	 *  leer implementiert fÃ¼r couchdb
+	 */
 	@Override
 	public void close() {
-		// gibt es für den CouchDbConnector nicht
 	}
 
 	@Override
 	public void createOrUpdate(Board board) {
 		PersistentBoard pBoard = db.find(PersistentBoard.class,
 				board.getSessionName());
-		if (pBoard == null) { // new database entry, else update
+		/*new database entry, else update*/
+		if (pBoard == null) {
 			db.create(board.getSessionName(), copyBoard(board, pBoard));
 		} else {
 			db.update(copyBoard(board, pBoard));
