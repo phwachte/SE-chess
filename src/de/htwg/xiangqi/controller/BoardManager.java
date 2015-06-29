@@ -29,7 +29,6 @@ public class BoardManager extends Observable implements IBoardManager {
 	private static final int THREE = 3;
 	private Board b;
 	private String message;
-	private Injector injector;
 	
 	/*persistence*/
 	private IDataAccessObject dao;
@@ -39,8 +38,9 @@ public class BoardManager extends Observable implements IBoardManager {
 	 */
 	@Inject
 	public BoardManager() {
+		Injector injector;
 		this.b = new Board();
-		this.injector = Guice.createInjector(new XiangqiGameModule());
+		injector = Guice.createInjector(new XiangqiGameModule());
 		this.dao = injector.getInstance(IDataAccessObject.class);
 	}
 

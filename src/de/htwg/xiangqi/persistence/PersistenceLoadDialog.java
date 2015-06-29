@@ -17,6 +17,8 @@ import de.htwg.xiangqi.model.Board;
 
 public class PersistenceLoadDialog extends JDialog implements ActionListener{
 	
+	private static final int WIDTH = 400, HEIGHT = 200;
+	
 	private JButton ok = new JButton("ok"), cancel = new JButton("cancel");
 	private JComboBox combobox;
 	private IBoardManager bm;
@@ -26,7 +28,7 @@ public class PersistenceLoadDialog extends JDialog implements ActionListener{
 		
 		this.bm = bm;
 		
-		setSize(new Dimension(400, 200));
+		setSize(new Dimension(WIDTH, HEIGHT));
 		setTitle("Load Dialog");
 		setResizable(true);
 		setModal(true);

@@ -165,7 +165,8 @@ public class HibernateDAO implements IDataAccessObject {
 		PersistentBoard pBoard;
 		Session session = HibernateUtil.getInstance().getCurrentSession();
 		pBoard = (PersistentBoard) session.get(PersistentBoard.class, boardID);
-		if (pBoard == null) { // new database entry, else update
+		/*new database entry, else update*/
+		if (pBoard == null) { 
 			pBoard = new PersistentBoard();
 		}
 		pBoard.setPieces(getPersistentPieceList(sq, pBoard));

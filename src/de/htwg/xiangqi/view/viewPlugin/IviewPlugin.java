@@ -5,7 +5,10 @@ import java.awt.event.ActionEvent;
 import de.htwg.xiangqi.view.gui.XiangqiGUI;
 
 public interface IviewPlugin {
-	void constructorExtension(XiangqiGUI gui); //gets boardmanager for the existing context
+	/**
+	 * gets boardmanager for the existing context
+	 */
+	void constructorExtension(XiangqiGUI gui); 
 	void setButtonColorExtension();
 	void updateBoardExtension();	
 	void playersTurnExtension();
