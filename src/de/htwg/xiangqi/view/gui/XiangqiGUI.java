@@ -42,12 +42,9 @@ public class XiangqiGUI extends JFrame implements IObserver, ActionListener {
 	
 	private static List<Board> saveGames = new ArrayList<Board>();
 
-	private static final int ZERO = 0;
 	private static final int ONE = 1;
 	private static final int TWO = 2;
-	private static final int THREE = 3;
 	private static final int FIVE = 5;
-	private static final int SEVEN = 7;
 	private static final int NINE = 9;
 	private static final int ROW = 10;
 	private static final int COL = 9;
@@ -114,22 +111,50 @@ public class XiangqiGUI extends JFrame implements IObserver, ActionListener {
 		textPanel.setMaximumSize(new Dimension(PANELX, TEXTY));
 
 		buttonArray = new JButton[ROW][COL];
-		JButton point;
+		
+		JButton [][] buttons = new JButton[10][9];
 		for (int i = 0; i < ROW; ++i) {
 			for (int j = 0; j < COL; ++j) {
+				JButton point;
 				point = new JButton();
 				point.setName("" + i + " " + j + " ");
 				point.setMinimumSize(new Dimension(BUTTONSIZE, BUTTONSIZE));
 				point.addActionListener(this);
 				buttonArray[i][j] = point;
-				setButtonColor(point, i, j);
+				point.setBackground(new Color(PBR, PBG, PBB, PBA));
+//				setButtonColor(point, i, j);
 				if (i < FIVE) {
 					blackPanel.add(point);
 				} else {
 					redPanel.add(point);
 				}
+				buttons[i][j] = point;
 			}
 		}
+		/*set colour of castle*/
+		buttons[0][4].setBackground(new Color(FBRB, FBG, FBRB, PBA));
+		buttons[0][5].setBackground(new Color(FBRB, FBG, FBRB, PBA));
+		buttons[0][3].setBackground(new Color(FBRB, FBG, FBRB, PBA));
+		buttons[1][4].setBackground(new Color(FBRB, FBG, FBRB, PBA));
+		buttons[1][5].setBackground(new Color(FBRB, FBG, FBRB, PBA));
+		buttons[1][3].setBackground(new Color(FBRB, FBG, FBRB, PBA));
+		buttons[2][4].setBackground(new Color(FBRB, FBG, FBRB, PBA));
+		buttons[2][5].setBackground(new Color(FBRB, FBG, FBRB, PBA));
+		buttons[2][3].setBackground(new Color(FBRB, FBG, FBRB, PBA));
+		buttons[8][4].setBackground(new Color(FBRB, FBG, FBRB, PBA));
+		buttons[8][5].setBackground(new Color(FBRB, FBG, FBRB, PBA));
+		buttons[8][3].setBackground(new Color(FBRB, FBG, FBRB, PBA));
+		buttons[7][4].setBackground(new Color(FBRB, FBG, FBRB, PBA));
+		buttons[7][5].setBackground(new Color(FBRB, FBG, FBRB, PBA));
+		buttons[7][3].setBackground(new Color(FBRB, FBG, FBRB, PBA));
+		buttons[9][4].setBackground(new Color(FBRB, FBG, FBRB, PBA));
+		buttons[9][5].setBackground(new Color(FBRB, FBG, FBRB, PBA));
+		buttons[9][3].setBackground(new Color(FBRB, FBG, FBRB, PBA));
+		
+		
+		
+		
+		
 		
 		/*persistence-----------------------------------------------------*/
 		jmenubar.add(jmenu);
@@ -144,12 +169,12 @@ public class XiangqiGUI extends JFrame implements IObserver, ActionListener {
 		/*----------------------------------------------------------------*/
 		
 		
-		
-		point = new JButton();
-		point.setBackground(Color.BLUE);
-		point.setBorderPainted(false);
-		point.setEnabled(false);
-		riverPanel.add(point);
+		JButton riverButton;
+		riverButton = new JButton();
+		riverButton.setBackground(Color.BLUE);
+		riverButton.setBorderPainted(false);
+		riverButton.setEnabled(false);
+		riverPanel.add(riverButton);
 
 		JLabel turn = new JLabel("Next turn:");
 		playerButton = new JButton();
@@ -186,27 +211,6 @@ public class XiangqiGUI extends JFrame implements IObserver, ActionListener {
 			plugin.constructorExtension(this);
 		}
 	}
-
-	private void setButtonColor(JButton point, int i, int j) {
-		if (j >= THREE && j <= FIVE && i >= SEVEN && i <= NINE) {
-			point.setBackground(new Color(FBRB, FBG, FBRB, PBA));
-		} else if (j >= THREE && j <= FIVE && i >= ZERO && i <= TWO) {
-			point.setBackground(new Color(FBRB, FBG, FBRB, PBA));
-		} else {
-			if (i < FIVE) {
-				point.setBackground(new Color(PBR, PBG, PBB, PBA));
-			} else {
-				point.setBackground(new Color(PBR, PBG, PBB, PBA));
-			}
-		}
-		
-		/*LET ALL THE PLUGINS THAT WANT TO ADD FUNCTIONALITY ADD IT HERE*/
-		for(IviewPlugin plugin : plugins){
-			plugin.setButtonColorExtension();
-		}
-	}
-	
-
 
 	@SuppressWarnings("unused")
 	@Override
