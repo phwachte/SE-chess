@@ -67,7 +67,12 @@ public class Board {
 	 * @param board
 	 */
 	public void setSquareMatrix(Square[][] board) {
-		this.board = board;
+		this.board = new Square[Board.MAX_ROW][Board.MAX_COL];
+		for(int i = 0;i < Board.MAX_ROW; i++){
+			for(int o = 0; o < Board.MAX_COL; o++){	
+				this.board[i][o] = board[i][o];
+			}
+		}
 	}
 
 	/**
