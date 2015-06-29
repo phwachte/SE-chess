@@ -6,12 +6,12 @@ import org.hibernate.cfg.AnnotationConfiguration;
 public class HibernateUtil {
 
 	private static SessionFactory sessionFactory;
-	static final AnnotationConfiguration cfg;
+	static final AnnotationConfiguration CFG;
 
 	static {
-		cfg = new AnnotationConfiguration();
-		cfg.configure("/hibernate.cfg.xml");
-		sessionFactory = cfg.buildSessionFactory();
+		CFG = new AnnotationConfiguration();
+		CFG.configure("/hibernate.cfg.xml");
+		sessionFactory = CFG.buildSessionFactory();
 	}
 
 	private HibernateUtil() {
