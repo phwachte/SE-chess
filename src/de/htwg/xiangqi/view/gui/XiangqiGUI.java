@@ -66,16 +66,16 @@ public class XiangqiGUI extends JFrame implements IObserver, ActionListener {
 	private static final int BTOP = 40;
 	private static final int BSIDE = 10;
 
-	public IBoardManager bm;
-	public JButton[][] buttonArray;
-	public JButton playerButton;
-	public JTextField txt;
-	public StringBuilder sb = new StringBuilder();
-	public boolean click = false;
-	public boolean end = false;
+	private IBoardManager bm;
+	private JButton[][] buttonArray;
+	private JButton playerButton;
+	private JTextField txt;
+	private StringBuilder sb = new StringBuilder();
+	private boolean click = false;
+	private boolean end = false;
 	
 	/*persistence*/
-	public JMenuBar jmenubar = new JMenuBar();
+	private JMenuBar jmenubar = new JMenuBar();
 	private JMenu jmenu = new JMenu("Datei");
 	private JMenuItem save = new JMenuItem("Save");
 	private JMenuItem load = new JMenuItem("Load");
@@ -307,6 +307,14 @@ public class XiangqiGUI extends JFrame implements IObserver, ActionListener {
 		for(IviewPlugin plugin : plugins){
 			plugin.updateExtension();
 		}
+	}
+	
+	public IBoardManager getBm() {
+		return bm;
+	}
+
+	public JButton getPlayerButton() {
+		return playerButton;
 	}
 
 }

@@ -33,8 +33,6 @@ public class CouchDBDAO implements IDataAccessObject {
 	public CouchDBDAO() {
 		HttpClient client = null;
 		try {
-			// client = new StdHttpClient.Builder().url(
-			// "http://lenny2.in.htwg-konstanz.de:5984").build();
 			client = new StdHttpClient.Builder().url("http://127.0.0.1:5984/")
 					.build();
 		} catch (MalformedURLException e) {
