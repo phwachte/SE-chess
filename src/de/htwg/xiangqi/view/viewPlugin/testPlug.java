@@ -3,11 +3,14 @@ package de.htwg.xiangqi.view.viewPlugin;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 
+import org.apache.log4j.Logger;
+
 import de.htwg.xiangqi.view.gui.XiangqiGUI;
 
 public class testPlug implements IviewPlugin{
 	
 	private XiangqiGUI gui;
+	private Logger logger = Logger.getLogger("de.htwg.xiangqi.view.viewPlugin.testPlug");
 
 	@Override
 	public void constructorExtension(XiangqiGUI gui) {
@@ -21,12 +24,12 @@ public class testPlug implements IviewPlugin{
 
 	@Override
 	public void actionPerformedExtension(ActionEvent e) {
-		System.out.println("[JULIS TEST-PLUGIN]:\taction was performed!!!!\n");
+		logger.info("[JULIS TEST-PLUGIN]:\taction was performed!!!!\n");
 	}
 
 	@Override
 	public void updateBoardExtension() {
-		System.out.println("[JULIS TEST-PLUGIN]:\thallo!\n");
+		logger.info("[JULIS TEST-PLUGIN]:\thallo!\n");
 	}
 
 	@Override
