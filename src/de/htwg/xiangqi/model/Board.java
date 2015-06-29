@@ -212,7 +212,7 @@ public class Board {
 	}
 
 	@Override
-	public Board clone() {
+	public Board clone() throws CloneNotSupportedException{
 		Board b = new Board();
 		b.moveCounter = moveCounter;
 		b.setSessionName(this.sessionName);

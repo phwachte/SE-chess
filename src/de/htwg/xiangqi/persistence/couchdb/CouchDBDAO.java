@@ -66,7 +66,7 @@ public class CouchDBDAO implements IDataAccessObject {
 	}
 
 	/*
-	 *  leer implementiert für couchdb
+	 * leer implementiert für couchdb
 	 */
 	@Override
 	public void close() {
@@ -77,14 +77,19 @@ public class CouchDBDAO implements IDataAccessObject {
 		PersistentBoard pBoard = db.find(PersistentBoard.class,
 				board.getSessionName());
 		/*new database entry, else update*/
-		if (pBoard == null) {
-			db.create(board.getSessionName(), copyBoard(board, pBoard));
-		} else {
-			db.update(copyBoard(board, pBoard));
+		try{
+			if (pBoard == null) {
+				db.create(board.getSessionName(), copyBoard(board, pBoard));
+			} else {
+				db.update(copyBoard(board, pBoard));
+			}
+		}catch(CloneNotSupportedException ex){
+			ex.printStackTrace();
 		}
 	}
 
-	private PersistentBoard copyBoard(Board board, PersistentBoard pBoard) {
+	private PersistentBoard copyBoard(Board board, PersistentBoard pBoard)
+			throws CloneNotSupportedException {
 		String boardID = board.getSessionName();
 		Square[][] sq = board.clone().getSquareMatrix();
 		/* new database entry, else update */

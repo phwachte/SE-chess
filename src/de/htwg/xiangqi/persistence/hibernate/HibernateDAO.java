@@ -102,6 +102,8 @@ public class HibernateDAO implements IDataAccessObject {
 				tx.rollback();
 			}
 			ex.printStackTrace();
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -157,7 +159,7 @@ public class HibernateDAO implements IDataAccessObject {
 		sq[row][col] = new Square(p);
 	}
 
-	private PersistentBoard copyBoard(Board board) {
+	private PersistentBoard copyBoard(Board board) throws CloneNotSupportedException {
 		String boardID = board.getSessionName();
 		Square[][] sq = board.clone().getSquareMatrix();
 		PersistentBoard pBoard;
