@@ -89,7 +89,6 @@ public class HibernateDAO implements IDataAccessObject {
 			} else {
 				session.update(pBoard);
 			}
-			List<PersistentPiece> pieces = pBoard.getPieces();
 			for (PersistentPiece pPiece : pBoard.getPieces()) {
 				if (newEntry) {
 					session.save(pPiece);

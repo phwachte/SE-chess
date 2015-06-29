@@ -3,7 +3,7 @@ package de.htwg.xiangqi.persistence.hibernate;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
 
-public class HibernateUtil {
+public final class HibernateUtil {
 
 	private static SessionFactory sessionFactory;
 	static final AnnotationConfiguration CFG;

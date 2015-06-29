@@ -87,7 +87,8 @@ public class CouchDBDAO implements IDataAccessObject {
 	private PersistentBoard copyBoard(Board board, PersistentBoard pBoard) {
 		String boardID = board.getSessionName();
 		Square[][] sq = board.clone().getSquareMatrix();
-		if (pBoard == null) { // new database entry, else update
+		/* new database entry, else update */
+		if (pBoard == null) {
 			pBoard = new PersistentBoard();
 		}
 		pBoard.setPieces(getPersistentPieceList(sq));
