@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 
 import de.htwg.xiangqi.view.gui.XiangqiGUI;
 
-public class testPlug implements IviewPlugin{
+public class TestPlug implements IviewPlugin{
 	
 	private XiangqiGUI gui;
 	private Logger logger = Logger.getLogger("de.htwg.xiangqi.view.viewPlugin.testPlug");

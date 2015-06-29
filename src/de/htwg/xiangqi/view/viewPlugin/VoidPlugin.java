@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 
 import de.htwg.xiangqi.view.gui.XiangqiGUI;
 
-public class voidPlugin implements IviewPlugin{
+public class VoidPlugin implements IviewPlugin{
 
 	@Override
 	public void constructorExtension(XiangqiGUI gui) {
