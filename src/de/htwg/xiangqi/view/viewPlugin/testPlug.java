@@ -31,10 +31,10 @@ public class testPlug implements IviewPlugin{
 
 	@Override
 	public void playersTurnExtension() {
-		if (gui.bm.getPlayersTurn() == 1) {
-			gui.playerButton.setBackground(Color.GREEN);
+		if (gui.getBm().getPlayersTurn() == 1) {
+			gui.getPlayerButton().setBackground(Color.GREEN);
 		} else {
-			gui.playerButton.setBackground(Color.BLUE);
+			gui.getPlayerButton().setBackground(Color.BLUE);
 		}
 	}
 

@@ -39,7 +39,7 @@ public class PersistentPiece implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name = "boardid")
-	public PersistentBoard board;
+	private PersistentBoard board;
 
 	public PersistentPiece() {
 	}

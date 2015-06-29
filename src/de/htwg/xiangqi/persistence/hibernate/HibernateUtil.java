@@ -5,7 +5,7 @@ import org.hibernate.cfg.AnnotationConfiguration;
 
 public class HibernateUtil {
 
-	static SessionFactory sessionFactory;
+	private static SessionFactory sessionFactory;
 	static final AnnotationConfiguration cfg;
 
 	static {

@@ -33,8 +33,6 @@ public class Board {
 	 * create a new board with ten rows and nine columns.
 	 */
 	public Board() {
-//		Date d = new Date();
-//		this.id = d.toString();
 		sessionName = null;
 		this.board = new Square[MAX_ROW][MAX_COL];
 		this.moveCounter = 1;

@@ -55,20 +55,4 @@ public class PersistentBoard implements Serializable {
 		this.moveCounter = moveCounter;
 	}
 
-	// public Piece getRedGeneral() {
-	// return redGeneral;
-	// }
-	//
-	// public void setRedGeneral(Piece redGeneral) {
-	// this.redGeneral = redGeneral;
-	// }
-	//
-	// public Piece getBlackGeneral() {
-	// return blackGeneral;
-	// }
-	//
-	// public void setBlackGeneral(Piece blackGeneral) {
-	// this.blackGeneral = blackGeneral;
-	// }
-
 }

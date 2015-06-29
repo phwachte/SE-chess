@@ -18,7 +18,6 @@ import de.htwg.xiangqi.model.Board;
 public class PersistenceLoadDialog extends JDialog implements ActionListener{
 	
 	private JButton ok = new JButton("ok"), cancel = new JButton("cancel");
-//	private JComboBox<Board> combobox = new JComboBox<Board>();
 	private JComboBox combobox;
 	private IBoardManager bm;
 
