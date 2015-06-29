@@ -29,9 +29,8 @@ public class XiangqiGameModule extends AbstractModule {
 	protected void configure() {
 		bind(IBoardManager.class).to(de.htwg.xiangqi.controller.BoardManager.class);
 		
-		/*persistence*/
-		/*bind(IDataAccessObject.class).to(de.htwg.xiangqi.persistence.hibernate.HibernateDAO.class);*/
-		/*bind(IDataAccessObject.class).to(de.htwg.xiangqi.persistence.couchdb.CouchDBDAO.class);*/
+		/* persistence */
+		/* persistence.hibernate.HibernateDAO.class || persistence.couchdb.CouchDBDAO.class */
 		bind(IDataAccessObject.class).to(de.htwg.xiangqi.persistence.db4o.DB4ODAO.class);
 		
 		
