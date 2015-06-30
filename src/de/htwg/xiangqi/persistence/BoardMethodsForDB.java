@@ -17,6 +17,8 @@ public class BoardMethodsForDB{
 	private static Piece redGeneral = null;
 	private static Piece blackGeneral = null;
 	
+	private BoardMethodsForDB(){}
+	
 	public static Board copyBoard(IPersistentBoard pBoard) {
 		Board b = new Board();
 		b.setSessionName(pBoard.getBoardID());

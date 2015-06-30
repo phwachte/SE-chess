@@ -80,13 +80,16 @@ public class CouchDBDAO implements IDataAccessObject {
 		}
 	}
 
-	private PersistentBoard copyBoard(Board board, PersistentBoard pBoard)
+	private PersistentBoard copyBoard(Board board, PersistentBoard pB)
 			throws CloneNotSupportedException {
+		PersistentBoard pBoard;
 		String boardID = board.getSessionName();
 		Square[][] sq = board.clone().getSquareMatrix();
 		/* new database entry, else update */
-		if (pBoard == null) {
+		if (pB == null) {
 			pBoard = new PersistentBoard();
+		}else{
+			pBoard = pB;
 		}
 		pBoard.setPieces(getPersistentPieceList(sq));
 		pBoard.setBoardID(boardID);
