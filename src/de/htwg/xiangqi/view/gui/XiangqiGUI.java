@@ -126,7 +126,7 @@ public class XiangqiGUI extends JFrame implements IObserver, ActionListener {
 
 		buttonArray = new JButton[ROW][COL];
 		
-		JButton [][] buttons = new JButton[10][9];
+		JButton [][] buttons = new JButton[Board.getMaxRow()][Board.getMaxCol()];
 		for (int i = 0; i < ROW; ++i) {
 			for (int j = 0; j < COL; ++j) {
 				JButton point;

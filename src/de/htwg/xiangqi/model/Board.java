@@ -1,5 +1,7 @@
 package de.htwg.xiangqi.model;
 
+import com.google.inject.Injector;
+
 import de.htwg.xiangqi.model.Piece.Player;
 
 /**
@@ -232,6 +234,7 @@ public class Board {
 				}
 				else if(p instanceof PieceCannon){
 					if(p.getPlayer() == Player.RED){
+						b.board[i][o] = new Square(new p.);
 						b.board[i][o] = new Square(new PieceCannon(i, o, Player.RED));
 						b.board[i][o].getPiece().setIsCaptured(p.getIsCaptured());
 					}else{
@@ -306,5 +309,9 @@ public class Board {
 	@Override
 	public String toString(){
 		return sessionName;
+	}
+	
+	abstract class cloneState{
+		public 
 	}
 }
