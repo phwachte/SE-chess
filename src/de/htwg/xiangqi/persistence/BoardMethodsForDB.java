@@ -12,7 +12,7 @@ import de.htwg.xiangqi.model.PieceSoldier;
 import de.htwg.xiangqi.model.Square;
 import de.htwg.xiangqi.model.Piece.Player;
 
-public class BoardMethodsForDB{
+public final class BoardMethodsForDB{
 	
 	private static Piece redGeneral = null;
 	private static Piece blackGeneral = null;
