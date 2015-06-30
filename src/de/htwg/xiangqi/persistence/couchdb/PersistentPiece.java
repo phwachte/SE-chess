@@ -10,69 +10,69 @@ public class PersistentPiece extends CouchDbDocument implements IPersistentPiece
 	private static final long serialVersionUID = 1L;
 	
 	@TypeDiscriminator
-	private int pieceID;
-	private int row;
-	private int column;
-	private char pieceType;
-	private Player player;
-	private boolean isCaptured;
+	private int pieceIDCDB;
+	private int rowCDB;
+	private int columnCDB;
+	private char pieceTypeCDB;
+	private Player playerCDB;
+	private boolean isCapturedCDB;
 
 	public PersistentPiece() {
 	}
 
 	public PersistentPiece(int r, int c, char pt, Player p) {
-		row = r;
-		column = c;
-		pieceType = pt;
-		player = p;
+		rowCDB = r;
+		columnCDB = c;
+		pieceTypeCDB = pt;
+		playerCDB = p;
 	}
 
 	public int getPieceID() {
-		return pieceID;
+		return pieceIDCDB;
 	}
 
 	public void setPieceID(int pieceID) {
-		this.pieceID = pieceID;
+		this.pieceIDCDB = pieceID;
 	}
 
 	public int getRow() {
-		return row;
+		return rowCDB;
 	}
 
 	public void setRow(int row) {
-		this.row = row;
+		this.rowCDB = row;
 	}
 
 	public int getColumn() {
-		return column;
+		return columnCDB;
 	}
 
 	public void setColumn(int column) {
-		this.column = column;
+		this.columnCDB = column;
 	}
 
 	public char getPieceType() {
-		return pieceType;
+		return pieceTypeCDB;
 	}
 
 	public void setPieceType(char pieceType) {
-		this.pieceType = pieceType;
+		this.pieceTypeCDB = pieceType;
 	}
 
 	public Player getPlayer() {
-		return player;
+		return playerCDB;
 	}
 
 	public void setPlayer(Player player) {
-		this.player = player;
+		this.playerCDB = player;
 	}
 
 	public boolean isCaptured() {
-		return isCaptured;
+		return isCapturedCDB;
 	}
 
 	public void setCaptured(boolean isCaptured) {
-		this.isCaptured = isCaptured;
+		this.isCapturedCDB = isCaptured;
 	}
 
 }

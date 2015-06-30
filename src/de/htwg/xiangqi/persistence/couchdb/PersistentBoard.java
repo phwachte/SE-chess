@@ -12,35 +12,35 @@ public class PersistentBoard extends CouchDbDocument implements IPersistentBoard
 	private static final long serialVersionUID = 1L;
 
 	@TypeDiscriminator
-	private String boardID_CDB;
-	private List<IPersistentPiece> pieces_CDB;
-	private int moveCounter_CDB;
+	private String boardIDCDB;
+	private List<IPersistentPiece> piecesCDB;
+	private int moveCounterCDB;
 
 	public PersistentBoard() {
 	}
 
 	public String getBoardID() {
-		return boardID_CDB;
+		return boardIDCDB;
 	}
 
 	public void setBoardID(String boardID) {
-		this.boardID_CDB = boardID;
+		this.boardIDCDB = boardID;
 	}
 
 	public List<IPersistentPiece> getPieces() {
-		return pieces_CDB;
+		return piecesCDB;
 	}
 
 	public void setPieces(List<IPersistentPiece> pieces) {
-		this.pieces_CDB = pieces;
+		this.piecesCDB = pieces;
 	}
 
 	public int getMoveCounter() {
-		return this.moveCounter_CDB;
+		return this.moveCounterCDB;
 	}
 
 	public void setMoveCounter(int moveCounter) {
-		this.moveCounter_CDB = moveCounter;
+		this.moveCounterCDB = moveCounter;
 	}
 
 }
