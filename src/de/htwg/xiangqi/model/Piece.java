@@ -163,5 +163,5 @@ public abstract class Piece implements IPiece {
 	 */
 	public abstract String getPieceIcon();
 	
-	public abstract Piece clone();
+	public abstract Piece clone() throws CloneNotSupportedException;
 }

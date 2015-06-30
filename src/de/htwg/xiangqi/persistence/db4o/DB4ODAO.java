@@ -30,6 +30,7 @@ public class DB4ODAO implements IDataAccessObject {
 	@Override
 	public List<Board> read(final String pattern) {
 		List<Board> list = db.query(new Predicate<Board>() {
+			private static final long serialVersionUID = 1L;
 			public boolean match(Board b) {
 				if (Pattern.matches(pattern, b.getSessionName())) {
 					logger.info("found object, name: " + b.getSessionName());

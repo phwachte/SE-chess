@@ -3,6 +3,7 @@ package de.htwg.xiangqi.persistence.hibernate;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -16,6 +17,8 @@ import de.htwg.xiangqi.persistence.IDataAccessObject;
 import de.htwg.xiangqi.persistence.IPersistentPiece;
 
 public class HibernateDAO implements IDataAccessObject {
+	
+	private Logger logger = Logger.getLogger("de.htwg.xiangqi.persistence.hibernate");
 
 	public HibernateDAO() {
 	}
@@ -38,7 +41,7 @@ public class HibernateDAO implements IDataAccessObject {
 			if (tx != null) {
 				tx.rollback();
 			}
-			ex.printStackTrace();
+			logger.info((String)ex.toString());
 		}
 	}
 
@@ -92,9 +95,9 @@ public class HibernateDAO implements IDataAccessObject {
 			if (tx != null) {
 				tx.rollback();
 			}
-			ex.printStackTrace();
+			logger.info((String)ex.toString());
 		} catch (CloneNotSupportedException e) {
-			e.printStackTrace();
+			logger.info((String)e.toString());
 		}
 	}
 
