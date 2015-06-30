@@ -1,6 +1,7 @@
 package de.htwg.xiangqi.view.gui;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import org.junit.After;
 import org.junit.Before;
@@ -10,23 +11,22 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 
 import de.htwg.xiangqi.XiangqiGameModule;
-import de.htwg.xiangqi.controller.BoardManager;
-import de.htwg.xiangqi.view.gui.XiangqiGUI;
+import de.htwg.xiangqi.controller.IBoardManager;
 
 public class XiangqiGUITest {
 
-	BoardManager bm;
+	IBoardManager bm;
 	XiangqiGUI gui;
 	
 	@Before
 	public void setUp() {
 		Injector injector = Guice.createInjector(new XiangqiGameModule());
-		bm = new BoardManager();
+		bm = injector.getInstance(IBoardManager.class);
 		bm.setStartBoard();
 		gui = injector.getInstance(XiangqiGUI.class);
 	}
 	
-//	@Test
+	@Test
 	public void testUpdate() {
 		assertNull(bm.getMessage());
 		bm.inputMove("9 0 8 5");

@@ -86,5 +86,7 @@ public interface IBoardManager extends IObservable {
 	IBoardManager loadGame(String name);
 	
 	IDataAccessObject getDAO();
+	
+	void close();
 
 }
