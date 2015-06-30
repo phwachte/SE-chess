@@ -125,8 +125,8 @@ public class XiangqiGUI extends JFrame implements IObserver, ActionListener {
 		textPanel.setMaximumSize(new Dimension(PANELX, TEXTY));
 
 		buttonArray = new JButton[ROW][COL];
-		
 		JButton [][] buttons = new JButton[Board.getMaxRow()][Board.getMaxCol()];
+
 		for (int i = 0; i < ROW; ++i) {
 			for (int j = 0; j < COL; ++j) {
 				JButton point;
@@ -136,7 +136,7 @@ public class XiangqiGUI extends JFrame implements IObserver, ActionListener {
 				point.addActionListener(this);
 				buttonArray[i][j] = point;
 				point.setBackground(new Color(PBR, PBG, PBB, PBA));
-//				setButtonColor(point, i, j);
+/* setButtonColor(point, i, j); */
 				if (i < FIVE) {
 					blackPanel.add(point);
 				} else {
