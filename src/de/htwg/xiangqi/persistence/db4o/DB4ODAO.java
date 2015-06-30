@@ -14,13 +14,11 @@ import de.htwg.xiangqi.persistence.IDataAccessObject;
 
 public class DB4ODAO implements IDataAccessObject {
 
-	private ObjectContainer db;
+	private static ObjectContainer db = Db4oEmbedded.openFile("xiangqi.db");
 	private Logger logger = Logger
 			.getLogger("de.htwg.xiangqi.persistence.db40.DB4ODAO");
 
-	public DB4ODAO() {
-		db = Db4oEmbedded.openFile("xiangqi.db");
-	}
+	public DB4ODAO() {}
 
 	@Override
 	public void createOrUpdate(Board board) {

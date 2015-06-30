@@ -23,7 +23,7 @@ public class BoardManagerTest {
 		bm = new BoardManager();
 	}
 
-//	@Test
+	@Test
 	public void testInputMove() {
 		bm.setStartBoard();
 		assertFalse(bm.inputMove("8 0 7 0"));
@@ -43,19 +43,19 @@ public class BoardManagerTest {
 		assertTrue(bm.inputMove("0 0 1 0"));
 	}
 
-//	@Test
+	@Test
 	public void testGetMessage() {
 		assertNull(bm.getMessage());
 	}
 
-//	@Test
+	@Test
 	public void testGetBoard() {
 		assertNotNull(bm.getBoard().getSquareMatrix());
 		board = new Square[10][9];
 		assertSame(board.length, bm.getBoard().getSquareMatrix().length);
 	}
 
-//	@Test
+	@Test
 	public void testMoveCounter() {
 		assertEquals(1, bm.getBoard().getMoveCounter());
 		assertEquals(1, bm.getPlayersTurn());
@@ -70,7 +70,7 @@ public class BoardManagerTest {
 		assertEquals(0, bm.getPlayersTurn());
 	}
 
-//	@Test
+	@Test
 	public void testSetStartBoard() {
 		bm.setStartBoard();
 		assertEquals('H', bm.getBoard().getSquareMatrix()[9][7].getPiece()
@@ -79,7 +79,7 @@ public class BoardManagerTest {
 				.getPieceType());
 	}
 
-//	@Test
+	@Test
 	public void testWinnerMessage() {
 		bm.setStartBoard();
 		bm.getBoard().getSquareMatrix()[9][4].getPiece().setIsCaptured(true);
@@ -91,7 +91,7 @@ public class BoardManagerTest {
 				bm.winnerMessage());
 	}
 
-//	@Test
+	@Test
 	public void testGetTUIOutput() {
 		bm.setStartBoard();
 		assertEquals("BR", bm.getTUIOutput(0, 0));
@@ -99,7 +99,7 @@ public class BoardManagerTest {
 		assertEquals("  ", bm.getTUIOutput(1, 0));
 	}
 
-//	@Test
+	@Test
 	public void testPieceAtPoint() {
 		bm.setStartBoard();
 		assertNull(bm.pieceAtPoint(1, 0));

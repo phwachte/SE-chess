@@ -10,35 +10,34 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 
 import de.htwg.xiangqi.XiangqiGameModule;
-import de.htwg.xiangqi.controller.BoardManager;
-import de.htwg.xiangqi.view.tui.XiangqiTUI;
+import de.htwg.xiangqi.controller.IBoardManager;
 
 public class XiangqiTUITest {
 
-	BoardManager bm;
+	IBoardManager bm;
 	XiangqiTUI tui;
 
 	@Before
 	public void setUp() {
 		Injector injector = Guice.createInjector(new XiangqiGameModule());
-		bm = new BoardManager();
+		bm = injector.getInstance(IBoardManager.class);
 		bm.setStartBoard();
 		tui = injector.getInstance(XiangqiTUI.class);
 	}
 	
-//	@Test
+	@Test
 	public void testPlayersTurn() {
 		tui.playersTurn();
 		bm.getBoard().increaseMoveCounter();
 		tui.playersTurn();
 	}
 	
-//	@Test
+	@Test
 	public void testPrintBoard() {
 		assertNotNull(tui.printBoard());
 	}
 	
-//	@Test
+	@Test
 	public void testUpdate() {
 		bm.inputMove("9 0 8 5");
 		tui.update();
