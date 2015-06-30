@@ -93,7 +93,7 @@ public class PieceChariot extends Piece {
 	}
 
 	@Override
-	public Piece clone() throws CloneNotSupportedException{
+	public Object clone() throws CloneNotSupportedException{
 		PieceChariot retVal = new PieceChariot(this.getPosRow(), this.getPosColumn(), this.getPlayer());
 		retVal.setIsCaptured(this.getIsCaptured());
 		return retVal;

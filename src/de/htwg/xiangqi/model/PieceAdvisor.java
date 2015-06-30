@@ -77,7 +77,7 @@ public class PieceAdvisor extends Piece {
 	}
 
 	@Override
-	public Piece clone() throws CloneNotSupportedException{
+	public Object clone() throws CloneNotSupportedException{
 		PieceAdvisor retVal = new PieceAdvisor(this.getPosRow(), this.getPosColumn(), this.getPlayer());
 		retVal.setIsCaptured(this.getIsCaptured());
 		return retVal;
