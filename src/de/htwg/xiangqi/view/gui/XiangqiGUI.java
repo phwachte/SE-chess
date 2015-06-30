@@ -42,12 +42,9 @@ public class XiangqiGUI extends JFrame implements IObserver, ActionListener {
 	
 	private static List<Board> saveGames = new ArrayList<Board>();
 
-	private static final int ZERO = 0;
 	private static final int ONE = 1;
 	private static final int TWO = 2;
-	private static final int THREE = 3;
 	private static final int FIVE = 5;
-	private static final int SEVEN = 7;
 	private static final int NINE = 9;
 	private static final int ROW = 10;
 	private static final int COL = 9;
@@ -65,6 +62,20 @@ public class XiangqiGUI extends JFrame implements IObserver, ActionListener {
 	private static final int FBG = 80;
 	private static final int BTOP = 40;
 	private static final int BSIDE = 10;
+	
+	private static final int CASTLE_BLACK_ROW_1 = 0;
+	private static final int CASTLE_BLACK_ROW_2 = 1;
+	private static final int CASTLE_BLACK_ROW_3 = 2;
+	
+	private static final int CASTLE_COL_1 = 3;
+	private static final int CASTLE_COL_2 = 4;
+	private static final int CASTLE_COL_3 = 5;
+	
+	private static final int CASTLE_RED_ROW_1 = 7;
+	private static final int CASTLE_RED_ROW_2 = 8;
+	private static final int CASTLE_RED_ROW_3 = 9;
+	
+	
 
 	private IBoardManager bm;
 	private JButton[][] buttonArray;
@@ -114,22 +125,50 @@ public class XiangqiGUI extends JFrame implements IObserver, ActionListener {
 		textPanel.setMaximumSize(new Dimension(PANELX, TEXTY));
 
 		buttonArray = new JButton[ROW][COL];
-		JButton point;
+		
+		JButton [][] buttons = new JButton[ROW][COL];
 		for (int i = 0; i < ROW; ++i) {
 			for (int j = 0; j < COL; ++j) {
+				JButton point;
 				point = new JButton();
 				point.setName("" + i + " " + j + " ");
 				point.setMinimumSize(new Dimension(BUTTONSIZE, BUTTONSIZE));
 				point.addActionListener(this);
 				buttonArray[i][j] = point;
-				setButtonColor(point, i, j);
+				point.setBackground(new Color(PBR, PBG, PBB, PBA));
+/* setButtonColor(point, i, j); */
 				if (i < FIVE) {
 					blackPanel.add(point);
 				} else {
 					redPanel.add(point);
 				}
+				buttons[i][j] = point;
 			}
 		}
+		/*set colour of castle*/
+		buttons[CASTLE_BLACK_ROW_1][CASTLE_COL_1].setBackground(new Color(FBRB, FBG, FBRB, PBA));
+		buttons[CASTLE_BLACK_ROW_1][CASTLE_COL_2].setBackground(new Color(FBRB, FBG, FBRB, PBA));
+		buttons[CASTLE_BLACK_ROW_1][CASTLE_COL_3].setBackground(new Color(FBRB, FBG, FBRB, PBA));
+		buttons[CASTLE_BLACK_ROW_2][CASTLE_COL_1].setBackground(new Color(FBRB, FBG, FBRB, PBA));
+		buttons[CASTLE_BLACK_ROW_2][CASTLE_COL_2].setBackground(new Color(FBRB, FBG, FBRB, PBA));
+		buttons[CASTLE_BLACK_ROW_2][CASTLE_COL_3].setBackground(new Color(FBRB, FBG, FBRB, PBA));
+		buttons[CASTLE_BLACK_ROW_3][CASTLE_COL_1].setBackground(new Color(FBRB, FBG, FBRB, PBA));
+		buttons[CASTLE_BLACK_ROW_3][CASTLE_COL_2].setBackground(new Color(FBRB, FBG, FBRB, PBA));
+		buttons[CASTLE_BLACK_ROW_3][CASTLE_COL_3].setBackground(new Color(FBRB, FBG, FBRB, PBA));
+		buttons[CASTLE_RED_ROW_1][CASTLE_COL_1].setBackground(new Color(FBRB, FBG, FBRB, PBA));
+		buttons[CASTLE_RED_ROW_1][CASTLE_COL_2].setBackground(new Color(FBRB, FBG, FBRB, PBA));
+		buttons[CASTLE_RED_ROW_1][CASTLE_COL_3].setBackground(new Color(FBRB, FBG, FBRB, PBA));
+		buttons[CASTLE_RED_ROW_2][CASTLE_COL_1].setBackground(new Color(FBRB, FBG, FBRB, PBA));
+		buttons[CASTLE_RED_ROW_2][CASTLE_COL_2].setBackground(new Color(FBRB, FBG, FBRB, PBA));
+		buttons[CASTLE_RED_ROW_2][CASTLE_COL_3].setBackground(new Color(FBRB, FBG, FBRB, PBA));
+		buttons[CASTLE_RED_ROW_3][CASTLE_COL_1].setBackground(new Color(FBRB, FBG, FBRB, PBA));
+		buttons[CASTLE_RED_ROW_3][CASTLE_COL_2].setBackground(new Color(FBRB, FBG, FBRB, PBA));
+		buttons[CASTLE_RED_ROW_3][CASTLE_COL_3].setBackground(new Color(FBRB, FBG, FBRB, PBA));
+		
+		
+		
+		
+		
 		
 		/*persistence-----------------------------------------------------*/
 		jmenubar.add(jmenu);
@@ -144,12 +183,12 @@ public class XiangqiGUI extends JFrame implements IObserver, ActionListener {
 		/*----------------------------------------------------------------*/
 		
 		
-		
-		point = new JButton();
-		point.setBackground(Color.BLUE);
-		point.setBorderPainted(false);
-		point.setEnabled(false);
-		riverPanel.add(point);
+		JButton riverButton;
+		riverButton = new JButton();
+		riverButton.setBackground(Color.BLUE);
+		riverButton.setBorderPainted(false);
+		riverButton.setEnabled(false);
+		riverPanel.add(riverButton);
 
 		JLabel turn = new JLabel("Next turn:");
 		playerButton = new JButton();
@@ -186,27 +225,6 @@ public class XiangqiGUI extends JFrame implements IObserver, ActionListener {
 			plugin.constructorExtension(this);
 		}
 	}
-
-	private void setButtonColor(JButton point, int i, int j) {
-		if (j >= THREE && j <= FIVE && i >= SEVEN && i <= NINE) {
-			point.setBackground(new Color(FBRB, FBG, FBRB, PBA));
-		} else if (j >= THREE && j <= FIVE && i >= ZERO && i <= TWO) {
-			point.setBackground(new Color(FBRB, FBG, FBRB, PBA));
-		} else {
-			if (i < FIVE) {
-				point.setBackground(new Color(PBR, PBG, PBB, PBA));
-			} else {
-				point.setBackground(new Color(PBR, PBG, PBB, PBA));
-			}
-		}
-		
-		/*LET ALL THE PLUGINS THAT WANT TO ADD FUNCTIONALITY ADD IT HERE*/
-		for(IviewPlugin plugin : plugins){
-			plugin.setButtonColorExtension();
-		}
-	}
-	
-
 
 	@SuppressWarnings("unused")
 	@Override
