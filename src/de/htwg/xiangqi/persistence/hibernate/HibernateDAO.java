@@ -90,7 +90,8 @@ public class HibernateDAO implements IDataAccessObject {
 		int row = pPiece.getRow();
 		int col = pPiece.getColumn();
 		Player player = pPiece.getPlayer();
-		switch (pPiece.getPieceType()) {
+		char pieceType = pPiece.getPieceType();
+		switch (pieceType) {
 		case 'A':
 			p = new PieceAdvisor(row, col, player);
 			break;
@@ -104,13 +105,7 @@ public class HibernateDAO implements IDataAccessObject {
 			p = new PieceElephant(row, col, player);
 			break;
 		case 'G':
-			if (player == Player.RED) {
-				p = new PieceGeneral(row, col, player);
-				redGeneral = p;
-			} else {
-				p = new PieceGeneral(row, col, player);
-				blackGeneral = p;
-			}
+			p = getGeneral(row, col, player);
 			break;
 		case 'H':
 			p = new PieceHorse(row, col, player);
@@ -120,6 +115,18 @@ public class HibernateDAO implements IDataAccessObject {
 			break;
 		}
 		sq[row][col] = new Square(p);
+	}
+	
+	private Piece getGeneral(int r, int c, Player player) {
+		PieceGeneral pg;
+		if (player == Player.RED) {
+			pg = new PieceGeneral(r, c, player);
+			redGeneral = pg;
+		} else {
+			pg = new PieceGeneral(r, c, player);
+			blackGeneral = pg;
+		}
+		return pg;
 	}
 
 	@Override

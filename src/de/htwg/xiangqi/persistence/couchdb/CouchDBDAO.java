@@ -88,7 +88,8 @@ public class CouchDBDAO implements IDataAccessObject {
 		int row = pPiece.getRow();
 		int col = pPiece.getColumn();
 		Player player = pPiece.getPlayer();
-		switch (pPiece.getPieceType()) {
+		char pieceTypeCDB = pPiece.getPieceType();
+		switch (pieceTypeCDB) {
 		case 'A':
 			p = new PieceAdvisor(row, col, player);
 			break;
@@ -102,13 +103,7 @@ public class CouchDBDAO implements IDataAccessObject {
 			p = new PieceElephant(row, col, player);
 			break;
 		case 'G':
-			if (player == Player.RED) {
-				p = new PieceGeneral(row, col, player);
-				redGeneral = p;
-			} else {
-				p = new PieceGeneral(row, col, player);
-				blackGeneral = p;
-			}
+			p = getGeneralCDB(row, col, player);
 			break;
 		case 'H':
 			p = new PieceHorse(row, col, player);
@@ -118,6 +113,18 @@ public class CouchDBDAO implements IDataAccessObject {
 			break;
 		}
 		sq[row][col] = new Square(p);
+	}
+	
+	private Piece getGeneralCDB(int r, int c, Player player) {
+		PieceGeneral pg;
+		if (player == Player.RED) {
+			pg = new PieceGeneral(r, c, player);
+			redGeneral = pg;
+		} else {
+			pg = new PieceGeneral(r, c, player);
+			blackGeneral = pg;
+		}
+		return pg;
 	}
 
 	/*
