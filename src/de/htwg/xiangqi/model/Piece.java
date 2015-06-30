@@ -6,7 +6,7 @@ package de.htwg.xiangqi.model;
  * @author P. Wachter
  * 
  */
-public abstract class Piece implements IPiece {
+public abstract class Piece implements IPiece, Cloneable {
 
 	private static final int ZERO = 0;
 	private static final int TWO = 2;
@@ -162,4 +162,7 @@ public abstract class Piece implements IPiece {
 	 * @return the string which references the icon of the piece
 	 */
 	public abstract String getPieceIcon();
+	
+	@Override
+	public abstract Object clone() throws CloneNotSupportedException;
 }

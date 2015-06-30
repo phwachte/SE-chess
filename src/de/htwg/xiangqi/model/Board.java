@@ -224,7 +224,7 @@ public class Board implements Cloneable{
 					board[i][o] = new Square(null);
 				}else{
 					Piece p = board[i][o].getPiece();
-					b.board[i][o] = new Square(p.clone());
+					b.board[i][o] = new Square((Piece)p.clone());
 				}
 			}
 		}	
