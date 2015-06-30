@@ -117,7 +117,7 @@ public class PieceCannon extends Piece {
 	}
 
 	@Override
-	public Piece clone() {
+	public Piece clone() throws CloneNotSupportedException{
 		PieceCannon retVal = new PieceCannon(this.getPosRow(), this.getPosColumn(), this.getPlayer());
 		retVal.setIsCaptured(this.getIsCaptured());
 		return retVal;
