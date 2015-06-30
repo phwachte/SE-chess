@@ -80,4 +80,11 @@ public class PieceHorse extends Piece {
 			return BH;
 		}
 	}
+
+	@Override
+	public Piece clone() {
+		PieceHorse retVal = new PieceHorse(this.getPosRow(), this.getPosColumn(), this.getPlayer());
+		retVal.setIsCaptured(this.getIsCaptured());
+		return retVal;
+	}
 }

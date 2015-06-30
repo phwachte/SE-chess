@@ -79,4 +79,11 @@ public class PieceSoldier extends Piece {
 		}
 	}
 
+	@Override
+	public Piece clone() {
+		PieceSoldier retVal = new PieceSoldier(this.getPosRow(), this.getPosColumn(), this.getPlayer());
+		retVal.setIsCaptured(this.getIsCaptured());
+		return retVal;
+	}
+
 }

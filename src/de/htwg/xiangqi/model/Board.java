@@ -1,5 +1,7 @@
 package de.htwg.xiangqi.model;
 
+import com.google.inject.Injector;
+
 import de.htwg.xiangqi.model.Piece.Player;
 
 /**
@@ -220,79 +222,30 @@ public class Board {
 		
 		for (int i = 0; i < MAX_ROW; ++i) {
 			for (int o = 0; o < MAX_COL; ++o) {
-				Piece p = board[i][o].getPiece();
-				if(p instanceof PieceAdvisor){
-					if(p.getPlayer() == Player.RED){
-						b.board[i][o] = new Square(new PieceAdvisor(i, o, Player.RED));
-						b.board[i][o].getPiece().setIsCaptured(p.getIsCaptured());
-					}else{
-						b.board[i][o] = new Square(new PieceAdvisor(i, o, Player.BLACK));
-						b.board[i][o].getPiece().setIsCaptured(p.getIsCaptured());
-					}
-				}
-				else if(p instanceof PieceCannon){
-					if(p.getPlayer() == Player.RED){
-						b.board[i][o] = new Square(new PieceCannon(i, o, Player.RED));
-						b.board[i][o].getPiece().setIsCaptured(p.getIsCaptured());
-					}else{
-						b.board[i][o] = new Square(new PieceCannon(i, o, Player.BLACK));
-						b.board[i][o].getPiece().setIsCaptured(p.getIsCaptured());
-					}
-				}
-				else if(p instanceof PieceChariot){
-					if(p.getPlayer() == Player.RED){
-						b.board[i][o] = new Square(new PieceChariot(i, o, Player.RED));
-						b.board[i][o].getPiece().setIsCaptured(p.getIsCaptured());
-					}else{
-						b.board[i][o] = new Square(new PieceChariot(i, o, Player.BLACK));
-						b.board[i][o].getPiece().setIsCaptured(p.getIsCaptured());
-					}
-				}
-				else if(p instanceof PieceElephant){
-					if(p.getPlayer() == Player.RED){
-						b.board[i][o] = new Square(new PieceElephant(i, o, Player.RED));
-						b.board[i][o].getPiece().setIsCaptured(p.getIsCaptured());
-					}else{
-						b.board[i][o] = new Square(new PieceElephant(i, o, Player.BLACK));
-						b.board[i][o].getPiece().setIsCaptured(p.getIsCaptured());
-					}
-				}
-				else if(p instanceof PieceGeneral){
-					if(p.getPlayer() == Player.RED){
-						b.board[i][o] = new Square(new PieceGeneral(i, o, Player.RED));
-						b.board[i][o].getPiece().setIsCaptured(p.getIsCaptured());
-						b.redGeneral = p;
-					}else{
-						b.board[i][o] = new Square(new PieceGeneral(i, o, Player.BLACK));
-						b.board[i][o].getPiece().setIsCaptured(p.getIsCaptured());
-						b.blackGeneral = p;
-					}
-				}
-				else if(p instanceof PieceHorse){
-					if(p.getPlayer() == Player.RED){
-						b.board[i][o] = new Square(new PieceHorse(i, o, Player.RED));
-						b.board[i][o].getPiece().setIsCaptured(p.getIsCaptured());
-					}else{
-						b.board[i][o] = new Square(new PieceHorse(i, o, Player.BLACK));
-						b.board[i][o].getPiece().setIsCaptured(p.getIsCaptured());
-					}
-				}
-				else if(p instanceof PieceSoldier){
-					if(p.getPlayer() == Player.RED){
-						b.board[i][o] = new Square(new PieceSoldier(i, o, Player.RED));
-						b.board[i][o].getPiece().setIsCaptured(p.getIsCaptured());
-					}else{
-						b.board[i][o] = new Square(new PieceSoldier(i, o, Player.BLACK));
-						b.board[i][o].getPiece().setIsCaptured(p.getIsCaptured());
-					}
-				}else{
+				if(board[i][o].getPiece() == null){
 					board[i][o] = new Square(null);
+				}else{
+					Piece p = board[i][o].getPiece();
+					b.board[i][o] = new Square(p.clone());
+				}
+			}
+		}	
+		b.redGeneral = findGeneral(Player.RED);
+		b.blackGeneral = findGeneral(Player.BLACK);
+		return b;
+	}
+	
+	private PieceGeneral findGeneral(Player color){
+		for(int i =0; i < Board.getMaxRow(); i++){
+			for(Square sq : board[i]){
+				if(sq.getPiece() instanceof PieceGeneral){
+					if(sq.getPiece().getPlayer() == color){
+						return (PieceGeneral) sq.getPiece();
+					}
 				}
 			}
 		}
-		
-		
-		return b;
+		return null;
 	}
 
 	public static int getMaxRow() {
