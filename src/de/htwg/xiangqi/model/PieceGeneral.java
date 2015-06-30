@@ -83,4 +83,11 @@ public class PieceGeneral extends Piece {
 			return BG;
 		}
 	}
+
+	@Override
+	public Piece clone() {
+		PieceGeneral retVal = new PieceGeneral(this.getPosRow(), this.getPosColumn(), this.getPlayer());
+		retVal.setIsCaptured(this.getIsCaptured());
+		return retVal;
+	}
 }

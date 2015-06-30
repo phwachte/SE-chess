@@ -162,4 +162,6 @@ public abstract class Piece implements IPiece {
 	 * @return the string which references the icon of the piece
 	 */
 	public abstract String getPieceIcon();
+	
+	public abstract Piece clone();
 }

@@ -115,4 +115,11 @@ public class PieceCannon extends Piece {
 			return BC;
 		}
 	}
+
+	@Override
+	public Piece clone() {
+		PieceCannon retVal = new PieceCannon(this.getPosRow(), this.getPosColumn(), this.getPlayer());
+		retVal.setIsCaptured(this.getIsCaptured());
+		return retVal;
+	}
 }

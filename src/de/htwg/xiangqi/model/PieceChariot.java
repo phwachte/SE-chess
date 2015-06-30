@@ -91,4 +91,11 @@ public class PieceChariot extends Piece {
 			return BR;
 		}
 	}
+
+	@Override
+	public Piece clone() {
+		PieceChariot retVal = new PieceChariot(this.getPosRow(), this.getPosColumn(), this.getPlayer());
+		retVal.setIsCaptured(this.getIsCaptured());
+		return retVal;
+	}
 }
