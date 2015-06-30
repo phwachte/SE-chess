@@ -46,7 +46,7 @@ public class XiangqiTUITest {
 		tui.update();
 	}
 	
-	@After
+//	@After
 	public void tearDown() {
 		bm.close();
 	}

@@ -7,11 +7,15 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
+import java.util.List;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.htwg.xiangqi.model.Board;
 import de.htwg.xiangqi.model.Square;
+import de.htwg.xiangqi.persistence.IDataAccessObject;
 
 public class BoardManagerTest {
 
@@ -105,8 +109,24 @@ public class BoardManagerTest {
 		assertNull(bm.pieceAtPoint(1, 0));
 		assertNotNull(bm.pieceAtPoint(0, 0));
 	}
+	
+	@Test
+	public void testSaveLoadDeleteGame() {
+		bm.saveGame();
+		List<Board> list = bm.loadSaveGames();
+		int size = list.size();
+		assertTrue(size > 0);
+		bm.deleteGame(bm.getBoard().getSessionName());
+		list = bm.loadSaveGames();
+		assertTrue(list.size() == size - 1);
+	}
+	
+	@Test
+	public void testGetDAO() {
+		
+	}
 
-	@After
+//	@After
 	public void tearDown() {
 		bm.close();
 	}

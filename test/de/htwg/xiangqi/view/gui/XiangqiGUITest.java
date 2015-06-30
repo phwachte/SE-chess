@@ -39,7 +39,7 @@ public class XiangqiGUITest {
 		gui.update();
 	}
 	
-	@After
+//	@After
 	public void tearDown() {
 		bm.close();
 	}

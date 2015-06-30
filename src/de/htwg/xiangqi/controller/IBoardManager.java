@@ -83,9 +83,10 @@ public interface IBoardManager extends IObservable {
 	void saveGame();
 	
 	List<Board> loadSaveGames();
-	IBoardManager loadGame(String name);
 	
 	IDataAccessObject getDAO();
+	
+	void deleteGame(String id);
 	
 	void close();
 

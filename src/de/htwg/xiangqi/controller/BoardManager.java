@@ -273,27 +273,22 @@ public class BoardManager extends Observable implements IBoardManager {
 
 	
 	/*persistence*/
-	@Override
 	public void saveGame() {
 		this.dao.createOrUpdate(this.b);
 	}
 	
-	@Override
 	public List<Board> loadSaveGames() {
 		return (List<Board>) this.dao.read(".*");
 	}
 
-	@Override
-	public IBoardManager loadGame(String name) {
-		return (IBoardManager)this.dao.read(name);
-	}
-
-	@Override
 	public int getPlayersTurn() {
 		return this.b.getMoveCounter()%NUMBER_OF_PLAYERS;
 	}
+	
+	public void deleteGame(String id) {
+		this.dao.delete(id);
+	}
 
-	@Override
 	public IDataAccessObject getDAO() {
 		return dao;
 	}

@@ -41,7 +41,6 @@ public class DB4ODAO implements IDataAccessObject {
 
 	@Override
 	public void delete(String name) {
-		db = Db4oEmbedded.openFile("xiangqi.db");
 		List<Board> toIter = read(name);
 		for (Board sgw : toIter) {
 			db.delete(sgw.getSessionName());
