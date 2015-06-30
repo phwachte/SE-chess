@@ -8,7 +8,7 @@ import de.htwg.xiangqi.model.Piece.Player;
  * @author P. Wachter
  * 
  */
-public interface IPiece {
+public interface IPiece extends Cloneable{
 
 	/**
 	 * @return the index of the row

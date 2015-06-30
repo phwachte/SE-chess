@@ -8,7 +8,7 @@ import de.htwg.xiangqi.model.Piece.Player;
  * @author P. Wachter
  * 
  */
-public class Board {
+public class Board implements Cloneable{
 
 	private String sessionName;
 	private Square[][] board;

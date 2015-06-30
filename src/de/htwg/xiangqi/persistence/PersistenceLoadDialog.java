@@ -64,7 +64,6 @@ public class PersistenceLoadDialog extends JDialog implements ActionListener{
 			try {
 				bm.setBoard(((Board)combobox.getSelectedItem()).clone());
 			} catch (CloneNotSupportedException e1) {
-				e1.printStackTrace();
 				logger.info((String)e1.toString());
 			}
 			bm.notifyObservers();
