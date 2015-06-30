@@ -10,21 +10,12 @@ import org.hibernate.Transaction;
 
 import de.htwg.xiangqi.model.Board;
 import de.htwg.xiangqi.model.Piece;
-import de.htwg.xiangqi.model.Piece.Player;
-import de.htwg.xiangqi.model.PieceAdvisor;
-import de.htwg.xiangqi.model.PieceCannon;
-import de.htwg.xiangqi.model.PieceChariot;
-import de.htwg.xiangqi.model.PieceElephant;
-import de.htwg.xiangqi.model.PieceGeneral;
-import de.htwg.xiangqi.model.PieceHorse;
-import de.htwg.xiangqi.model.PieceSoldier;
 import de.htwg.xiangqi.model.Square;
+import de.htwg.xiangqi.persistence.BoardMethodsForDB;
 import de.htwg.xiangqi.persistence.IDataAccessObject;
+import de.htwg.xiangqi.persistence.IPersistentPiece;
 
 public class HibernateDAO implements IDataAccessObject {
-
-	private Piece redGeneral = null;
-	private Piece blackGeneral = null;
 
 	public HibernateDAO() {
 	}
@@ -38,7 +29,7 @@ public class HibernateDAO implements IDataAccessObject {
 			tx = session.beginTransaction();
 			PersistentBoard pBoard = (PersistentBoard) session.get(
 					PersistentBoard.class, boardID);
-			for (PersistentPiece p : pBoard.getPieces()) {
+			for (IPersistentPiece p : pBoard.getPieces()) {
 				session.delete(p);
 			}
 			session.delete(pBoard);
@@ -60,7 +51,7 @@ public class HibernateDAO implements IDataAccessObject {
 		List<PersistentBoard> results = criteria.list();
 		List<Board> boards = new ArrayList<Board>();
 		for (PersistentBoard pBoard : results) {
-			Board board = copyBoard(pBoard);
+			Board board = BoardMethodsForDB.copyBoard(pBoard);
 			boards.add(board);
 		}
 		return boards;
@@ -89,7 +80,7 @@ public class HibernateDAO implements IDataAccessObject {
 			} else {
 				session.update(pBoard);
 			}
-			for (PersistentPiece pPiece : pBoard.getPieces()) {
+			for (IPersistentPiece pPiece : pBoard.getPieces()) {
 				if (newEntry) {
 					session.save(pPiece);
 				} else {
@@ -105,58 +96,6 @@ public class HibernateDAO implements IDataAccessObject {
 		} catch (CloneNotSupportedException e) {
 			e.printStackTrace();
 		}
-	}
-
-	private Board copyBoard(PersistentBoard pBoard) {
-		Board b = new Board();
-		b.setSessionName(pBoard.getBoardID());
-		b.setMoveCounter(pBoard.getMoveCounter());
-		Square[][] sq = new Square[Board.getMaxRow()][Board.getMaxCol()];
-		for (PersistentPiece pPiece : pBoard.getPieces()) {
-			setPieceToBoard(sq, pPiece);
-		}
-		b.setSquareMatrix(sq);
-		b.setRedGeneral(redGeneral);
-		b.setBlackGeneral(blackGeneral);
-		b.fillBoard();
-		return b;
-	}
-
-	private void setPieceToBoard(Square[][] sq, PersistentPiece pPiece) {
-		Piece p = null;
-		int row = pPiece.getRow();
-		int col = pPiece.getColumn();
-		Player player = pPiece.getPlayer();
-		switch (pPiece.getPieceType()) {
-		case 'A':
-			p = new PieceAdvisor(row, col, player);
-			break;
-		case 'C':
-			p = new PieceCannon(row, col, player);
-			break;
-		case 'R':
-			p = new PieceChariot(row, col, player);
-			break;
-		case 'E':
-			p = new PieceElephant(row, col, player);
-			break;
-		case 'G':
-			if (player == Player.RED) {
-				p = new PieceGeneral(row, col, player);
-				redGeneral = p;
-			} else {
-				p = new PieceGeneral(row, col, player);
-				blackGeneral = p;
-			}
-			break;
-		case 'H':
-			p = new PieceHorse(row, col, player);
-			break;
-		case 'S':
-			p = new PieceSoldier(row, col, player);
-			break;
-		}
-		sq[row][col] = new Square(p);
 	}
 
 	private PersistentBoard copyBoard(Board board) throws CloneNotSupportedException {
@@ -175,9 +114,9 @@ public class HibernateDAO implements IDataAccessObject {
 		return pBoard;
 	}
 
-	private List<PersistentPiece> getPersistentPieceList(Square[][] sq,
+	private List<IPersistentPiece> getPersistentPieceList(Square[][] sq,
 			PersistentBoard pBoard) {
-		List<PersistentPiece> list = new ArrayList<PersistentPiece>();
+		List<IPersistentPiece> list = new ArrayList<IPersistentPiece>();
 		for (int i = 0; i < Board.getMaxRow(); ++i) {
 			for (int o = 0; o < Board.getMaxCol(); ++o) {
 				Piece tmp = sq[i][o].getPiece();

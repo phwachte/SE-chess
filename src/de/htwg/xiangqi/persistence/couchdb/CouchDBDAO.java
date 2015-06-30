@@ -15,22 +15,14 @@ import org.ektorp.impl.StdCouchDbInstance;
 
 import de.htwg.xiangqi.model.Board;
 import de.htwg.xiangqi.model.Piece;
-import de.htwg.xiangqi.model.Piece.Player;
-import de.htwg.xiangqi.model.PieceAdvisor;
-import de.htwg.xiangqi.model.PieceCannon;
-import de.htwg.xiangqi.model.PieceChariot;
-import de.htwg.xiangqi.model.PieceElephant;
-import de.htwg.xiangqi.model.PieceGeneral;
-import de.htwg.xiangqi.model.PieceHorse;
-import de.htwg.xiangqi.model.PieceSoldier;
 import de.htwg.xiangqi.model.Square;
+import de.htwg.xiangqi.persistence.BoardMethodsForDB;
 import de.htwg.xiangqi.persistence.IDataAccessObject;
+import de.htwg.xiangqi.persistence.IPersistentPiece;
 
 public class CouchDBDAO implements IDataAccessObject {
 
 	private CouchDbConnector db = null;
-	private Piece redGeneral = null;
-	private Piece blackGeneral = null;
 
 	public CouchDBDAO() {
 		HttpClient client = null;
@@ -60,13 +52,13 @@ public class CouchDBDAO implements IDataAccessObject {
 		for (Row row : vResult.getRows()) {
 			PersistentBoard pBoard = db
 					.find(PersistentBoard.class, row.getId());
-			boards.add(copyBoard(pBoard));
+			boards.add(BoardMethodsForDB.copyBoard(pBoard));
 		}
 		return boards;
 	}
 
 	/*
-	 * leer implementiert für couchdb
+	 * leer implementiert fuer couchdb
 	 */
 	@Override
 	public void close() {
@@ -102,8 +94,8 @@ public class CouchDBDAO implements IDataAccessObject {
 		return pBoard;
 	}
 
-	private List<PersistentPiece> getPersistentPieceList(Square[][] sq) {
-		List<PersistentPiece> list = new ArrayList<PersistentPiece>();
+	private List<IPersistentPiece> getPersistentPieceList(Square[][] sq) {
+		List<IPersistentPiece> list = new ArrayList<IPersistentPiece>();
 		for (int i = 0; i < Board.getMaxRow(); ++i) {
 			for (int o = 0; o < Board.getMaxCol(); ++o) {
 				Piece tmp = sq[i][o].getPiece();
@@ -117,58 +109,6 @@ public class CouchDBDAO implements IDataAccessObject {
 			}
 		}
 		return list;
-	}
-
-	private Board copyBoard(PersistentBoard pBoard) {
-		Board b = new Board();
-		b.setSessionName(pBoard.getBoardID());
-		b.setMoveCounter(pBoard.getMoveCounter());
-		Square[][] sq = new Square[Board.getMaxRow()][Board.getMaxCol()];
-		for (PersistentPiece pPiece : pBoard.getPieces()) {
-			setPieceToBoard(sq, pPiece);
-		}
-		b.setSquareMatrix(sq);
-		b.setRedGeneral(redGeneral);
-		b.setBlackGeneral(blackGeneral);
-		b.fillBoard();
-		return b;
-	}
-
-	private void setPieceToBoard(Square[][] sq, PersistentPiece pPiece) {
-		Piece p = null;
-		int row = pPiece.getRow();
-		int col = pPiece.getColumn();
-		Player player = pPiece.getPlayer();
-		switch (pPiece.getPieceType()) {
-		case 'A':
-			p = new PieceAdvisor(row, col, player);
-			break;
-		case 'C':
-			p = new PieceCannon(row, col, player);
-			break;
-		case 'R':
-			p = new PieceChariot(row, col, player);
-			break;
-		case 'E':
-			p = new PieceElephant(row, col, player);
-			break;
-		case 'G':
-			if (player == Player.RED) {
-				p = new PieceGeneral(row, col, player);
-				redGeneral = p;
-			} else {
-				p = new PieceGeneral(row, col, player);
-				blackGeneral = p;
-			}
-			break;
-		case 'H':
-			p = new PieceHorse(row, col, player);
-			break;
-		case 'S':
-			p = new PieceSoldier(row, col, player);
-			break;
-		}
-		sq[row][col] = new Square(p);
 	}
 
 }
