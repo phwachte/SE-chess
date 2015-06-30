@@ -4,15 +4,15 @@ import java.util.List;
 
 public interface IPersistentBoard {
 
-	public String getBoardID();
+	String getBoardID();
 	
-	public void setBoardID(String boardID);
+	void setBoardID(String boardID);
 
-	public List<IPersistentPiece> getPieces();
+	List<IPersistentPiece> getPieces();
 
-	public void setPieces(List<IPersistentPiece> pieces);
+	void setPieces(List<IPersistentPiece> pieces);
 
-	public int getMoveCounter();
+	int getMoveCounter();
 
-	public void setMoveCounter(int moveCounter);
+	void setMoveCounter(int moveCounter);
 }
