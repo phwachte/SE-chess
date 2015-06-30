@@ -16,23 +16,32 @@ import org.ektorp.impl.StdCouchDbInstance;
 
 import de.htwg.xiangqi.model.Board;
 import de.htwg.xiangqi.model.Piece;
+import de.htwg.xiangqi.model.Piece.Player;
+import de.htwg.xiangqi.model.PieceAdvisor;
+import de.htwg.xiangqi.model.PieceCannon;
+import de.htwg.xiangqi.model.PieceChariot;
+import de.htwg.xiangqi.model.PieceElephant;
+import de.htwg.xiangqi.model.PieceGeneral;
+import de.htwg.xiangqi.model.PieceHorse;
+import de.htwg.xiangqi.model.PieceSoldier;
 import de.htwg.xiangqi.model.Square;
-import de.htwg.xiangqi.persistence.BoardMethodsForDB;
 import de.htwg.xiangqi.persistence.IDataAccessObject;
-import de.htwg.xiangqi.persistence.IPersistentPiece;
 
 public class CouchDBDAO implements IDataAccessObject {
 
 	private CouchDbConnector db = null;
-	private Logger logger = Logger.getLogger("de.htwg.xiangqi.persistence.couchdb");
-	
+	private Logger logger = Logger
+			.getLogger("de.htwg.xiangqi.persistence.couchdb");
+	private Piece redGeneral = null;
+	private Piece blackGeneral = null;
+
 	public CouchDBDAO() {
 		HttpClient client = null;
 		try {
 			client = new StdHttpClient.Builder().url("http://127.0.0.1:5984/")
 					.build();
 		} catch (MalformedURLException e) {
-			logger.info((String)e.toString());
+			logger.info((String) e.toString());
 		}
 		CouchDbInstance dbInstance = new StdCouchDbInstance(client);
 		db = dbInstance.createConnector("xiangqi_database", true);
@@ -54,9 +63,61 @@ public class CouchDBDAO implements IDataAccessObject {
 		for (Row row : vResult.getRows()) {
 			PersistentBoard pBoard = db
 					.find(PersistentBoard.class, row.getId());
-			boards.add(BoardMethodsForDB.copyBoard(pBoard));
+			boards.add(copyBoardCDB(pBoard));
 		}
 		return boards;
+	}
+
+	private Board copyBoardCDB(PersistentBoard pBoard) {
+		Board b = new Board();
+		b.setSessionName(pBoard.getBoardID());
+		b.setMoveCounter(pBoard.getMoveCounter());
+		Square[][] sq = new Square[Board.getMaxRow()][Board.getMaxCol()];
+		for (PersistentPiece pPiece : pBoard.getPieces()) {
+			setPieceToBoardCDB(sq, pPiece);
+		}
+		b.setSquareMatrix(sq);
+		b.setRedGeneral(redGeneral);
+		b.setBlackGeneral(blackGeneral);
+		b.fillBoard();
+		return b;
+	}
+
+	private void setPieceToBoardCDB(Square[][] sq, PersistentPiece pPiece) {
+		Piece p = null;
+		int row = pPiece.getRow();
+		int col = pPiece.getColumn();
+		Player player = pPiece.getPlayer();
+		switch (pPiece.getPieceType()) {
+		case 'A':
+			p = new PieceAdvisor(row, col, player);
+			break;
+		case 'C':
+			p = new PieceCannon(row, col, player);
+			break;
+		case 'R':
+			p = new PieceChariot(row, col, player);
+			break;
+		case 'E':
+			p = new PieceElephant(row, col, player);
+			break;
+		case 'G':
+			if (player == Player.RED) {
+				p = new PieceGeneral(row, col, player);
+				redGeneral = p;
+			} else {
+				p = new PieceGeneral(row, col, player);
+				blackGeneral = p;
+			}
+			break;
+		case 'H':
+			p = new PieceHorse(row, col, player);
+			break;
+		case 'S':
+			p = new PieceSoldier(row, col, player);
+			break;
+		}
+		sq[row][col] = new Square(p);
 	}
 
 	/*
@@ -70,15 +131,15 @@ public class CouchDBDAO implements IDataAccessObject {
 	public void createOrUpdate(Board board) {
 		PersistentBoard pBoard = db.find(PersistentBoard.class,
 				board.getSessionName());
-		/*new database entry, else update*/
-		try{
+		/* new database entry, else update */
+		try {
 			if (pBoard == null) {
 				db.create(board.getSessionName(), copyBoard(board, pBoard));
 			} else {
 				db.update(copyBoard(board, pBoard));
 			}
-		}catch(CloneNotSupportedException ex){
-			logger.info((String)ex.toString());
+		} catch (CloneNotSupportedException ex) {
+			logger.info((String) ex.toString());
 		}
 	}
 
@@ -90,7 +151,7 @@ public class CouchDBDAO implements IDataAccessObject {
 		/* new database entry, else update */
 		if (pB == null) {
 			pBoard = new PersistentBoard();
-		}else{
+		} else {
 			pBoard = pB;
 		}
 		pBoard.setPieces(getPersistentPieceList(sq));
@@ -99,8 +160,8 @@ public class CouchDBDAO implements IDataAccessObject {
 		return pBoard;
 	}
 
-	private List<IPersistentPiece> getPersistentPieceList(Square[][] sq) {
-		List<IPersistentPiece> list = new ArrayList<IPersistentPiece>();
+	private List<PersistentPiece> getPersistentPieceList(Square[][] sq) {
+		List<PersistentPiece> list = new ArrayList<PersistentPiece>();
 		for (int i = 0; i < Board.getMaxRow(); ++i) {
 			for (int o = 0; o < Board.getMaxCol(); ++o) {
 				Piece tmp = sq[i][o].getPiece();

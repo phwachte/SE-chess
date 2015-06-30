@@ -5,15 +5,12 @@ import java.util.List;
 import org.ektorp.support.CouchDbDocument;
 import org.ektorp.support.TypeDiscriminator;
 
-import de.htwg.xiangqi.persistence.IPersistentBoard;
-import de.htwg.xiangqi.persistence.IPersistentPiece;
-
-public class PersistentBoard extends CouchDbDocument implements IPersistentBoard {
+public class PersistentBoard extends CouchDbDocument {
 	private static final long serialVersionUID = 1L;
 
 	@TypeDiscriminator
 	private String boardIDCDB;
-	private List<IPersistentPiece> piecesCDB;
+	private List<PersistentPiece> piecesCDB;
 	private int moveCounterCDB;
 
 	public PersistentBoard() {
@@ -27,11 +24,11 @@ public class PersistentBoard extends CouchDbDocument implements IPersistentBoard
 		this.boardIDCDB = boardID;
 	}
 
-	public List<IPersistentPiece> getPieces() {
+	public List<PersistentPiece> getPieces() {
 		return piecesCDB;
 	}
 
-	public void setPieces(List<IPersistentPiece> pieces) {
+	public void setPieces(List<PersistentPiece> pieces) {
 		this.piecesCDB = pieces;
 	}
 
