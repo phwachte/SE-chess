@@ -82,7 +82,7 @@ public class PieceHorse extends Piece {
 	}
 
 	@Override
-	public Piece clone() throws CloneNotSupportedException{
+	public Object clone() throws CloneNotSupportedException{
 		PieceHorse retVal = new PieceHorse(this.getPosRow(), this.getPosColumn(), this.getPlayer());
 		retVal.setIsCaptured(this.getIsCaptured());
 		return retVal;
