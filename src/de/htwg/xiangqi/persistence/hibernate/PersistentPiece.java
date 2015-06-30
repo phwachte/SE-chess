@@ -12,10 +12,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import de.htwg.xiangqi.model.Piece.Player;
+import de.htwg.xiangqi.persistence.IPersistentPiece;
 
 @Entity
 @Table(name = "piece")
-public class PersistentPiece implements Serializable {
+public class PersistentPiece implements Serializable, IPersistentPiece {
 	private static final long serialVersionUID = 1L;
 	
 	@Id

@@ -4,9 +4,11 @@ import org.ektorp.support.CouchDbDocument;
 import org.ektorp.support.TypeDiscriminator;
 
 import de.htwg.xiangqi.model.Piece.Player;
+import de.htwg.xiangqi.persistence.IPersistentPiece;
 
-public class PersistentPiece extends CouchDbDocument {
-
+public class PersistentPiece extends CouchDbDocument implements IPersistentPiece {
+	private static final long serialVersionUID = 1L;
+	
 	@TypeDiscriminator
 	private int pieceID;
 	private int row;

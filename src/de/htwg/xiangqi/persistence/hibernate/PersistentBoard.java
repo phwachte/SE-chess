@@ -9,9 +9,12 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import de.htwg.xiangqi.persistence.IPersistentBoard;
+import de.htwg.xiangqi.persistence.IPersistentPiece;
+
 @Entity
 @Table(name = "board")
-public class PersistentBoard implements Serializable {
+public class PersistentBoard implements Serializable, IPersistentBoard {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -20,7 +23,7 @@ public class PersistentBoard implements Serializable {
 
 	@OneToMany(mappedBy = "board")
 	@Column(name = "piece")
-	private List<PersistentPiece> pieces;
+	private List<IPersistentPiece> pieces;
 
 	@Column(name = "moveCounter")
 	private int moveCounter;
@@ -39,11 +42,11 @@ public class PersistentBoard implements Serializable {
 		this.boardID = boardID;
 	}
 
-	public List<PersistentPiece> getPieces() {
+	public List<IPersistentPiece> getPieces() {
 		return pieces;
 	}
 
-	public void setPieces(List<PersistentPiece> pieces) {
+	public void setPieces(List<IPersistentPiece> pieces) {
 		this.pieces = pieces;
 	}
 
