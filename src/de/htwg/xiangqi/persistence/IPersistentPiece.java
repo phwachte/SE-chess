@@ -4,28 +4,28 @@ import de.htwg.xiangqi.model.Piece.Player;
 
 public interface IPersistentPiece {
 	
-	public int getPieceID();
+	int getPieceID();
 
-	public void setPieceID(int pieceID);
+	void setPieceID(int pieceID);
 
-	public int getRow();
+	int getRow();
 
-	public void setRow(int row);
+	void setRow(int row);
 
-	public int getColumn();
+	int getColumn();
 
-	public void setColumn(int column);
+	void setColumn(int column);
 
-	public char getPieceType();
+	char getPieceType();
 
-	public void setPieceType(char pieceType);
+	void setPieceType(char pieceType);
 
-	public Player getPlayer();
+	Player getPlayer();
 
-	public void setPlayer(Player player);
+	void setPlayer(Player player);
 
-	public boolean isCaptured();
+	boolean isCaptured();
 
-	public void setCaptured(boolean isCaptured);
+	void setCaptured(boolean isCaptured);
 
 }
