@@ -87,7 +87,7 @@ public class PieceElephant extends Piece {
 	}
 
 	@Override
-	public Piece clone() {
+	public Piece clone() throws CloneNotSupportedException{
 		PieceElephant retVal = new PieceElephant(this.getPosRow(), this.getPosColumn(), this.getPlayer());
 		retVal.setIsCaptured(this.getIsCaptured());
 		return retVal;

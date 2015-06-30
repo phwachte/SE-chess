@@ -100,7 +100,5 @@ public interface IPiece extends Cloneable{
 	 * @return the string which references the icon of the piece
 	 */
 	String getPieceIcon();
-	
-	Piece clone() throws CloneNotSupportedException;
 
 }
