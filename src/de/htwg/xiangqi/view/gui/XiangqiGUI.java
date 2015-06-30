@@ -136,7 +136,6 @@ public class XiangqiGUI extends JFrame implements IObserver, ActionListener {
 				point.addActionListener(this);
 				buttonArray[i][j] = point;
 				point.setBackground(new Color(PBR, PBG, PBB, PBA));
-/* setButtonColor(point, i, j); */
 				if (i < FIVE) {
 					blackPanel.add(point);
 				} else {

@@ -12,16 +12,20 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 
+import org.apache.log4j.Logger;
+
 import de.htwg.xiangqi.controller.IBoardManager;
 import de.htwg.xiangqi.model.Board;
 
 public class PersistenceLoadDialog extends JDialog implements ActionListener{
-	
+	private static final long serialVersionUID = 1L;
+
 	private static final int WIDTH = 400, HEIGHT = 200;
 	
 	private JButton ok = new JButton("ok"), cancel = new JButton("cancel");
 	private JComboBox combobox;
 	private IBoardManager bm;
+	private Logger logger = Logger.getLogger("de.htwg.xiangqi.persistence");
 
 	public PersistenceLoadDialog(JFrame f, final IBoardManager bm, List<Board> list){
 		super(f);
@@ -61,6 +65,7 @@ public class PersistenceLoadDialog extends JDialog implements ActionListener{
 				bm.setBoard(((Board)combobox.getSelectedItem()).clone());
 			} catch (CloneNotSupportedException e1) {
 				e1.printStackTrace();
+				logger.info((String)e1.toString());
 			}
 			bm.notifyObservers();
 			this.dispose();

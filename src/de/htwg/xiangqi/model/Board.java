@@ -1,7 +1,5 @@
 package de.htwg.xiangqi.model;
 
-import com.google.inject.Injector;
-
 import de.htwg.xiangqi.model.Piece.Player;
 
 /**

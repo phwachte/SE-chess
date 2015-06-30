@@ -4,6 +4,7 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.ektorp.CouchDbConnector;
 import org.ektorp.CouchDbInstance;
 import org.ektorp.ViewQuery;
@@ -23,14 +24,15 @@ import de.htwg.xiangqi.persistence.IPersistentPiece;
 public class CouchDBDAO implements IDataAccessObject {
 
 	private CouchDbConnector db = null;
-
+	private Logger logger = Logger.getLogger("de.htwg.xiangqi.persistence.couchdb");
+	
 	public CouchDBDAO() {
 		HttpClient client = null;
 		try {
 			client = new StdHttpClient.Builder().url("http://127.0.0.1:5984/")
 					.build();
 		} catch (MalformedURLException e) {
-			e.printStackTrace();
+			logger.info((String)e.toString());
 		}
 		CouchDbInstance dbInstance = new StdCouchDbInstance(client);
 		db = dbInstance.createConnector("xiangqi_database", true);
@@ -76,7 +78,7 @@ public class CouchDBDAO implements IDataAccessObject {
 				db.update(copyBoard(board, pBoard));
 			}
 		}catch(CloneNotSupportedException ex){
-			ex.printStackTrace();
+			logger.info((String)ex.toString());
 		}
 	}
 
