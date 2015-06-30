@@ -238,10 +238,9 @@ public class Board {
 	private PieceGeneral findGeneral(Player color){
 		for(int i =0; i < Board.getMaxRow(); i++){
 			for(Square sq : board[i]){
-				if(sq.getPiece() instanceof PieceGeneral){
-					if(sq.getPiece().getPlayer() == color){
+				Piece tmp = sq.getPiece();
+				if((tmp instanceof PieceGeneral) && (tmp.getPlayer() == color)){
 						return (PieceGeneral) sq.getPiece();
-					}
 				}
 			}
 		}
